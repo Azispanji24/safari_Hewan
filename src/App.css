@@ -2387,81 +2387,13 @@
 }
 
 /* --------------------------------------------------------------------------
-   16. RESPONSIVE BREAKPOINTS (TABLET & MOBILE)
+   16. RESPONSIVE BREAKPOINTS (DESKTOP, TABLET, MOBILE 430/375/320px)
    -------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-  .app-canopy-banner {
-    height: 48px;
-    margin-bottom: -10px;
-  }
-
-  .header-inner {
-    padding: 0.55rem 1rem;
-  }
-
-  .brand-title {
-    font-size: 1.2rem;
-  }
-
-  .brand-tagline {
-    font-size: 0.7rem;
-  }
-
-  .btn-header-control .btn-label-text {
-    display: none;
-  }
-
-  .btn-header-control {
-    padding: 0.5rem 0.65rem;
-  }
-
-  .main-content-area {
-    padding: 1rem 1rem 2.5rem;
-  }
-
-  .welcome-storybook-container {
-    padding: 2rem 1.25rem;
-    gap: 1.25rem;
-  }
-
-  .story-title {
-    font-size: 2.45rem;
-  }
-
-  .story-subtitle {
-    font-size: 1.25rem;
-  }
-
-  .story-tagline {
-    font-size: 1rem;
-  }
-
-  .welcome-character-stage {
-    height: 230px;
-  }
-
-  .btn-start-hero {
-    font-size: 1.25rem;
-    padding: 1.1rem 1.5rem;
-  }
-
-  .scene-story-heading {
-    font-size: 1.75rem;
-  }
-
-  .character-spotlight-arena {
-    padding: 1.5rem 1.25rem;
-    gap: 1.25rem;
-  }
-
-  .character-giant-name {
-    font-size: 2.5rem;
-  }
-
+@media (max-width: 900px) {
   .movement-arena-card {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 1.5rem 1.25rem;
+    padding: 1.65rem 1.35rem;
   }
 
   .movement-guide-column {
@@ -2471,7 +2403,84 @@
 
   .matching-notebook-desk {
     grid-template-columns: 1fr;
-    padding: 1.5rem 1.25rem;
+    padding: 1.65rem 1.35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-canopy-banner {
+    height: 44px;
+    margin-bottom: -10px;
+  }
+
+  .header-inner {
+    padding: 0.55rem 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.68rem;
+  }
+
+  .btn-header-control .btn-label-text {
+    display: none;
+  }
+
+  .btn-header-control {
+    padding: 0.45rem 0.65rem;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    font-size: 1.05rem;
+  }
+
+  .main-content-area {
+    padding: 0.85rem 0.85rem 2rem;
+  }
+
+  .welcome-storybook-container {
+    padding: 1.85rem 1.15rem;
+    gap: 1.15rem;
+  }
+
+  .story-title {
+    font-size: 2.25rem;
+    word-break: break-word;
+  }
+
+  .story-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .story-tagline {
+    font-size: 0.98rem;
+  }
+
+  .welcome-character-stage {
+    height: 220px;
+  }
+
+  .btn-start-hero {
+    font-size: 1.2rem;
+    padding: 1rem 1.35rem;
+  }
+
+  .scene-story-heading {
+    font-size: 1.65rem;
+    word-break: break-word;
+  }
+
+  .character-spotlight-arena {
+    padding: 1.4rem 1.15rem;
+    gap: 1.15rem;
+  }
+
+  .character-giant-name {
+    font-size: 2.35rem;
   }
 
   .step-label {
@@ -2479,14 +2488,15 @@
   }
 
   .progress-track {
-    left: 1.5rem;
-    right: 1.5rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    top: 20px;
   }
 
   .step-circle {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.05rem;
   }
 
   .scene-storybook-nav {
@@ -2497,21 +2507,92 @@
   .btn-story-nav {
     width: 100%;
     justify-content: center;
+    min-height: 48px;
   }
 
   .btn-story-next {
     margin-left: 0;
   }
+
+  /* Modal responsiveness for tablets */
+  .modal-overlay {
+    padding: 0.75rem;
+  }
+
+  .modal-card {
+    max-height: 92vh;
+    border-radius: 22px;
+  }
+
+  .modal-header {
+    padding: 1.15rem 1.35rem;
+  }
+
+  .modal-close-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .modal-body {
+    padding: 1.35rem 1.15rem;
+    gap: 1.35rem;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Movement Tabs stack neatly on mobile */
+  .movement-hero-tabs {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem;
+  }
+
+  .movement-hero-tab {
+    min-width: 100%;
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .movement-illustration-wrapper {
+    max-width: 190px;
+    height: 190px;
+  }
 }
 
 @media (max-width: 480px) {
   .story-title {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
+  }
+
+  .story-subtitle {
+    font-size: 1.08rem;
   }
 
   .story-ribbon {
     font-size: 0.8rem;
     padding: 0.35rem 0.85rem;
+  }
+
+  .welcome-character-stage {
+    height: 190px;
+  }
+
+  .btn-start-hero {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.95rem 1.15rem;
+    min-height: 50px;
+  }
+
+  .scene-step-tag {
+    font-size: 0.82rem;
+    padding: 0.3rem 0.85rem;
+  }
+
+  .scene-story-heading {
+    font-size: 1.45rem;
   }
 
   .discovery-tokens-grid {
@@ -2522,12 +2603,203 @@
     grid-template-columns: 1fr;
   }
 
+  .btn-observe-feature {
+    min-height: 48px;
+    padding: 0.85rem 1rem;
+  }
+
   .animal-vignette-grid {
     grid-template-columns: 1fr;
   }
 
+  .animal-vignette-card {
+    min-height: 80px;
+    padding: 0.85rem 1rem;
+  }
+
   .favorite-gallery-grid {
     grid-template-columns: 1fr;
+  }
+
+  .fav-companion-card {
+    min-height: 160px;
+    padding: 1rem 0.85rem;
+  }
+
+  .fav-art-pedestal {
+    height: 130px;
+  }
+
+  .character-spotlight-arena {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .character-giant-name {
+    font-size: 2.1rem;
+  }
+
+  .character-hero-display {
+    min-height: 220px;
+  }
+
+  .interactive-observation-station {
+    padding: 1rem 0.85rem;
+  }
+
+  .movement-arena-card {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .matching-notebook-desk {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .notebook-polaroid-side {
+    padding: 1rem 0.75rem;
+  }
+
+  .polaroid-art-frame {
+    max-width: 160px;
+    height: 140px;
+  }
+
+  .btn-wooden-option {
+    min-height: 50px;
+    padding: 0.95rem 1.15rem;
+  }
+
+  .wooden-carved-text {
+    font-size: 1.35rem;
+  }
+
+  .safari-certificate-parchment {
+    padding: 1.35rem 0.85rem;
+  }
+
+  .cert-headline {
+    font-size: 1.45rem;
+  }
+
+  .cert-description {
+    font-size: 0.98rem;
+  }
+
+  .real-world-activity-scroll {
+    padding: 1rem 0.85rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .modal-card {
+    max-height: 94vh;
+    border-radius: 18px;
+  }
+
+  .modal-header {
+    padding: 0.95rem 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.78rem;
+  }
+
+  .modal-body {
+    padding: 1rem 0.85rem;
+    gap: 1.15rem;
+  }
+
+  .objectives-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-modal-action {
+    width: 100%;
+    min-height: 48px;
+  }
+}
+
+/* Specific narrow viewport optimizations: 320px - 360px (e.g. iPhone SE / small Android) */
+@media (max-width: 360px) {
+  .header-inner {
+    padding: 0.35rem 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .brand-logo-btn {
+    padding: 0.15rem 0.3rem;
+    gap: 0.35rem;
+  }
+
+  .brand-icon {
+    font-size: 1.55rem;
+  }
+
+  .brand-title {
+    font-size: 1rem;
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 0.25rem;
+  }
+
+  .btn-header-control {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.35rem 0.45rem;
+    font-size: 0.95rem;
+  }
+
+  .progress-container {
+    padding: 0 0.5rem;
+  }
+
+  .progress-track {
+    left: 0.75rem;
+    right: 0.75rem;
+    top: 17px;
+    height: 6px;
+  }
+
+  .step-circle {
+    width: 34px;
+    height: 34px;
+    font-size: 0.95rem;
+    border-width: 2px;
+  }
+
+  .story-title {
+    font-size: 1.65rem;
+  }
+
+  .story-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .syllable-tile {
+    font-size: 1rem;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .character-giant-name {
+    font-size: 1.85rem;
+  }
+
+  .audio-btn {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.88rem;
   }
 }
 

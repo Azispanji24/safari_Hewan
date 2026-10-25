@@ -16,88 +16,210 @@ export const BirdSvg: React.FC<BirdSvgProps> = ({
       height={size}
       className={`animal-svg bird-svg ${className}`}
       role="img"
-      aria-label="Ilustrasi Burung biru lucu dengan sayap terbentang siap terbang"
+      aria-label="Ilustrasi Burung biru lucu dengan sayap terbentang siap terbang, paruh ramah, dan sepasang mata berbinar"
     >
       <defs>
+        {/* Soft, vibrant storybook blue gradients */}
         <radialGradient id="birdBlueGrad" cx="45%" cy="35%" r="65%">
           <stop offset="0%" stopColor="#81D4FA" />
-          <stop offset="65%" stopColor="#29B6F6" />
+          <stop offset="55%" stopColor="#29B6F6" />
           <stop offset="100%" stopColor="#0288D1" />
         </radialGradient>
         <radialGradient id="birdBellyGrad" cx="50%" cy="50%" r="55%">
-          <stop offset="0%" stopColor="#FFF9C4" />
-          <stop offset="100%" stopColor="#FFF176" />
+          <stop offset="0%" stopColor="#FFFDE7" />
+          <stop offset="65%" stopColor="#FFF9C4" />
+          <stop offset="100%" stopColor="#FFE082" />
+        </radialGradient>
+        <radialGradient id="birdBeakGrad" cx="40%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#FFB74D" />
+          <stop offset="70%" stopColor="#FF9800" />
+          <stop offset="100%" stopColor="#E65100" />
         </radialGradient>
       </defs>
 
-      {/* Cloud shadow below */}
-      <ellipse cx="160" cy="285" rx="80" ry="12" fill="#E0F2F1" />
-
-      {/* Left Wing (flapping pose) */}
+      {/* 1. Cloud shadow below */}
+      <ellipse cx="160" cy="290" rx="85" ry="14" fill="#DCE7D6" />
       <path
-        d="M 120 180 C 80 140, 50 120, 30 145 C 20 170, 60 210, 110 205 Z"
-        fill="#039BE5"
-        stroke="#0277BD"
-        strokeWidth="2.5"
-      />
-      <path d="M 45 155 Q 75 170 100 195" stroke="#0277BD" strokeWidth="2" fill="none" strokeLinecap="round" />
-
-      {/* Right Wing (flapping pose) */}
-      <path
-        d="M 200 180 C 240 140, 270 120, 290 145 C 300 170, 260 210, 210 205 Z"
-        fill="#039BE5"
-        stroke="#0277BD"
-        strokeWidth="2.5"
-      />
-      <path d="M 275 155 Q 245 170 220 195" stroke="#0277BD" strokeWidth="2" fill="none" strokeLinecap="round" />
-
-      {/* Tail feathers */}
-      <path
-        d="M 145 240 L 130 280 L 160 270 L 190 280 L 175 240 Z"
-        fill="#0277BD"
-        stroke="#01579B"
-        strokeWidth="2"
+        d="M 90 290 Q 95 280 100 290 M 220 290 Q 225 280 230 290"
+        stroke="#7FA472"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
 
-      {/* Bird Body */}
-      <ellipse cx="160" cy="195" rx="55" ry="58" fill="url(#birdBlueGrad)" stroke="#0277BD" strokeWidth="2.5" />
+      {/* 2. Tail feathers */}
+      <g className="bird-tail">
+        <path
+          d="M 144 236 L 126 278 L 160 268 L 194 278 L 176 236 Z"
+          fill="#0277BD"
+          stroke="#014B75"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+        <line x1="160" y1="236" x2="160" y2="266" stroke="#014B75" strokeWidth="2.5" strokeLinecap="round" />
+      </g>
 
-      {/* Belly */}
-      <ellipse cx="160" cy="205" rx="35" ry="38" fill="url(#birdBellyGrad)" />
+      {/* 3. Left Wing (flapping upwards in flight) */}
+      <g className="bird-wing-left">
+        <path
+          d="M 122 178 
+             C 80 135, 48 116, 26 142 
+             C 16 168, 58 212, 112 206 Z"
+          fill="#039BE5"
+          stroke="#014B75"
+          strokeWidth="3.5"
+          strokeLinejoin="round"
+        />
+        {/* Soft feather divide */}
+        <path
+          d="M 44 152 Q 74 168 102 194"
+          stroke="#014B75"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 62 174 Q 86 186 104 200"
+          stroke="#014B75"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+      </g>
 
-      {/* Head */}
-      <circle cx="160" cy="120" r="42" fill="url(#birdBlueGrad)" stroke="#0277BD" strokeWidth="2.5" />
+      {/* 4. Right Wing (flapping upwards in flight) */}
+      <g className="bird-wing-right">
+        <path
+          d="M 198 178 
+             C 240 135, 272 116, 294 142 
+             C 304 168, 262 212, 208 206 Z"
+          fill="#039BE5"
+          stroke="#014B75"
+          strokeWidth="3.5"
+          strokeLinejoin="round"
+        />
+        {/* Soft feather divide */}
+        <path
+          d="M 276 152 Q 246 168 218 194"
+          stroke="#014B75"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 258 174 Q 234 186 216 200"
+          stroke="#014B75"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+      </g>
 
-      {/* Head Feather Crest */}
+      {/* 5. Plump Bird Body */}
+      <ellipse
+        cx="160"
+        cy="196"
+        rx="56"
+        ry="60"
+        fill="url(#birdBlueGrad)"
+        stroke="#014B75"
+        strokeWidth="3.5"
+      />
+
+      {/* 6. Soft Warm Yellow Belly */}
+      <ellipse
+        cx="160"
+        cy="206"
+        rx="36"
+        ry="42"
+        fill="url(#birdBellyGrad)"
+        stroke="#FBC02D"
+        strokeWidth="1.5"
+      />
+
+      {/* 7. Head */}
+      <circle
+        cx="160"
+        cy="122"
+        r="44"
+        fill="url(#birdBlueGrad)"
+        stroke="#014B75"
+        strokeWidth="3.5"
+      />
+
+      {/* 8. Head Feather Crest (Jambul Burung Lucu) */}
       <path
-        d="M 155 78 Q 145 55 160 50 Q 170 65 165 78"
+        d="M 154 78 Q 142 52 158 48 Q 168 62 164 78"
         fill="#0288D1"
-        stroke="#0277BD"
-        strokeWidth="2"
+        stroke="#014B75"
+        strokeWidth="3"
+        strokeLinejoin="round"
       />
       <path
-        d="M 163 78 Q 175 60 185 62 Q 180 75 170 80"
+        d="M 162 78 Q 176 58 186 60 Q 180 74 170 80"
         fill="#039BE5"
-        stroke="#0277BD"
-        strokeWidth="2"
+        stroke="#014B75"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
       />
 
-      {/* Big Eyes */}
-      <ellipse cx="145" cy="115" rx="7" ry="10" fill="#1C2833" />
-      <circle cx="143" cy="112" r="3" fill="#FFFFFF" />
-      <ellipse cx="175" cy="115" rx="7" ry="10" fill="#1C2833" />
-      <circle cx="173" cy="112" r="3" fill="#FFFFFF" />
+      {/* 9. Expressive Eyes (matching design system) */}
+      {/* Left Eye */}
+      <ellipse cx="144" cy="116" rx="8" ry="11" fill="#1C2833" />
+      <circle cx="141.5" cy="112" r="3.6" fill="#FFFFFF" />
+      <circle cx="146.5" cy="119" r="1.5" fill="#FFFFFF" />
+      {/* Eyebrow */}
+      <path d="M 136 102 Q 143 98 150 102" stroke="#014B75" strokeWidth="2.2" fill="none" strokeLinecap="round" />
 
-      {/* Cheerful Blushes */}
-      <circle cx="135" cy="128" r="6" fill="#FF8A80" opacity="0.6" />
-      <circle cx="185" cy="128" r="6" fill="#FF8A80" opacity="0.6" />
+      {/* Right Eye */}
+      <ellipse cx="176" cy="116" rx="8" ry="11" fill="#1C2833" />
+      <circle cx="173.5" cy="112" r="3.6" fill="#FFFFFF" />
+      <circle cx="178.5" cy="119" r="1.5" fill="#FFFFFF" />
+      {/* Eyebrow */}
+      <path d="M 170 102 Q 177 98 184 102" stroke="#014B75" strokeWidth="2.2" fill="none" strokeLinecap="round" />
 
-      {/* Little Orange Beak */}
-      <polygon points="152,122 168,122 160,134" fill="#FF9800" stroke="#F57C00" strokeWidth="1.5" />
+      {/* 10. Cheerful Rosy Cheeks */}
+      <circle cx="132" cy="128" r="7" fill="#FF8A80" opacity="0.65" />
+      <circle cx="188" cy="128" r="7" fill="#FF8A80" opacity="0.65" />
 
-      {/* Little Feet */}
-      <path d="M 148 245 L 148 260 M 143 260 L 153 260" stroke="#F57C00" strokeWidth="3" strokeLinecap="round" />
-      <path d="M 172 245 L 172 260 M 167 260 L 177 260" stroke="#F57C00" strokeWidth="3" strokeLinecap="round" />
+      {/* 11. Friendly Little Conical Beak */}
+      <g className="bird-beak">
+        {/* Upper mandible */}
+        <path
+          d="M 150 120 Q 160 114 170 120 L 160 134 Z"
+          fill="url(#birdBeakGrad)"
+          stroke="#C85A00"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        {/* Beak smile divide */}
+        <line x1="152" y1="123" x2="168" y2="123" stroke="#8A3600" strokeWidth="1.5" strokeLinecap="round" />
+      </g>
+
+      {/* 12. Cute 3-Toed Little Feet (Kaki Burung Ramah) */}
+      <g className="bird-feet">
+        {/* Left Foot */}
+        <path
+          d="M 148 248 L 148 266 
+             M 148 266 L 140 274 
+             M 148 266 L 148 275 
+             M 148 266 L 156 274"
+          stroke="#E65100"
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Right Foot */}
+        <path
+          d="M 172 248 L 172 266 
+             M 172 266 L 164 274 
+             M 172 266 L 172 275 
+             M 172 266 L 180 274"
+          stroke="#E65100"
+          strokeWidth="3.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
     </svg>
   );
 };

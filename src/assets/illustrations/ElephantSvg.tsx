@@ -21,114 +21,256 @@ export const ElephantSvg: React.FC<ElephantSvgProps> = ({
       height={size}
       className={`animal-svg elephant-svg ${className}`}
       role="img"
-      aria-label="Ilustrasi Gajah ramah dengan belalai panjang dan telinga lebar"
+      aria-label="Ilustrasi Gajah ramah dengan dua telinga lebar, belalai panjang yang ceria, dan sepasang mata berbinar"
     >
       <defs>
-        <radialGradient id="eleGrad" cx="45%" cy="40%" r="65%">
-          <stop offset="0%" stopColor="#96B4C5" />
-          <stop offset="70%" stopColor="#7397AB" />
-          <stop offset="100%" stopColor="#587A8E" />
+        {/* Soft, warm storybook gradients */}
+        <radialGradient id="eleGradMain" cx="45%" cy="38%" r="65%">
+          <stop offset="0%" stopColor="#A3C2D4" />
+          <stop offset="65%" stopColor="#7E9FB3" />
+          <stop offset="100%" stopColor="#608195" />
         </radialGradient>
-        <radialGradient id="earInnerGrad" cx="50%" cy="50%" r="60%">
-          <stop offset="0%" stopColor="#F9CAD2" />
-          <stop offset="100%" stopColor="#ECA5B2" />
+        <radialGradient id="eleGradFar" cx="45%" cy="38%" r="65%">
+          <stop offset="0%" stopColor="#87A6B8" />
+          <stop offset="100%" stopColor="#557588" />
         </radialGradient>
-        <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="5" result="blur" />
+        <radialGradient id="earInnerPink" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor="#FCD3DA" />
+          <stop offset="70%" stopColor="#F9BAC6" />
+          <stop offset="100%" stopColor="#EDA2B0" />
+        </radialGradient>
+        <radialGradient id="trunkGrad" cx="40%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#A3C2D4" />
+          <stop offset="60%" stopColor="#7E9FB3" />
+          <stop offset="100%" stopColor="#608195" />
+        </radialGradient>
+        <filter id="glowEffect" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
       </defs>
 
-      {/* Ground shadow / grass patch */}
-      <ellipse cx="170" cy="295" rx="120" ry="16" fill="#DDE8D8" />
+      {/* 1. Ground shadow / grass meadow base */}
+      <ellipse cx="170" cy="296" rx="125" ry="16" fill="#DCE7D6" />
       <path
-        d="M 60 295 Q 65 285 70 295 M 80 298 Q 85 288 90 298 M 250 295 Q 255 285 260 295"
-        stroke="#82A775"
+        d="M 55 296 Q 60 286 65 296 M 75 298 Q 80 288 85 298 M 255 296 Q 260 286 265 296"
+        stroke="#7FA472"
         strokeWidth="3"
         strokeLinecap="round"
       />
 
-      {/* Back tail */}
+      {/* 2. Tail with cute tuft (peeking from back right) */}
       <path
-        d="M 270 200 C 290 220, 295 240, 285 255"
-        stroke="#7397AB"
+        d="M 265 200 C 285 215, 292 235, 282 255"
+        stroke="#608195"
         strokeWidth="6"
         fill="none"
         strokeLinecap="round"
       />
-      <ellipse cx="285" cy="257" rx="5" ry="8" fill="#587A8E" />
+      <path
+        d="M 280 252 C 288 256, 292 265, 282 270 C 275 268, 276 258, 280 252 Z"
+        fill="#43667A"
+      />
 
-      {/* Back Feet */}
-      <rect x="220" y="220" width="42" height="75" rx="16" fill="#5D8094" />
-      <rect x="110" y="220" width="42" height="75" rx="16" fill="#5D8094" />
-
-      {/* Body */}
-      <ellipse cx="190" cy="195" rx="85" ry="70" fill="url(#eleGrad)" />
-
-      {/* Front Feet */}
-      <rect x="190" y="225" width="44" height="70" rx="16" fill="#7397AB" />
-      <rect x="135" y="225" width="44" height="70" rx="16" fill="#7397AB" />
-      {/* Toenails */}
-      <circle cx="147" cy="288" r="4" fill="#FFFFFF" opacity="0.9" />
-      <circle cx="157" cy="288" r="4" fill="#FFFFFF" opacity="0.9" />
-      <circle cx="167" cy="288" r="4" fill="#FFFFFF" opacity="0.9" />
-      <circle cx="202" cy="288" r="4" fill="#FFFFFF" opacity="0.9" />
-      <circle cx="212" cy="288" r="4" fill="#FFFFFF" opacity="0.9" />
-      <circle cx="222" cy="288" r="4" fill="#FFFFFF" opacity="0.9" />
-
-      {/* Large Ears (with interactive highlight pulse if active) */}
+      {/* 3. Far/Right Ear (in 3/4 perspective behind head) */}
       <g
-        className={`ear-group ${isEarHighlighted ? 'highlight-active' : ''}`}
+        className={`far-ear-group ${isEarHighlighted ? 'highlight-active' : ''}`}
         filter={isEarHighlighted ? 'url(#glowEffect)' : undefined}
       >
         <path
-          d="M 120 75 C 60 70, 35 125, 50 175 C 65 220, 115 210, 128 175 Z"
-          fill="#7397AB"
-          stroke={isEarHighlighted ? '#F4A261' : '#587A8E'}
-          strokeWidth={isEarHighlighted ? '5' : '3'}
+          d="M 195 90 C 235 85, 265 110, 260 148 C 255 178, 225 188, 195 165 Z"
+          fill="url(#eleGradFar)"
+          stroke={isEarHighlighted ? '#F4A261' : '#43667A'}
+          strokeWidth={isEarHighlighted ? '5' : '3.5'}
+          strokeLinejoin="round"
         />
-        {/* Inner ear pink */}
         <path
-          d="M 115 90 C 75 90, 58 130, 68 165 C 78 195, 110 190, 120 165 Z"
-          fill="url(#earInnerGrad)"
+          d="M 200 102 C 228 100, 248 118, 244 142 C 240 162, 220 170, 200 152 Z"
+          fill="url(#earInnerPink)"
           opacity="0.85"
         />
       </g>
 
-      {/* Head */}
-      <circle cx="155" cy="135" r="58" fill="url(#eleGrad)" />
+      {/* 4. Back Feet (sturdy foundation) */}
+      <rect x="95" y="215" width="46" height="75" rx="18" fill="url(#eleGradFar)" stroke="#43667A" strokeWidth="3" />
+      <rect x="215" y="215" width="46" height="75" rx="18" fill="url(#eleGradFar)" stroke="#43667A" strokeWidth="3" />
+      {/* Back toenails */}
+      <circle cx="106" cy="284" r="3.5" fill="#FFFFFF" opacity="0.85" />
+      <circle cx="118" cy="284" r="3.5" fill="#FFFFFF" opacity="0.85" />
+      <circle cx="130" cy="284" r="3.5" fill="#FFFFFF" opacity="0.85" />
+      <circle cx="226" cy="284" r="3.5" fill="#FFFFFF" opacity="0.85" />
+      <circle cx="238" cy="284" r="3.5" fill="#FFFFFF" opacity="0.85" />
+      <circle cx="250" cy="284" r="3.5" fill="#FFFFFF" opacity="0.85" />
 
-      {/* Happy cute eye */}
-      <circle cx="140" cy="120" r="11" fill="#1C3038" />
-      <circle cx="137" cy="116" r="4" fill="#FFFFFF" />
-      <circle cx="144" cy="123" r="1.5" fill="#FFFFFF" />
-      {/* Cheerful blush */}
-      <ellipse cx="146" cy="142" rx="9" ry="6" fill="#F8A5B2" opacity="0.6" />
+      {/* 5. Plump, friendly body */}
+      <ellipse
+        cx="178"
+        cy="192"
+        rx="86"
+        ry="72"
+        fill="url(#eleGradMain)"
+        stroke="#43667A"
+        strokeWidth="3.5"
+      />
 
-      {/* Trunk (Belalai) with interactive highlight pulse */}
+      {/* 6. Front Feet (foreground pillars) */}
+      <rect x="120" y="224" width="48" height="68" rx="18" fill="url(#eleGradMain)" stroke="#43667A" strokeWidth="3.5" />
+      <rect x="185" y="224" width="48" height="68" rx="18" fill="url(#eleGradMain)" stroke="#43667A" strokeWidth="3.5" />
+      {/* Front toenails */}
+      <circle cx="132" cy="285" r="4.2" fill="#FFFFFF" />
+      <circle cx="144" cy="285" r="4.2" fill="#FFFFFF" />
+      <circle cx="156" cy="285" r="4.2" fill="#FFFFFF" />
+      <circle cx="197" cy="285" r="4.2" fill="#FFFFFF" />
+      <circle cx="209" cy="285" r="4.2" fill="#FFFFFF" />
+      <circle cx="221" cy="285" r="4.2" fill="#FFFFFF" />
+
+      {/* 7. Near/Left Ear (prominent foreground ear) */}
+      <g
+        className={`ear-group near-ear-group ${isEarHighlighted ? 'highlight-active' : ''}`}
+        filter={isEarHighlighted ? 'url(#glowEffect)' : undefined}
+      >
+        <path
+          d="M 125 76 C 65 72, 38 120, 50 172 C 64 218, 114 210, 126 172 Z"
+          fill="url(#eleGradMain)"
+          stroke={isEarHighlighted ? '#F4A261' : '#43667A'}
+          strokeWidth={isEarHighlighted ? '5' : '3.5'}
+          strokeLinejoin="round"
+        />
+        {/* Inner ear pink */}
+        <path
+          d="M 118 90 C 76 90, 56 128, 66 164 C 76 194, 108 190, 118 162 Z"
+          fill="url(#earInnerPink)"
+          opacity="0.9"
+        />
+      </g>
+
+      {/* 8. Head */}
+      <circle
+        cx="155"
+        cy="134"
+        r="58"
+        fill="url(#eleGradMain)"
+        stroke="#43667A"
+        strokeWidth="3.5"
+      />
+
+      {/* 9. Hair tuft on head */}
+      <path
+        d="M 150 78 Q 152 64 156 78 M 156 77 Q 161 60 164 79"
+        stroke="#43667A"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+
+      {/* 10. BOTH Eyes (in 3/4 perspective, warm & joyful) */}
+      {/* Near Eye (Left Eye) */}
+      <g className="elephant-eye-near">
+        <ellipse cx="132" cy="120" rx="10" ry="12" fill="#1C3038" />
+        <circle cx="129" cy="116" r="4" fill="#FFFFFF" />
+        <circle cx="135" cy="123" r="1.8" fill="#FFFFFF" />
+        {/* Cute eyebrow */}
+        <path
+          d="M 123 104 Q 131 99 139 104"
+          stroke="#43667A"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        {/* Rosy blush */}
+        <ellipse cx="125" cy="138" rx="9" ry="6" fill="#F8A5B2" opacity="0.65" />
+      </g>
+
+      {/* Far Eye (Right Eye, visible in 3/4 perspective) */}
+      <g className="elephant-eye-far">
+        <ellipse cx="178" cy="120" rx="9" ry="11" fill="#1C3038" />
+        <circle cx="176" cy="116" r="3.5" fill="#FFFFFF" />
+        <circle cx="180" cy="123" r="1.5" fill="#FFFFFF" />
+        {/* Cute eyebrow */}
+        <path
+          d="M 171 104 Q 178 99 186 104"
+          stroke="#43667A"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        {/* Rosy blush */}
+        <ellipse cx="184" cy="138" rx="8" ry="5.5" fill="#F8A5B2" opacity="0.65" />
+      </g>
+
+      {/* 11. Cute Baby Tusks */}
+      {/* Left tusk */}
+      <path
+        d="M 134 152 Q 130 166 122 168 Q 128 174 138 162 Z"
+        fill="#FFFFFF"
+        stroke="#D5D0C2"
+        strokeWidth="2"
+      />
+      {/* Right tusk */}
+      <path
+        d="M 176 152 Q 180 166 188 168 Q 182 174 172 162 Z"
+        fill="#FFFFFF"
+        stroke="#D5D0C2"
+        strokeWidth="2"
+      />
+
+      {/* 12. Friendly Mouth smile (behind trunk) */}
+      <path
+        d="M 148 155 Q 155 162 162 155"
+        stroke="#43667A"
+        strokeWidth="3"
+        fill="none"
+        strokeLinecap="round"
+      />
+
+      {/* 13. Long Trunk (Belalai) — smooth, elegant, joyful upward salute */}
       <g
         className={`trunk-group ${isTrunkHighlighted ? 'highlight-active' : ''}`}
         filter={isTrunkHighlighted ? 'url(#glowEffect)' : undefined}
       >
         <path
-          d="M 160 160 C 160 180, 145 205, 130 220 C 115 235, 95 240, 85 225 C 75 210, 85 190, 100 185 C 108 182, 115 190, 112 195 C 108 200, 100 200, 96 210 C 94 215, 102 222, 112 216 C 125 208, 138 185, 140 165 Z"
-          fill="url(#eleGrad)"
-          stroke={isTrunkHighlighted ? '#E76F51' : '#587A8E'}
-          strokeWidth={isTrunkHighlighted ? '5' : '3'}
+          d="M 146 142 
+             C 146 170, 134 195, 120 214 
+             C 106 230, 86 238, 72 226 
+             C 58 214, 62 192, 80 180 
+             C 92 172, 102 182, 98 190 
+             C 94 198, 84 198, 82 206 
+             C 80 214, 94 220, 106 210 
+             C 122 195, 136 170, 138 142 Z"
+          fill="url(#trunkGrad)"
+          stroke={isTrunkHighlighted ? '#E76F51' : '#43667A'}
+          strokeWidth={isTrunkHighlighted ? '5' : '3.5'}
           strokeLinejoin="round"
+          strokeLinecap="round"
         />
-        {/* Trunk wrinkles */}
-        <path d="M 142 180 Q 148 183 152 178" stroke="#587A8E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-        <path d="M 132 198 Q 138 202 142 196" stroke="#587A8E" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-      </g>
 
-      {/* Friendly little hair tuft */}
-      <path
-        d="M 150 78 Q 152 65 156 78 M 156 77 Q 160 62 163 79"
-        stroke="#587A8E"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
+        {/* Natural trunk wrinkle folds */}
+        <path
+          d="M 132 168 Q 140 172 145 166"
+          stroke="#43667A"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 122 188 Q 130 193 136 186"
+          stroke="#43667A"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 108 206 Q 116 211 120 204"
+          stroke="#43667A"
+          strokeWidth="2.5"
+          fill="none"
+          strokeLinecap="round"
+        />
+
+        {/* Joyful Water Droplets from trunk tip */}
+        <circle cx="70" cy="165" r="4" fill="#64B5F6" opacity="0.85" />
+        <circle cx="82" cy="155" r="3" fill="#90CAF9" opacity="0.85" />
+        <circle cx="62" cy="178" r="2.5" fill="#64B5F6" opacity="0.75" />
+      </g>
     </svg>
   );
 };
