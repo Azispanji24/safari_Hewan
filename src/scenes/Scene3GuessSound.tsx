@@ -20,20 +20,23 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
 
   const correctAnswer: AnimalId = 'bebek';
 
-  const choices: { id: AnimalId; name: string; illustration: React.ReactNode }[] = [
+  const choices: { id: AnimalId; name: string; habitat: string; illustration: React.ReactNode }[] = [
     {
       id: 'gajah',
       name: 'Gajah',
+      habitat: 'Padang Rumput',
       illustration: <ElephantSvg size="100%" />,
     },
     {
       id: 'bebek',
       name: 'Bebek',
+      habitat: 'Danau Air',
       illustration: <DuckSvg size="100%" />,
     },
     {
       id: 'kelinci',
       name: 'Kelinci',
+      habitat: 'Kebun Wortel',
       illustration: <RabbitSvg size="100%" />,
     },
   ];
@@ -46,7 +49,7 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
       setFeedback({
         type: 'correct',
         message: 'Hebat sekali! Pilihanmu tepat! ⭐',
-        submessage: 'Itu adalah suara Bebek: "Kwek... kwek... kwek!" Bebek suka berenang di danau.',
+        submessage: 'Itu adalah suara Bebek: "Kwek... kwek... kwek!" Bebek berenang riang di danau.',
       });
       soundEngine.playSound('/audio/success-chime.wav', { fallbackType: 'chime' });
     } else {
@@ -66,105 +69,112 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
   };
 
   return (
-    <div className="scene-view scene-3-view">
-      <div className="scene-card">
-        {/* Scene Indicator */}
-        <div className="scene-badge-header">
-          <span className="scene-step-pill">Adegan 3 dari 6</span>
-          <h2 className="scene-heading">Tebak Suara Hewan</h2>
+    <div className="scene-view scene-sound-listening-stage">
+      {/* Scene Header */}
+      <div className="scene-stage-header">
+        <span className="scene-step-tag">Adegan 3 dari 6</span>
+        <h2 className="scene-story-heading">Tebak Suara Hewan</h2>
+      </div>
+
+      {/* Main Sound Stage Arena */}
+      <div className="sound-stage-arena">
+        {/* Step 1: Listening Pod */}
+        <div className="listening-pod-card">
+          <div className="listening-pod-header">
+            <span className="pod-step-badge">Langkah 1</span>
+            <p className="pod-prompt-text">
+              Dengarkan suara hewan misterius di bawah ini:
+            </p>
+          </div>
+
+          <div className="listening-button-center">
+            <AudioButton
+              label="Putar Suara Misteri"
+              replayLabel="Putar Ulang Suara"
+              sublabel="Dengarkan rekaman asli suara hewan"
+              soundPath="/audio/bebek-quack.mp3"
+              fallbackType="quack"
+              size="large"
+              variant="primary"
+            />
+          </div>
+
+          <div className="sound-accessible-caption">
+            <span>Teks alternatif suara: <em>"Kwek... kwek... kwek!"</em></span>
+          </div>
         </div>
 
-        {/* Clear Instruction */}
-        <div className="sound-quiz-instruction">
-          <p className="instruction-lead">
-            🎧 <strong>Langkah 1:</strong> Klik tombol hijau di bawah untuk mendengarkan suara hewannya!
-          </p>
+        {/* Step 2: Animal Answer Vignettes */}
+        <div className="sound-guessing-section">
+          <div className="guessing-instruction-banner">
+            <span className="pod-step-badge step-2-badge">Langkah 2</span>
+            <p className="guessing-prompt-text">
+              Hewan manakah yang menghasilkan suara kwek-kwek tersebut?
+            </p>
+          </div>
+
+          <div className="animal-vignette-grid" role="radiogroup" aria-label="Pilihan hewan tebak suara">
+            {choices.map((choice) => {
+              const isSelected = selectedChoice === choice.id;
+              const isTarget = choice.id === correctAnswer;
+              const cardStateClass = isSelected
+                ? isTarget
+                  ? 'vignette-correct'
+                  : 'vignette-incorrect'
+                : '';
+
+              return (
+                <button
+                  key={choice.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={isSelected}
+                  onClick={() => handleSelectChoice(choice.id)}
+                  className={`animal-vignette-card ${cardStateClass} ${isSelected ? 'is-selected' : ''}`}
+                  aria-label={`Pilih ${choice.name}`}
+                >
+                  <div className="vignette-art-frame">
+                    {choice.illustration}
+                  </div>
+                  <div className="vignette-details">
+                    <span className="vignette-name">{choice.name}</span>
+                    <span className="vignette-habitat">{choice.habitat}</span>
+                    {isSelected && (
+                      <span className="vignette-status-badge" aria-hidden="true">
+                        {isTarget ? '✓ Benar Sekali!' : 'Coba Lagi Ya'}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Functional Audio Player Control */}
-        <div className="sound-player-center">
-          <AudioButton
-            label="Putar Suara Misteri"
-            replayLabel="Putar Ulang Suara"
-            sublabel="Dengarkan suara hewan asli"
-            soundPath="/audio/bebek-quack.mp3"
-            fallbackType="quack"
-            size="large"
-            variant="primary"
-          />
-          <p className="sound-subtext-accessible">
-            <em>Teks suara alternatif: "Kwek... kwek... kwek!"</em>
-          </p>
-        </div>
-
-        {/* Choice Instruction */}
-        <div className="choices-instruction">
-          <p className="instruction-lead">
-            👆 <strong>Langkah 2:</strong> Hewan manakah yang menghasilkan suara tersebut?
-          </p>
-        </div>
-
-        {/* 3 Large Animal Choice Cards */}
-        <div className="animal-cards-grid" role="radiogroup" aria-label="Pilihan hewan tebak suara">
-          {choices.map((choice) => {
-            const isSelected = selectedChoice === choice.id;
-            const isTarget = choice.id === correctAnswer;
-            const cardStateClass = isSelected
-              ? isTarget
-                ? 'choice-correct'
-                : 'choice-incorrect'
-              : '';
-
-            return (
-              <button
-                key={choice.id}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                onClick={() => handleSelectChoice(choice.id)}
-                className={`choice-card ${cardStateClass} ${isSelected ? 'is-selected' : ''}`}
-                aria-label={`Pilih ${choice.name}`}
-              >
-                <div className="card-illustration-box">
-                  {choice.illustration}
-                </div>
-                <div className="card-footer-title">
-                  <span className="card-name">{choice.name}</span>
-                  {isSelected && (
-                    <span className="card-indicator" aria-hidden="true">
-                      {isTarget ? '✓ Benar' : 'Coba lagi'}
-                    </span>
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Supportive Feedback Toast */}
+        {/* Feedback message */}
         <FeedbackToast feedback={feedback} />
+      </div>
 
-        {/* Navigation */}
-        <div className="scene-nav-actions">
-          <button
-            type="button"
-            onClick={onBack}
-            className="btn-nav btn-nav-back"
-            aria-label="Kembali ke Adegan 2"
-          >
-            ← Kembali
-          </button>
+      {/* Navigation */}
+      <div className="scene-storybook-nav">
+        <button
+          type="button"
+          onClick={onBack}
+          className="btn-story-nav btn-story-back"
+          aria-label="Kembali ke Adegan 2"
+        >
+          ← Kembali
+        </button>
 
-          <button
-            type="button"
-            onClick={handleNext}
-            className={`btn-nav btn-nav-next ${isAnswerCorrect ? 'btn-highlight-ready' : ''}`}
-            aria-label="Lanjut ke Adegan 4: Ayo Bergerak Seperti Hewan"
-          >
-            <span>{isAnswerCorrect ? 'Lanjut ke Ayo Bergerak!' : 'Lewati & Lanjut'}</span>
-            <span aria-hidden="true">➔</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={handleNext}
+          className={`btn-story-nav btn-story-next ${isAnswerCorrect ? 'btn-highlight-ready' : ''}`}
+          aria-label="Lanjut ke Adegan 4: Ayo Bergerak Seperti Hewan"
+        >
+          <span>{isAnswerCorrect ? 'Lanjut ke Ayo Bergerak!' : 'Lewati & Lanjut'}</span>
+          <span aria-hidden="true">➔</span>
+        </button>
       </div>
     </div>
   );

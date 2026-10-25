@@ -37,100 +37,107 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({ onNext, onBack }
   };
 
   return (
-    <div className="scene-view scene-2-view">
-      <div className="scene-card">
-        {/* Scene Badge */}
-        <div className="scene-badge-header">
-          <span className="scene-step-pill">Adegan 2 dari 6</span>
-          <h2 className="scene-heading">Berkenalan dengan Gajah</h2>
+    <div className="scene-view scene-character-hero-stage">
+      {/* Scene Header */}
+      <div className="scene-stage-header">
+        <span className="scene-step-tag">Adegan 2 dari 6</span>
+        <h2 className="scene-story-heading">Berkenalan dengan Gajah</h2>
+      </div>
+
+      {/* Main Character Focus Stage */}
+      <div className="character-spotlight-arena">
+        {/* Animal Name & Syllable Reading Tiles */}
+        <div className="character-name-badge-group">
+          <h3 className="character-giant-name">Gajah</h3>
+          <div className="syllable-tiles-row" aria-label="Ejaan suku kata: Ga - jah">
+            <span className="syllable-tile">Ga</span>
+            <span className="syllable-divider">—</span>
+            <span className="syllable-tile">jah</span>
+          </div>
         </div>
 
-        {/* Animal Name in Prominent Friendly Text */}
-        <div className="animal-name-hero">
-          <h3 className="animal-main-name">Gajah</h3>
-          <span className="syllable-badge" aria-label="Ejaan suku kata: Ga - jah">
-            Ga — jah
-          </span>
-        </div>
-
-        {/* Large Recognizable Elephant Illustration */}
-        <div className="scene-visual-frame animal-frame">
+        {/* Large Dominant Elephant Illustration */}
+        <div className="character-hero-display">
+          <div className="character-glow-halo" aria-hidden="true" />
           <ElephantSvg
             size="100%"
             highlightPart={highlightPart}
-            className="large-animal-svg"
+            className="character-hero-svg elephant-hero"
           />
         </div>
 
-        {/* Simple Fact & Audio Narration */}
-        <div className="narration-box">
-          <p className="narration-fact">
+        {/* Observation Interaction Station */}
+        <div className="interactive-observation-station">
+          <p className="observation-lead-prompt">
+            👀 <strong>Ayo Amati:</strong> Coba sentuh bagian tubuh gajah di bawah ini!
+          </p>
+
+          <div className="observation-buttons-row">
+            <button
+              type="button"
+              onClick={handlePointTrunk}
+              className={`btn-observe-feature ${highlightPart === 'trunk' ? 'is-active' : ''}`}
+              aria-label="Tunjuk belalai gajah yang panjang"
+            >
+              <span className="feature-icon" aria-hidden="true">🐘</span>
+              <span className="feature-text">Tunjuk Belalai Panjang</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handlePointEars}
+              className={`btn-observe-feature ${highlightPart === 'ears' ? 'is-active' : ''}`}
+              aria-label="Tunjuk telinga gajah yang lebar"
+            >
+              <span className="feature-icon" aria-hidden="true">👂</span>
+              <span className="feature-text">Tunjuk Telinga Lebar</span>
+            </button>
+          </div>
+
+          {observationNote && (
+            <div className="observation-dialogue-card" role="status" aria-live="polite">
+              <span className="dialogue-star" aria-hidden="true">✨</span>
+              <p>{observationNote}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Story Fact Banner & Audio */}
+        <div className="character-story-banner">
+          <p className="character-fact-text">
             "Gajah memiliki <strong>belalai yang panjang</strong> dan <strong>telinga yang sangat lebar</strong>."
           </p>
-          <div className="narration-audio-action">
+          <div className="character-audio-wrapper">
             <AudioButton
-              label="Dengarkan Penjelasan Gajah"
+              label="Dengarkan Cerita Gajah"
+              replayLabel="Dengarkan Lagi"
               sublabel="Suara Narasi"
               narrationText={narrationText}
               variant="secondary"
             />
           </div>
         </div>
+      </div>
 
-        {/* Child Observation Interaction */}
-        <div className="child-interaction-panel">
-          <p className="prompt-label">
-            👀 <strong>Ayo Amati:</strong> Tunjuk ciri khas tubuh gajah di bawah ini!
-          </p>
-          <div className="point-buttons-row">
-            <button
-              type="button"
-              onClick={handlePointTrunk}
-              className={`btn-point-part ${highlightPart === 'trunk' ? 'is-active' : ''}`}
-              aria-label="Tunjuk belalai gajah yang panjang"
-            >
-              <span className="part-icon" aria-hidden="true">🐘</span>
-              <span>Tunjuk Belalai Panjang</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handlePointEars}
-              className={`btn-point-part ${highlightPart === 'ears' ? 'is-active' : ''}`}
-              aria-label="Tunjuk telinga gajah yang lebar"
-            >
-              <span className="part-icon" aria-hidden="true">👂</span>
-              <span>Tunjuk Telinga Lebar</span>
-            </button>
-          </div>
-
-          {observationNote && (
-            <div className="observation-feedback-card" role="status" aria-live="polite">
-              <p>{observationNote}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation */}
-        <div className="scene-nav-actions">
-          <button
-            type="button"
-            onClick={onBack}
-            className="btn-nav btn-nav-back"
-            aria-label="Kembali ke Adegan 1"
-          >
-            ← Kembali
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            className="btn-nav btn-nav-next"
-            aria-label="Lanjut ke Adegan 3: Tebak Suara Hewan"
-          >
-            <span>Lanjut ke Tebak Suara</span>
-            <span aria-hidden="true">➔</span>
-          </button>
-        </div>
+      {/* Navigation */}
+      <div className="scene-storybook-nav">
+        <button
+          type="button"
+          onClick={onBack}
+          className="btn-story-nav btn-story-back"
+          aria-label="Kembali ke Adegan 1"
+        >
+          ← Kembali
+        </button>
+        <button
+          type="button"
+          onClick={handleNext}
+          className="btn-story-nav btn-story-next"
+          aria-label="Lanjut ke Adegan 3: Tebak Suara Hewan"
+        >
+          <span>Lanjut ke Tebak Suara</span>
+          <span aria-hidden="true">➔</span>
+        </button>
       </div>
     </div>
   );

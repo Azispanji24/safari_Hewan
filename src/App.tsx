@@ -9,6 +9,7 @@ import { Scene3GuessSound } from './scenes/Scene3GuessSound';
 import { Scene4MoveLikeAnimal } from './scenes/Scene4MoveLikeAnimal';
 import { Scene5MatchAnimal } from './scenes/Scene5MatchAnimal';
 import { Scene6FavoriteAnimal } from './scenes/Scene6FavoriteAnimal';
+import { JungleCanopySvg } from './assets/illustrations';
 import { soundEngine } from './utils/soundEngine';
 import { speechNarration } from './utils/speechNarration';
 import type { SceneId } from './types';
@@ -35,6 +36,11 @@ export const App: React.FC = () => {
 
   return (
     <div className="app-container">
+      {/* Top Jungle Canopy Environmental Frame */}
+      <div className="app-canopy-banner" aria-hidden="true">
+        <JungleCanopySvg className="app-jungle-canopy" />
+      </div>
+
       {/* Header bar */}
       <Header
         currentScene={currentScene}

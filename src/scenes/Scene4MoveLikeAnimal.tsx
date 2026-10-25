@@ -19,45 +19,58 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
     {
       title: string;
       prompt: string;
-      actionGuide: string;
+      steps: string[];
       narration: string;
       icon: string;
       illustration: React.ReactNode;
       color: string;
+      callout: string;
     }
   > = {
     kelinci: {
-      title: 'Melompat Seperti Kelinci',
-      prompt: 'Ayo melompat lincah seperti kelinci!',
-      actionGuide:
-        '1. Tekuk sedikit kedua lututmu.\n2. Letakkan kedua tangan di atas kepala seperti telinga kelinci.\n3. Melompat kecil ke depan: Hop! Hop! Hop!',
+      title: 'Kelinci Melompat',
+      prompt: 'Ayo berdiri dan melompat lincah seperti kelinci!',
+      steps: [
+        'Tekuk kedua lututmu sedikit.',
+        'Taruh tangan di atas kepala seperti telinga kelinci yang panjang.',
+        'Melompat kecil ke depan: Hop! Hop! Hop!',
+      ],
       narration:
         'Ayo anak-anak, kita berdiri! Letakkan tangan di samping kepala seperti telinga kelinci, lalu melompat gembira: Hop! Hop! Hop!',
       icon: '🐰',
       illustration: <RabbitSvg size="100%" />,
-      color: '#E09F67',
+      color: '#D97A53',
+      callout: 'Lompat riang: Hop! Hop!',
     },
     gajah: {
-      title: 'Berjalan Seperti Gajah',
-      prompt: 'Ayo berjalan tegap dan perlahan seperti gajah besar!',
-      actionGuide:
-        '1. Berdiri tegak dan langkahkan kaki dengan mantap: Buuk... buuk...\n2. Rentangkan satu tangan ke depan seperti belalai gajah.\n3. Ayunkan belalai perlahan ke kanan dan ke kiri.',
+      title: 'Gajah Berjalan',
+      prompt: 'Ayo berjalan tegap dan mantap seperti gajah besar!',
+      steps: [
+        'Berdiri tegak dan buka kakimu selebar bahu.',
+        'Ayunkan satu tanganmu ke depan seperti belalai gajah.',
+        'Langkahkan kaki perlahan: Buuk... buuk... buuk!',
+      ],
       narration:
         'Ayo berjalan seperti gajah besar! Langkahkan kaki perlahan dan ayunkan lenganmu seperti belalai gajah yang gagah.',
       icon: '🐘',
       illustration: <ElephantSvg size="100%" />,
       color: '#5C7D8D',
+      callout: 'Langkah gagah: Buuk... buuk!',
     },
     burung: {
-      title: 'Mengepakkan Tangan Seperti Burung',
-      prompt: 'Ayo mengepakkan tangan seperti burung yang terbang bebas!',
-      actionGuide:
-        '1. Berdiri dengan santai dan pandangan ke depan.\n2. Rentangkan kedua tanganmu lebar-lebar ke samping.\n3. Kepakkan tangan perlahan ke atas dan ke bawah seperti sayap burung.',
+      title: 'Burung Terbang',
+      prompt: 'Ayo rentangkan tangan dan terbang seperti burung!',
+      steps: [
+        'Berdiri santai dengan pandangan ke depan.',
+        'Rentangkan kedua tanganmu lebar-lebar ke samping seperti sayap.',
+        'Kepakkan tangan naik dan turun perlahan seperti melayang di langit.',
+      ],
       narration:
         'Ayo rentangkan kedua tanganmu ke samping seperti sayap burung yang indah. Kepakkan perlahan ke atas dan ke bawah!',
       icon: '🐦',
       illustration: <BirdSvg size="100%" />,
       color: '#3A9BB7',
+      callout: 'Terbang bebas: Kepak... kepak!',
     },
   };
 
@@ -79,117 +92,120 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
   };
 
   return (
-    <div className="scene-view scene-4-view">
-      <div className="scene-card">
-        {/* Scene Indicator */}
-        <div className="scene-badge-header">
-          <span className="scene-step-pill">Adegan 4 dari 6</span>
-          <h2 className="scene-heading">Ayo Bergerak Bersama!</h2>
-        </div>
+    <div className="scene-view scene-movement-arena-stage">
+      {/* Scene Header */}
+      <div className="scene-stage-header">
+        <span className="scene-step-tag">Adegan 4 dari 6</span>
+        <h2 className="scene-story-heading">Ayo Bergerak Bersama!</h2>
+      </div>
 
-        {/* Teacher Supervision Notice */}
-        <div className="teacher-supervision-banner" role="note">
-          <span className="banner-icon" aria-hidden="true">👨‍🏫</span>
-          <p className="banner-text">
-            <strong>Catatan Guru & Pendamping:</strong> Ajak anak berdiri dari tempat duduk. Pastikan ruangan cukup lapang dan anak bergerak dengan aman!
-          </p>
-        </div>
+      {/* Teacher Supervision Notice */}
+      <div className="teacher-movement-notice" role="note">
+        <span className="notice-icon" aria-hidden="true">👨‍🏫</span>
+        <p className="notice-text">
+          <strong>Peran Guru & Pendamping:</strong> Ajak seluruh anak berdiri dari kursi. Pastikan ruang kelas aman dan beri jarak antar teman!
+        </p>
+      </div>
 
-        {/* Movement Selector Tabs */}
-        <div className="movement-tabs-row" role="tablist" aria-label="Pilihan gerakan hewan">
-          {(Object.keys(movements) as MovementAnimal[]).map((key) => {
-            const move = movements[key];
-            const isActive = activeMovement === key;
-            return (
-              <button
-                key={key}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => handleSelectMovement(key)}
-                className={`movement-tab-btn ${isActive ? 'is-active' : ''}`}
-              >
-                <span className="tab-icon" aria-hidden="true">{move.icon}</span>
-                <span className="tab-name">{key.charAt(0).toUpperCase() + key.slice(1)}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Main Movement Activity Frame */}
-        <div className="movement-display-box">
-          <div className="movement-visual-side">
-            <div className="movement-svg-frame">
-              {currentMove.illustration}
-            </div>
-            <span className="movement-tag-pill">{currentMove.title}</span>
-          </div>
-
-          <div className="movement-instructions-side">
-            <h3 className="movement-prompt-title">{currentMove.prompt}</h3>
-
-            <div className="movement-steps-list">
-              {currentMove.actionGuide.split('\n').map((step, idx) => (
-                <div key={idx} className="movement-step-row">
-                  <span className="step-badge">{idx + 1}</span>
-                  <p className="step-text">{step.replace(/^\d+\.\s*/, '')}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="movement-audio-row">
-              <AudioButton
-                label="Dengarkan Aba-Aba Gerakan"
-                narrationText={currentMove.narration}
-                variant="secondary"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Child Participation Acknowledgment */}
-        <div className="movement-confirmation-area">
-          {!hasTried ? (
+      {/* Movement Switcher Tabs */}
+      <div className="movement-hero-tabs" role="tablist" aria-label="Pilihan gerakan hewan">
+        {(Object.keys(movements) as MovementAnimal[]).map((key) => {
+          const move = movements[key];
+          const isActive = activeMovement === key;
+          return (
             <button
+              key={key}
               type="button"
-              onClick={handleConfirmTried}
-              className="btn-confirm-movement"
-              aria-label="Saya sudah mencoba gerakan ini"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => handleSelectMovement(key)}
+              className={`movement-hero-tab ${isActive ? 'is-active' : ''}`}
             >
-              <span className="check-icon" aria-hidden="true">👍</span>
-              <span>Hore, Saya Sudah Mencoba Bergerak!</span>
+              <span className="tab-emoji" aria-hidden="true">{move.icon}</span>
+              <span className="tab-title">{move.title}</span>
             </button>
-          ) : (
-            <div className="movement-success-badge" role="status">
-              <span className="badge-stars" aria-hidden="true">🎉 ⭐ 🌟</span>
-              <p className="badge-text">
-                <strong>Hebat sekali!</strong> Tubuhmu jadi sehat, ceria, dan bersemangat!
-              </p>
-            </div>
-          )}
+          );
+        })}
+      </div>
+
+      {/* Main Movement Demonstration Arena */}
+      <div className="movement-arena-card">
+        {/* Left Side: Large Action Character Stage */}
+        <div className="movement-character-column">
+          <div className="movement-illustration-wrapper">
+            {currentMove.illustration}
+          </div>
+          <div className="movement-action-pill">
+            <span>✨ {currentMove.callout}</span>
+          </div>
         </div>
 
-        {/* Navigation */}
-        <div className="scene-nav-actions">
-          <button
-            type="button"
-            onClick={onBack}
-            className="btn-nav btn-nav-back"
-            aria-label="Kembali ke Adegan 3"
-          >
-            ← Kembali
-          </button>
+        {/* Right Side: Step-by-Step Giant Instructions */}
+        <div className="movement-guide-column">
+          <h3 className="movement-heading-prompt">{currentMove.prompt}</h3>
 
+          <div className="movement-big-steps">
+            {currentMove.steps.map((stepText, idx) => (
+              <div key={idx} className="movement-card-step">
+                <span className="big-step-number">{idx + 1}</span>
+                <p className="big-step-description">{stepText}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="movement-audio-action">
+            <AudioButton
+              label="Dengarkan Aba-Aba Gerakan"
+              replayLabel="Ulangi Aba-Aba"
+              narrationText={currentMove.narration}
+              variant="secondary"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Child Physical Participation Confirmation */}
+      <div className="movement-action-celebration">
+        {!hasTried ? (
           <button
             type="button"
-            onClick={handleNext}
-            className="btn-nav btn-nav-next"
-            aria-label="Lanjut ke Adegan 5: Pasangkan Hewan dan Namanya"
+            onClick={handleConfirmTried}
+            className="btn-confirm-body-movement"
+            aria-label="Saya sudah berdiri dan mencoba gerakan ini"
           >
-            <span>Lanjut Pasangkan Hewan</span>
-            <span aria-hidden="true">➔</span>
+            <span className="confirm-icon" aria-hidden="true">👍</span>
+            <span className="confirm-text">Hore, Saya Sudah Mencoba Bergerak!</span>
           </button>
-        </div>
+        ) : (
+          <div className="movement-celebration-banner" role="status">
+            <span className="celebration-stars" aria-hidden="true">🎉 🌟 ⭐ 🌟 🎉</span>
+            <h4 className="celebration-title">Luar Biasa! Tubuhmu Jadi Bugar & Berenergi!</h4>
+            <p className="celebration-subtext">
+              Bergerak menirukan hewan membuat otot sehat, hati gembira, dan pikiran segar.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <div className="scene-storybook-nav">
+        <button
+          type="button"
+          onClick={onBack}
+          className="btn-story-nav btn-story-back"
+          aria-label="Kembali ke Adegan 3"
+        >
+          ← Kembali
+        </button>
+        <button
+          type="button"
+          onClick={handleNext}
+          className="btn-story-nav btn-story-next"
+          aria-label="Lanjut ke Adegan 5: Pasangkan Hewan dan Namanya"
+        >
+          <span>Lanjut Pasangkan Hewan</span>
+          <span aria-hidden="true">➔</span>
+        </button>
       </div>
     </div>
   );

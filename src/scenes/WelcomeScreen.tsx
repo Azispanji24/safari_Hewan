@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafariFriendsSvg } from '../assets/illustrations';
+import { SafariFriendsSvg, SavannahHillsSvg } from '../assets/illustrations';
 import { soundEngine } from '../utils/soundEngine';
 
 interface WelcomeScreenProps {
@@ -17,54 +17,64 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   };
 
   return (
-    <div className="scene-view welcome-screen-view">
-      <div className="welcome-card">
-        {/* Child-friendly Age & Theme Badge */}
-        <div className="badge-ribbon" aria-label="Media Edukasi PAUD 5-6 Tahun">
-          <span>🐾 Petualangan Hewan di Sekitar Kita • Usia 5–6 Tahun</span>
+    <div className="scene-view welcome-story-stage">
+      {/* Decorative sunburst ambiance */}
+      <div className="story-sunburst-glow" aria-hidden="true" />
+
+      {/* Main Storybook Entrance Card / Stage */}
+      <div className="welcome-storybook-container">
+        {/* Child-friendly Age & Theme Ribbon */}
+        <div className="story-ribbon" aria-label="Media Edukasi PAUD 5-6 Tahun">
+          <span className="ribbon-leaf" aria-hidden="true">🌿</span>
+          <span className="ribbon-text">Petualangan Hewan di Sekitar Kita • PAUD Usia 5–6 Tahun</span>
+          <span className="ribbon-leaf" aria-hidden="true">🌿</span>
         </div>
 
-        {/* Title and Subtitle */}
-        <div className="welcome-header">
-          <h1 className="welcome-title">Safari Hewan</h1>
-          <p className="welcome-subtitle">Lihat, Tebak, dan Bergerak</p>
-          <p className="welcome-tagline">
-            Yuk, kenali sahabat hewan, dengarkan suaranya yang unik, dan bergerak bersama!
+        {/* Storybook Hero Title Banner */}
+        <div className="welcome-story-title-banner">
+          <h1 className="story-title">Safari Hewan</h1>
+          <p className="story-subtitle">Lihat, Tebak, dan Bergerak</p>
+          <p className="story-tagline">
+            Yuk sahabat kecil, kita berkeliling safari mengenal teman-teman hewan, mendengarkan suaranya, dan melompat gembira bersama!
           </p>
         </div>
 
-        {/* Friendly Group Illustration */}
-        <div className="welcome-illustration-wrap">
-          <SafariFriendsSvg size="100%" className="welcome-illustration" />
+        {/* Hero Character Stage */}
+        <div className="welcome-character-stage">
+          <div className="stage-illustration-wrap">
+            <SafariFriendsSvg size="100%" className="friends-hero-illustration" />
+          </div>
+          <SavannahHillsSvg className="welcome-stage-hills" />
         </div>
 
-        {/* Primary CTA and Teacher Guide */}
-        <div className="welcome-actions">
+        {/* Big Prominent Action Area */}
+        <div className="welcome-story-actions">
           <button
             type="button"
             onClick={handleStart}
-            className="btn-start-adventure"
+            className="btn-start-hero"
             aria-label="Mulai Petualangan Safari Hewan"
           >
-            <span className="btn-start-icon" aria-hidden="true">🚀</span>
-            <span className="btn-start-text">Mulai Petualangan!</span>
-            <span className="btn-arrow" aria-hidden="true">➔</span>
+            <span className="btn-hero-sparkle" aria-hidden="true">✨</span>
+            <span className="btn-hero-text">Mulai Petualangan!</span>
+            <span className="btn-hero-icon" aria-hidden="true">➔</span>
           </button>
 
           <button
             type="button"
             onClick={onOpenTeacherGuide}
-            className="btn-welcome-teacher"
+            className="btn-teacher-parchment"
             aria-label="Buka Panduan Guru dan Aktivitas Nyata"
           >
-            <span>📖 Panduan Guru & Kegiatan Nyata</span>
+            <span aria-hidden="true">📖</span>
+            <span>Panduan Guru & Kegiatan Nyata</span>
           </button>
         </div>
 
-        {/* Privacy & Safety Note */}
-        <div className="welcome-safety-footer">
-          <span className="safety-icon" aria-hidden="true">🛡️</span>
-          <span>Aman untuk anak: Bebas iklan, bebas pelacak, dan tidak meminta data pribadi.</span>
+        {/* Safety & Child Privacy Badge */}
+        <div className="welcome-trust-pill">
+          <span className="trust-icon" aria-hidden="true">🛡️</span>
+          <span>100% Aman untuk Anak: Bebas iklan, tanpa pelacak, dan tanpa data pribadi.</span>
         </div>
       </div>
     </div>

@@ -5,9 +5,20 @@ import { DuckSvg } from './DuckSvg';
 import { BirdSvg } from './BirdSvg';
 import { SafariGateSvg } from './SafariGateSvg';
 import { SafariFriendsSvg } from './SafariFriendsSvg';
+import { JungleCanopySvg } from './JungleCanopySvg';
+import { SavannahHillsSvg } from './SavannahHillsSvg';
 import type { AnimalId } from '../../types';
 
-export { ElephantSvg, RabbitSvg, DuckSvg, BirdSvg, SafariGateSvg, SafariFriendsSvg };
+export {
+  ElephantSvg,
+  RabbitSvg,
+  DuckSvg,
+  BirdSvg,
+  SafariGateSvg,
+  SafariFriendsSvg,
+  JungleCanopySvg,
+  SavannahHillsSvg,
+};
 
 interface AnimalIllustrationProps {
   animalId: AnimalId;

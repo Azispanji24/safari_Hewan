@@ -95,54 +95,78 @@ export const Scene5MatchAnimal: React.FC<Scene5MatchAnimalProps> = ({ onNext, on
   };
 
   return (
-    <div className="scene-view scene-5-view">
-      <div className="scene-card">
-        {/* Scene Indicator */}
-        <div className="scene-badge-header">
-          <span className="scene-step-pill">Adegan 5 dari 6</span>
-          <h2 className="scene-heading">Pasangkan Hewan dan Namanya</h2>
-        </div>
+    <div className="scene-view scene-matching-notebook-stage">
+      {/* Scene Header */}
+      <div className="scene-stage-header">
+        <span className="scene-step-tag">Adegan 5 dari 6</span>
+        <h2 className="scene-story-heading">Buku Catatan Safari: Pasangkan Nama Hewan</h2>
+      </div>
 
-        {/* Question Counter Indicator */}
-        <div className="question-tracker-bar">
-          <span className="question-count-text">
-            Pertanyaan {currentQuestionIndex + 1} dari {questions.length}
+      {/* Tracker Banner */}
+      <div className="notebook-tracker-banner">
+        <div className="tracker-paw-group">
+          <span className="tracker-label">
+            Tantangan {currentQuestionIndex + 1} dari {questions.length}
           </span>
-          <div className="question-dots-row" aria-hidden="true">
-            {questions.map((q, idx) => (
-              <span
-                key={q.id}
-                className={`dot ${completedQuestions.includes(q.id) ? 'is-done' : idx === currentQuestionIndex ? 'is-current' : ''}`}
-              />
-            ))}
+          <div className="tracker-compass-dots" aria-label={`Pertanyaan ${currentQuestionIndex + 1} dari 3`}>
+            {questions.map((q, idx) => {
+              const isDone = completedQuestions.includes(q.id);
+              const isCurrent = idx === currentQuestionIndex;
+              return (
+                <span
+                  key={q.id}
+                  className={`compass-dot ${isDone ? 'is-done' : isCurrent ? 'is-current' : ''}`}
+                  title={`Pertanyaan ${idx + 1}`}
+                >
+                  {isDone ? '⭐' : idx + 1}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+        <span className="tracker-subhint">Sentuh balok nama yang cocok dengan gambar!</span>
+      </div>
+
+      {/* Instruction Ribbon */}
+      <div className="notebook-instruction-ribbon">
+        <span className="ribbon-icon" aria-hidden="true">👀</span>
+        <p className="instruction-text">
+          Perhatikan gambar teman safari di bawah ini, lalu pilih <strong>nama yang tepat</strong>!
+        </p>
+      </div>
+
+      {/* Field Notebook Double-Page Layout */}
+      <div className="matching-notebook-desk">
+        {/* Left Side: Illustrated Animal Polaroid Display */}
+        <div className="notebook-polaroid-side">
+          <div className="polaroid-pin-badge" aria-hidden="true">📌 Sketsa Hewan</div>
+          <div className="polaroid-art-frame">
+            {currentQ.illustration}
+          </div>
+          <div className="polaroid-hint-strip">
+            <span className="hint-icon" aria-hidden="true">💡</span>
+            <span className="hint-text">{currentQ.hint}</span>
           </div>
         </div>
 
-        {/* Instruction */}
-        <div className="match-instruction-banner">
-          <p className="instruction-lead">
-            👀 Perhatikan gambar hewan di bawah ini, lalu klik <strong>nama hewan yang tepat</strong>!
-          </p>
-        </div>
+        {/* Right Side: Tactile Wooden Name Blocks */}
+        <div className="notebook-blocks-side">
+          <h3 className="blocks-heading" id="word-block-options-label">
+            Pilih Balok Nama Hewan:
+          </h3>
 
-        {/* Animal Display Card */}
-        <div className="match-question-layout">
-          <div className="match-animal-target">
-            <div className="match-illustration-frame">
-              {currentQ.illustration}
-            </div>
-            <span className="match-hint-pill">{currentQ.hint}</span>
-          </div>
-
-          {/* Word Name Options */}
-          <div className="match-options-grid" role="radiogroup" aria-label="Pilihan nama hewan">
+          <div
+            className="wooden-blocks-grid"
+            role="radiogroup"
+            aria-labelledby="word-block-options-label"
+          >
             {currentQ.options.map((opt) => {
               const isSelected = selectedOption === opt;
               const isCorrect = opt === currentQ.animalName;
               const stateClass = isSelected
                 ? isCorrect
-                  ? 'is-correct'
-                  : 'is-incorrect'
+                  ? 'is-correct-block'
+                  : 'is-incorrect-block'
                 : '';
 
               return (
@@ -152,69 +176,72 @@ export const Scene5MatchAnimal: React.FC<Scene5MatchAnimalProps> = ({ onNext, on
                   role="radio"
                   aria-checked={isSelected}
                   onClick={() => handleSelectOption(opt)}
-                  className={`btn-name-option ${stateClass} ${isSelected ? 'is-selected' : ''}`}
+                  className={`btn-wooden-option ${stateClass} ${isSelected ? 'is-selected' : ''}`}
                 >
-                  <span className="option-name-text">{opt}</span>
+                  <span className="wooden-carved-text">{opt}</span>
                   {isSelected && (
-                    <span className="option-mark" aria-hidden="true">
-                      {isCorrect ? '✓ Benar!' : '✕ Coba lagi'}
+                    <span className="wooden-status-badge" aria-hidden="true">
+                      {isCorrect ? '✓ Tepat Sekali!' : '✕ Coba Lagi'}
                     </span>
                   )}
                 </button>
               );
             })}
           </div>
-        </div>
 
-        {/* Feedback message */}
-        <FeedbackToast feedback={feedback} />
-
-        {/* Question Advancement or Final Completion */}
-        {selectedOption === currentQ.animalName && currentQuestionIndex < questions.length - 1 && (
-          <div className="next-question-container">
-            <button
-              type="button"
-              onClick={handleNextQuestion}
-              className="btn-next-question"
-              aria-label="Lanjut ke pertanyaan berikutnya"
-            >
-              <span>Pertanyaan Berikutnya</span>
-              <span aria-hidden="true">➔</span>
-            </button>
-          </div>
-        )}
-
-        {isAllCompleted && (
-          <div className="match-completion-alert" role="status">
-            <span className="alert-emoji" aria-hidden="true">🎉</span>
-            <div>
-              <strong>Luar Biasa! Semua Hewan Berhasil Dipasangkan!</strong>
-              <p>Kamu sudah mengenali Gajah, Kelinci, dan Bebek dengan sangat baik.</p>
+          {/* Next Question Button if correct */}
+          {selectedOption === currentQ.animalName && currentQuestionIndex < questions.length - 1 && (
+            <div className="next-challenge-container">
+              <button
+                type="button"
+                onClick={handleNextQuestion}
+                className="btn-next-challenge-hero"
+                aria-label="Lanjut ke tantangan hewan berikutnya"
+              >
+                <span>Tantangan Hewan Berikutnya</span>
+                <span aria-hidden="true">➔</span>
+              </button>
             </div>
-          </div>
-        )}
-
-        {/* Navigation */}
-        <div className="scene-nav-actions">
-          <button
-            type="button"
-            onClick={onBack}
-            className="btn-nav btn-nav-back"
-            aria-label="Kembali ke Adegan 4"
-          >
-            ← Kembali
-          </button>
-
-          <button
-            type="button"
-            onClick={handleNext}
-            className={`btn-nav btn-nav-next ${isAllCompleted ? 'btn-highlight-ready' : ''}`}
-            aria-label="Lanjut ke Adegan 6: Hewan Favorit dan Refleksi"
-          >
-            <span>{isAllCompleted ? 'Lanjut ke Hewan Favorit' : 'Lanjut ke Refleksi'}</span>
-            <span aria-hidden="true">➔</span>
-          </button>
+          )}
         </div>
+      </div>
+
+      {/* Feedback Toast */}
+      <FeedbackToast feedback={feedback} />
+
+      {/* Completion Celebration Alert */}
+      {isAllCompleted && (
+        <div className="notebook-all-done-banner" role="status">
+          <span className="celebration-badge-emoji" aria-hidden="true">🎉</span>
+          <div className="completion-copy">
+            <h4 className="completion-title">Hebat! Semua Hewan Berhasil Dipasangkan!</h4>
+            <p className="completion-subtext">
+              Kamu sudah mengenali Gajah, Kelinci, dan Bebek dengan sangat baik. Ayo kita pilih hewan favoritmu di akhir petualangan!
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Storybook Navigation */}
+      <div className="scene-storybook-nav">
+        <button
+          type="button"
+          onClick={onBack}
+          className="btn-story-nav btn-story-back"
+          aria-label="Kembali ke Adegan 4"
+        >
+          ← Kembali
+        </button>
+
+        <button
+          type="button"
+          onClick={handleNext}
+          className={`btn-story-nav btn-story-next ${isAllCompleted ? 'btn-highlight-ready' : ''}`}
+          aria-label="Lanjut ke Adegan 6: Hewan Favorit dan Refleksi"
+        >
+          <span>{isAllCompleted ? 'Lanjut ke Hewan Favorit' : 'Lanjut ke Refleksi'}</span>
+          <span aria-hidden="true">➔</span>
+        </button>
       </div>
     </div>
   );
