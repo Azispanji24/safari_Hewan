@@ -1,0 +1,115 @@
+/* Design System Tokens for Safari Hewan */
+:root {
+  /* Warm Safari Nature Palette */
+  --color-bg-base: #FAF8F2;
+  --color-bg-card: #FFFFFF;
+  --color-bg-subtle: #F2EFE7;
+  --color-surface-soft: #F9F7EE;
+
+  /* Leaf & Forest Greens */
+  --color-primary: #3C7A57;
+  --color-primary-hover: #2E6344;
+  --color-primary-light: #E7F3EB;
+  --color-primary-soft: #C8E3D2;
+
+  /* Warm Sunlight Amber / Orange for actions */
+  --color-accent-amber: #E2841A;
+  --color-accent-hover: #C96E0A;
+  --color-accent-light: #FEF4E8;
+  --color-accent-gold: #F7B801;
+
+  /* Sky & Water Blues */
+  --color-sky: #48A9C5;
+  --color-sky-light: #E1F4F9;
+
+  /* Soft Coral / Pink */
+  --color-pink-soft: #FCE8EB;
+  --color-coral: #E06D53;
+
+  /* High-Contrast Readable Text */
+  --color-text-main: #20352A;
+  --color-text-heading: #172B20;
+  --color-text-muted: #596E62;
+  --color-border: #DDE8DF;
+  --color-border-card: #E5EDE6;
+
+  /* Typography */
+  --font-heading: 'Fredoka', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 2px 6px rgba(40, 70, 50, 0.06);
+  --shadow-md: 0 6px 18px rgba(40, 70, 50, 0.08), 0 2px 6px rgba(40, 70, 50, 0.04);
+  --shadow-lg: 0 12px 32px rgba(40, 70, 50, 0.12), 0 4px 10px rgba(40, 70, 50, 0.05);
+  --shadow-button: 0 4px 0 rgba(20, 50, 30, 0.2);
+  --shadow-button-accent: 0 4px 0 rgba(160, 80, 10, 0.35);
+
+  /* Tactile Radii */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-smooth: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-calm: all 0.2s ease-out;
+}
+
+/* CSS Reset & Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-base);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 183, 77, 0.06) 0%, transparent 45%);
+  line-height: 1.55;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-heading);
+  line-height: 1.25;
+}
+
+/* Accessible focus styling */
+:focus-visible {
+  outline: 3px solid var(--color-accent-amber);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+button {
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

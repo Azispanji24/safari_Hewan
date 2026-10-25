@@ -1,0 +1,58 @@
+import type { Animal } from '../types';
+
+export const ANIMALS: Record<string, Animal> = {
+  gajah: {
+    id: 'gajah',
+    name: 'Gajah',
+    syllables: 'Ga - jah',
+    soundName: 'Suara Belalai Gajah',
+    soundText: 'Pruuuu! (Suara terompet belalai)',
+    audioPath: '/audio/gajah-trumpet.wav',
+    characteristic: 'Gajah memiliki belalai yang panjang dan telinga yang sangat lebar.',
+    movementPrompt: 'Ayo berjalan perlahan dan tegap seperti gajah besar!',
+    movementAction: 'Langkahkan kakimu perlahan: buuk... buuk... sambil mengayunkan satu lengan ke depan seperti belalai!',
+    color: '#5C7D8D',
+    badge: '🐘 Sahabat Berbelalai',
+  },
+  kelinci: {
+    id: 'kelinci',
+    name: 'Kelinci',
+    syllables: 'Ke - lin - ci',
+    soundName: 'Lompatan Kelinci',
+    soundText: 'Hop! Hop! Hop!',
+    audioPath: '/audio/gentle-pop.wav',
+    characteristic: 'Kelinci memiliki dua telinga yang panjang, bulu halus, dan suka makan wortel.',
+    movementPrompt: 'Ayo melompat gembira seperti kelinci lincah!',
+    movementAction: 'Taruh kedua tangan di atas kepala seperti telinga kelinci, lalu melompat kecil: hop! hop! hop!',
+    color: '#D97A53',
+    badge: '🐰 Si Pelompat Lincah',
+  },
+  bebek: {
+    id: 'bebek',
+    name: 'Bebek',
+    syllables: 'Be - bek',
+    soundName: 'Suara Bebek',
+    soundText: 'Kwek... kwek... kwek!',
+    audioPath: '/audio/bebek-quack.wav',
+    characteristic: 'Bebek memiliki paruh yang pipih, kaki berselaput, dan pandai berenang.',
+    movementPrompt: 'Ayo bergoyang jalan lucu seperti bebek!',
+    movementAction: 'Taruh tangan di pinggang seperti sayap kecil, lalu jalan bergoyang ke kanan dan ke kiri!',
+    color: '#ECA72C',
+    badge: '🦆 Si Perenang Ramah',
+  },
+  burung: {
+    id: 'burung',
+    name: 'Burung',
+    syllables: 'Bu - rung',
+    soundName: 'Kicauan Burung',
+    soundText: 'Cuit... cuit... cuit!',
+    audioPath: '/audio/success-chime.wav',
+    characteristic: 'Burung memiliki sepasang sayap berbulu indah dan paruh kecil untuk berkicau.',
+    movementPrompt: 'Ayo mengepakkan tangan seperti burung yang terbang!',
+    movementAction: 'Rentangkan kedua tangan ke samping, lalu kepakkan perlahan ke atas dan ke bawah!',
+    color: '#3A9BB7',
+    badge: '🐦 Si Sayap Indah',
+  },
+};
+
+export const ANIMAL_LIST = Object.values(ANIMALS);

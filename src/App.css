@@ -1,0 +1,1827 @@
+/* ==========================================================================
+   SAFARI HEWAN — MASTER STYLESHEET
+   Early-Childhood Interactive Learning Web Application
+   ========================================================================== */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   1. APP HEADER
+   -------------------------------------------------------------------------- */
+.app-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-logo-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: left;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.5rem;
+  transition: var(--transition-calm);
+}
+
+.brand-logo-btn:hover {
+  background: var(--color-primary-light);
+}
+
+.brand-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.brand-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+}
+
+.brand-tagline {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  display: block;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.btn-header-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-main);
+  border: 1.5px solid var(--color-border);
+  transition: var(--transition-smooth);
+}
+
+.btn-header-control:hover {
+  background: var(--color-bg-card);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.btn-header-control.btn-teacher-guide {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: var(--color-primary-soft);
+}
+
+.btn-header-control.btn-teacher-guide:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.btn-header-control.btn-restart {
+  background: var(--color-accent-light);
+  color: var(--color-accent-amber);
+  border-color: #FCD6A8;
+}
+
+.btn-header-control.btn-restart:hover {
+  background: var(--color-accent-amber);
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   2. PROGRESS BAR & TRAIL (6 LEARNING SCENES)
+   -------------------------------------------------------------------------- */
+.progress-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 1.25rem auto 0.5rem;
+  padding: 0 1.25rem;
+  position: relative;
+}
+
+.progress-track {
+  position: absolute;
+  top: 22px;
+  left: 3rem;
+  right: 3rem;
+  height: 6px;
+  background: #E3EDE4;
+  border-radius: var(--radius-full);
+  z-index: 1;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent-amber));
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease-out;
+}
+
+.progress-steps-list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  position: relative;
+  z-index: 2;
+}
+
+.progress-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-step-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: default;
+}
+
+.progress-step-item.is-completed .progress-step-btn {
+  cursor: pointer;
+}
+
+.step-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-card);
+  border: 3px solid #D5E5D8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.step-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.progress-step-item.is-active .step-circle {
+  background: var(--color-accent-amber);
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(226, 132, 26, 0.3), var(--shadow-md);
+  transform: scale(1.15);
+}
+
+.progress-step-item.is-active .step-label {
+  color: var(--color-accent-amber);
+  font-weight: 800;
+}
+
+.progress-step-item.is-completed .step-circle {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary-soft);
+}
+
+.progress-step-item.is-completed .step-label {
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   3. MAIN CONTENT VIEWPORT & CARDS
+   -------------------------------------------------------------------------- */
+.main-content-area {
+  flex: 1;
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 3rem;
+}
+
+.scene-view {
+  animation: fadeInScene 0.35s ease-out;
+}
+
+@keyframes fadeInScene {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scene-card, .welcome-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border-card);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   4. WELCOME SCREEN
+   -------------------------------------------------------------------------- */
+.welcome-card {
+  text-align: center;
+  align-items: center;
+  padding: 2.75rem 2rem 2.25rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAF4 100%);
+}
+
+.badge-ribbon {
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: 1.5px solid var(--color-primary-soft);
+}
+
+.welcome-title {
+  font-size: 2.85rem;
+  color: var(--color-primary);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-top: 0.5rem;
+}
+
+.welcome-subtitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-accent-amber);
+  margin-top: 0.2rem;
+}
+
+.welcome-tagline {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0.5rem auto 0;
+  font-weight: 600;
+}
+
+.welcome-illustration-wrap {
+  width: 100%;
+  max-width: 520px;
+  margin: 0.5rem 0;
+}
+
+.welcome-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 380px;
+}
+
+.btn-start-adventure {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.15rem 1.75rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  background: linear-gradient(180deg, #F4A261 0%, #E2841A 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-button-accent), var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+
+.btn-start-adventure:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 0 rgba(160, 80, 10, 0.4), var(--shadow-lg);
+}
+
+.btn-start-adventure:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(160, 80, 10, 0.4);
+}
+
+.btn-welcome-teacher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-primary-soft);
+  transition: var(--transition-calm);
+}
+
+.btn-welcome-teacher:hover {
+  background: #D8ECDF;
+}
+
+.welcome-safety-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  border-top: 1px dashed var(--color-border);
+  padding-top: 1.25rem;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   5. SCENE HEADERS & BADGES
+   -------------------------------------------------------------------------- */
+.scene-badge-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-bottom: 2px dashed var(--color-border);
+  padding-bottom: 1rem;
+}
+
+.scene-step-pill {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: var(--color-accent-light);
+  color: var(--color-accent-amber);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #FCD6A8;
+}
+
+.scene-heading {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   6. VISUAL FRAMES & ANIMAL ILLUSTRATIONS
+   -------------------------------------------------------------------------- */
+.scene-visual-frame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  background: var(--color-surface-soft);
+  border: 2px solid var(--color-border-card);
+}
+
+.gate-frame {
+  max-height: 280px;
+}
+
+.gate-illustration {
+  max-width: 440px;
+  height: auto;
+}
+
+.animal-frame {
+  max-height: 320px;
+}
+
+.large-animal-svg {
+  max-width: 320px;
+  height: auto;
+}
+
+.animal-svg .highlight-active {
+  animation: pulseGlow 1.2s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+  from {
+    filter: drop-shadow(0 0 4px #F4A261);
+  }
+  to {
+    filter: drop-shadow(0 0 14px #E76F51);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. AUDIO BUTTON & SOUND CONTROLS
+   -------------------------------------------------------------------------- */
+.audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 1rem;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
+}
+
+.audio-btn-primary {
+  background: linear-gradient(180deg, #4CAF50 0%, #388E3C 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 0 #256029, var(--shadow-sm);
+}
+
+.audio-btn-primary:hover {
+  background: linear-gradient(180deg, #57BD5B 0%, #3F9B43 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #256029, var(--shadow-md);
+}
+
+.audio-btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #256029;
+}
+
+.audio-btn-secondary {
+  background: var(--color-sky-light);
+  color: #026A9E;
+  border: 2px solid #B0E3F3;
+}
+
+.audio-btn-secondary:hover {
+  background: #CEF0F9;
+  transform: translateY(-1px);
+}
+
+.audio-btn-large {
+  padding: 1.1rem 2rem;
+  font-size: 1.25rem;
+}
+
+.audio-btn.is-playing {
+  background: linear-gradient(180deg, #FFB74D 0%, #F57C00 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 0 #BF360C;
+}
+
+.audio-btn-icon {
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+}
+
+.sound-wave-anim {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 20px;
+}
+
+.sound-wave-anim .bar {
+  display: block;
+  width: 4px;
+  background: #FFFFFF;
+  border-radius: 2px;
+  animation: soundBars 0.7s infinite alternate ease-in-out;
+}
+
+.sound-wave-anim .bar-1 { height: 12px; animation-delay: 0s; }
+.sound-wave-anim .bar-2 { height: 20px; animation-delay: 0.2s; }
+.sound-wave-anim .bar-3 { height: 15px; animation-delay: 0.4s; }
+
+@keyframes soundBars {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1.3); }
+}
+
+.audio-btn-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.audio-btn-label {
+  line-height: 1.2;
+}
+
+.audio-btn-sublabel {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   8. NARRATION & INSTRUCTION BOXES
+   -------------------------------------------------------------------------- */
+.narration-box {
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  border-left: 6px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.narration-text, .narration-fact {
+  font-size: 1.15rem;
+  color: var(--color-text-main);
+  line-height: 1.5;
+}
+
+.narration-audio-action {
+  display: flex;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   9. SCENE 1 SPECIFIC (ANIMAL CHOICE CHIPS)
+   -------------------------------------------------------------------------- */
+.child-prompt-box {
+  background: #FFFFFF;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.prompt-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+.animal-choice-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+
+.animal-chip-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-base);
+  border: 2px solid var(--color-border);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  transition: var(--transition-smooth);
+}
+
+.animal-chip-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--color-accent-amber);
+  transform: translateY(-2px);
+}
+
+.animal-chip-btn.is-selected {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent-amber);
+  color: var(--color-accent-amber);
+  box-shadow: 0 0 0 3px rgba(226, 132, 26, 0.25);
+  font-weight: 800;
+}
+
+.chip-badge {
+  font-size: 1.4rem;
+}
+
+.selection-acknowledgement {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid var(--color-primary-soft);
+}
+
+/* --------------------------------------------------------------------------
+   10. SCENE 2 SPECIFIC (ELEPHANT VOCABULARY & POINTING)
+   -------------------------------------------------------------------------- */
+.animal-name-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.animal-main-name {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #4A6E82;
+  letter-spacing: 1px;
+}
+
+.syllable-badge {
+  display: inline-block;
+  background: #EAF2F6;
+  color: #375D71;
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding: 0.3rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid #C4DCE8;
+  letter-spacing: 2px;
+}
+
+.child-interaction-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #FFFFFF;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.point-buttons-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.85rem;
+}
+
+.btn-point-part {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+  color: var(--color-text-main);
+  border: 2px solid var(--color-border);
+  transition: var(--transition-smooth);
+}
+
+.btn-point-part:hover {
+  background: #FFFFFF;
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.btn-point-part.is-active {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(60, 122, 87, 0.25);
+}
+
+.part-icon {
+  font-size: 1.4rem;
+}
+
+.observation-feedback-card {
+  background: #FFF9E6;
+  border-left: 5px solid var(--color-accent-gold);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #7A5800;
+}
+
+/* --------------------------------------------------------------------------
+   11. SCENE 3 SPECIFIC (GUESS SOUND QUIZ)
+   -------------------------------------------------------------------------- */
+.sound-player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1rem;
+  border: 2px dashed var(--color-primary-soft);
+}
+
+.sound-subtext-accessible {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.instruction-lead {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+.animal-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.15rem;
+}
+
+.choice-card {
+  background: #FFFFFF;
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.choice-card:hover {
+  border-color: var(--color-accent-amber);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.choice-card.choice-correct {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  box-shadow: 0 0 0 4px rgba(60, 122, 87, 0.25);
+}
+
+.choice-card.choice-incorrect {
+  border-color: #E57373;
+  background: #FFF5F5;
+}
+
+.card-illustration-box {
+  width: 100%;
+  max-width: 140px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-footer-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.card-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text-heading);
+}
+
+.card-indicator {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+.choice-correct .card-indicator {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.choice-incorrect .card-indicator {
+  background: #E57373;
+  color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   12. SCENE 4 SPECIFIC (MOVE LIKE AN ANIMAL)
+   -------------------------------------------------------------------------- */
+.teacher-supervision-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: #FFFDE7;
+  border: 2px solid #FFE082;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.15rem;
+  color: #795548;
+}
+
+.banner-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.banner-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.movement-tabs-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.movement-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  background: var(--color-bg-base);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  transition: var(--transition-smooth);
+}
+
+.movement-tab-btn:hover {
+  background: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+.movement-tab-btn.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.movement-display-box {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  background: var(--color-surface-soft);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  border: 2px solid var(--color-border-card);
+}
+
+.movement-visual-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.movement-svg-frame {
+  width: 100%;
+  max-width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movement-tag-pill {
+  font-size: 0.88rem;
+  font-weight: 800;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-heading);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+}
+
+.movement-instructions-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.movement-prompt-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.movement-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.movement-step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.step-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-amber);
+  color: #FFFFFF;
+  font-size: 0.88rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 1.05rem;
+  color: var(--color-text-main);
+  line-height: 1.4;
+}
+
+.movement-confirmation-area {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.btn-confirm-movement {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.85rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: linear-gradient(180deg, #66BB6A 0%, #43A047 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 0 #2E7D32, var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+
+.btn-confirm-movement:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #2E7D32, var(--shadow-lg);
+}
+
+.btn-confirm-movement:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #2E7D32;
+}
+
+.movement-success-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--color-primary-light);
+  border: 2px solid var(--color-primary-soft);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.5rem;
+  text-align: center;
+  animation: popIn 0.35s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   13. SCENE 5 SPECIFIC (MATCH ANIMAL & NAME)
+   -------------------------------------------------------------------------- */
+.question-tracker-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg-base);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.question-count-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.question-dots-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.question-dots-row .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: #D9E5DC;
+  transition: var(--transition-calm);
+}
+
+.question-dots-row .dot.is-current {
+  background: var(--color-accent-amber);
+  transform: scale(1.2);
+}
+
+.question-dots-row .dot.is-done {
+  background: var(--color-primary);
+}
+
+.match-instruction-banner {
+  font-size: 1.05rem;
+  color: var(--color-text-main);
+}
+
+.match-question-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.match-animal-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--color-surface-soft);
+  border: 2px solid var(--color-border-card);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.match-illustration-frame {
+  width: 100%;
+  max-width: 170px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.match-hint-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.match-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.btn-name-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  border: 3px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-name-option:hover {
+  border-color: var(--color-accent-amber);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-name-option.is-correct {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.btn-name-option.is-incorrect {
+  border-color: #E57373;
+  background: #FFF5F5;
+  color: #C62828;
+}
+
+.option-name-text {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.option-mark {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.next-question-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-next-question {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--color-accent-amber);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-button-accent);
+  transition: var(--transition-smooth);
+}
+
+.btn-next-question:hover {
+  transform: translateY(-2px);
+}
+
+.match-completion-alert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-primary-light);
+  border: 2px solid var(--color-primary-soft);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  color: var(--color-primary);
+  font-size: 1.05rem;
+  animation: popIn 0.3s ease-out;
+}
+
+.alert-emoji {
+  font-size: 2.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. SCENE 6 SPECIFIC (FAVORITE & REFLECTION)
+   -------------------------------------------------------------------------- */
+.favorite-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1.15rem;
+}
+
+.favorite-choice-card {
+  background: #FFFFFF;
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.favorite-choice-card:hover {
+  border-color: var(--color-accent-amber);
+  transform: translateY(-3px);
+}
+
+.favorite-choice-card.is-selected {
+  border-color: var(--color-accent-amber);
+  background: var(--color-accent-light);
+  box-shadow: 0 0 0 4px rgba(226, 132, 26, 0.25);
+}
+
+.fav-illustration-box {
+  width: 100%;
+  max-width: 130px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fav-card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.fav-badge-text {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-heading);
+}
+
+.fav-heart {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #D32F2F;
+}
+
+.teacher-reflection-card {
+  background: #FFFDF5;
+  border: 2px solid #FFE0B2;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reflection-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.reflection-icon {
+  font-size: 2rem;
+}
+
+.reflection-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #E65100;
+}
+
+.reflection-subtitle {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.reflection-prompt-bubble {
+  background: #FFFFFF;
+  border: 1.5px dashed #FFB74D;
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+}
+
+.prompt-quote {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: 0.35rem;
+}
+
+.prompt-hint {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.safari-certificate-card {
+  text-align: center;
+  background: linear-gradient(180deg, #E8F5E9 0%, #C8E6C9 100%);
+  border: 3px solid #81C784;
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cert-ribbon {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #2E7D32;
+  letter-spacing: 1px;
+}
+
+.cert-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #1B5E20;
+}
+
+.cert-message {
+  font-size: 1.05rem;
+  color: #2E7D32;
+  max-width: 600px;
+}
+
+.cert-stars {
+  font-size: 1.4rem;
+  letter-spacing: 4px;
+}
+
+.followup-reminder-box {
+  background: var(--color-surface-soft);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.btn-link-guide {
+  align-self: flex-start;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   15. NAVIGATION ACTIONS (BACK & NEXT BUTTONS)
+   -------------------------------------------------------------------------- */
+.scene-nav-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-top: 2px dashed var(--color-border);
+  padding-top: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.95rem 1.75rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  transition: var(--transition-smooth);
+}
+
+.btn-nav-back {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-main);
+  border: 2px solid var(--color-border);
+}
+
+.btn-nav-back:hover {
+  background: #FFFFFF;
+  border-color: var(--color-text-muted);
+}
+
+.btn-nav-next {
+  margin-left: auto;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-button);
+}
+
+.btn-nav-next:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(20, 50, 30, 0.25), var(--shadow-md);
+}
+
+.btn-nav-next.btn-highlight-ready {
+  background: linear-gradient(180deg, #F4A261 0%, #E2841A 100%);
+  box-shadow: var(--shadow-button-accent);
+}
+
+.btn-nav-next.btn-highlight-ready:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-restart-adventure {
+  background: var(--color-accent-amber);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-button-accent);
+}
+
+.btn-restart-adventure:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   16. FEEDBACK TOAST COMPONENT
+   -------------------------------------------------------------------------- */
+.feedback-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.feedback-correct {
+  background: #E8F5E9;
+  border: 2px solid #81C784;
+  color: #1B5E20;
+}
+
+.feedback-incorrect {
+  background: #FFF8E1;
+  border: 2px solid #FFD54F;
+  color: #6D4C41;
+}
+
+.feedback-hint {
+  background: #E1F5FE;
+  border: 2px solid #81D4FA;
+  color: #01579B;
+}
+
+.feedback-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.feedback-body {
+  flex: 1;
+}
+
+.feedback-title {
+  font-size: 1.1rem;
+  display: block;
+}
+
+.feedback-submessage {
+  font-size: 0.95rem;
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+
+.feedback-dismiss-btn {
+  font-size: 1rem;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.feedback-dismiss-btn:hover {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   17. TEACHER GUIDE MODAL
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 40, 30, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-card {
+  position: relative;
+  z-index: 2;
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  max-width: 840px;
+  width: 100%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  padding: 1.25rem 1.75rem;
+  background: var(--color-surface-soft);
+  border-bottom: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.modal-badge-icon {
+  font-size: 2.2rem;
+}
+
+.modal-title {
+  font-size: 1.45rem;
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.modal-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.modal-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-calm);
+}
+
+.modal-close-btn:hover {
+  background: #FEECEE;
+  color: #C62828;
+  border-color: #F8B4B8;
+}
+
+.modal-body {
+  padding: 1.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-text-heading);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.section-num {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guide-card {
+  background: var(--color-bg-base);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.objectives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.objective-item {
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.obj-tag {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+.tag-kognitif { background: #E1F5FE; color: #0277BD; }
+.tag-bahasa { background: #FFF3E0; color: #E65100; }
+.tag-motorik { background: #E8F5E9; color: #2E7D32; }
+.tag-sosial { background: #FCE4EC; color: #C2185B; }
+
+.guide-checklist, .scene-guide-list {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+}
+
+.guidance-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.95rem 1.15rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+}
+
+.guidance-alert.info { background: #E3F2FD; border-left: 4px solid #1976D2; color: #0D47A1; }
+.guidance-alert.warning { background: #FFF3E0; border-left: 4px solid #F57C00; color: #BF360C; }
+.guidance-alert.safe { background: #E8F5E9; border-left: 4px solid #388E3C; color: #1B5E20; }
+.guidance-alert.asset { background: #F3E5F5; border-left: 4px solid #8E24AA; color: #4A148C; }
+
+.alert-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.activity-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.activity-box.alternative {
+  border-left: 5px solid var(--color-accent-amber);
+}
+
+.activity-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.activity-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.activity-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.step-box {
+  background: var(--color-bg-base);
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.92rem;
+}
+
+.modal-footer {
+  padding: 1rem 1.75rem;
+  background: var(--color-surface-soft);
+  border-top: 1.5px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-modal-action {
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  transition: var(--transition-calm);
+}
+
+.btn-modal-action:hover {
+  background: var(--color-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   18. FOOTER
+   -------------------------------------------------------------------------- */
+.app-footer {
+  border-top: 2px solid var(--color-border);
+  background: #FFFFFF;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.footer-copyright {
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+/* --------------------------------------------------------------------------
+   19. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .header-inner {
+    padding: 0.6rem 1rem;
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+  }
+
+  .btn-header-control .btn-label-text {
+    display: none;
+  }
+
+  .btn-header-control {
+    padding: 0.5rem 0.65rem;
+  }
+
+  .main-content-area {
+    padding: 1rem 1rem 2rem;
+  }
+
+  .scene-card, .welcome-card {
+    padding: 1.35rem 1.15rem;
+    gap: 1.15rem;
+  }
+
+  .welcome-title {
+    font-size: 2.2rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1.15rem;
+  }
+
+  .movement-display-box {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .movement-instructions-side {
+    align-items: center;
+    text-align: left;
+  }
+
+  .match-question-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .step-label {
+    display: none;
+  }
+
+  .progress-track {
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .scene-nav-actions {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+
+  .btn-nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-nav-next {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,35 @@
+# Digital Asset Audit & Provenance Log
+## Proyek: Safari Hewan — Lihat, Tebak, dan Bergerak
+### UTS IT untuk AUD | PIAUD Semester 5
+
+Dokumen ini mencatat seluruh aset multimedia (visual dan audio) yang digunakan dalam aplikasi interaktif **Safari Hewan**. Setiap aset didokumentasikan secara jujur sesuai prinsip integritas akademik, orisinalitas karya, etika hak cipta, dan perlindungan privasi anak usia dini (tanpa foto anak asli, tanpa pelacak, dan tanpa hak cipta komersial tidak berizin).
+
+---
+
+## Tabel Audit Aset Multimedia
+
+| Asset | Source | Creator | License/Permission | Intended Use | Modification | Decision |
+|---|---|---|---|---|---|---|
+| **Ilustrasi Vektor Gajah (`ElephantSvg.tsx`)** | Dibuat secara orisinal dalam kode proyek (`src/assets/illustrations/ElephantSvg.tsx`) | Pengembang Proyek (Karya Mahasiswa) | CC BY-SA 4.0 / Lisensi Proyek Terbuka Bebas Royalti | Media visual utama pada Adegan 2 (Kenal Gajah) dan kartu pilihan kuis Adegan 3, 5, 6 | Didesain khusus menggunakan elemen SVG dengan sorotan interaktif (*glow highlight*) pada belalai dan telinga | **Digunakan**: Sepenuhnya orisinal, ramah anak, dan bebas konflik hak cipta |
+| **Ilustrasi Vektor Kelinci (`RabbitSvg.tsx`)** | Dibuat secara orisinal dalam kode proyek (`src/assets/illustrations/RabbitSvg.tsx`) | Pengembang Proyek (Karya Mahasiswa) | CC BY-SA 4.0 / Lisensi Proyek Terbuka Bebas Royalti | Media visual pada Adegan 3 (Tebak Suara), Adegan 4 (Aktivitas Melompat), Adegan 5 (Mencocokkan Kata), dan Adegan 6 (Hewan Favorit) | Didesain khusus dalam format SVG dengan telinga panjang dan postur melompat ramah anak | **Digunakan**: Sepenuhnya orisinal, bebas royalti, dan mendukung konsep stimulasi motorik kasar |
+| **Ilustrasi Vektor Bebek (`DuckSvg.tsx`)** | Dibuat secara orisinal dalam kode proyek (`src/assets/illustrations/DuckSvg.tsx`) | Pengembang Proyek (Karya Mahasiswa) | CC BY-SA 4.0 / Lisensi Proyek Terbuka Bebas Royalti | Media visual pada Adegan 3 (Jawaban Benar Tebak Suara Kwek-kwek) dan Adegan 5 (Pasangkan Kata) | Didesain orisinal dalam kode SVG dengan bentuk paruh pipih khas dan bayangan air riak | **Digunakan**: Menggantikan foto stok tidak berlisensi dengan ilustrasi konsisten dan aman |
+| **Ilustrasi Vektor Burung (`BirdSvg.tsx`)** | Dibuat secara orisinal dalam kode proyek (`src/assets/illustrations/BirdSvg.tsx`) | Pengembang Proyek (Karya Mahasiswa) | CC BY-SA 4.0 / Lisensi Proyek Terbuka Bebas Royalti | Media visual pada Adegan 4 (Mengepakkan Tangan) dan Adegan 6 (Hewan Favorit) | Didesain khusus dalam kode SVG dengan sayap membentang untuk panduan visual gerak fisik anak | **Digunakan**: Mendukung keterhubungan media digital dengan gerakan motorik nyata anak |
+| **Ilustrasi Gerbang & Sahabat Safari (`SafariGateSvg.tsx` & `SafariFriendsSvg.tsx`)** | Dibuat secara orisinal dalam kode proyek (`src/assets/illustrations/`) | Pengembang Proyek (Karya Mahasiswa) | CC BY-SA 4.0 / Lisensi Proyek Terbuka Bebas Royalti | Titik fokus visual layar pembuka (Welcome Screen) dan Adegan 1 (Selamat Datang di Safari) | Didesain khusus dengan perpaduan warna bumi (*earthy warm palette*) yang menenangkan | **Digunakan**: Menghindari kekacauan visual (*visual clutter*) dan memberikan sambutan hangat |
+| **Audio Suara Bebek (`bebek-quack.wav`)** | Sintesis akustik lokal 16-bit PCM (skrip `scripts/generate-audio.js` & Web Audio API) | Pengembang Proyek via Audio Synthesis Algorithm | Domain Publik / Lisensi Proyek Terbuka (Public Domain Equivalent) | Bahan tebak suara interaktif pada Adegan 3 (Tebak Suara Hewan) | Disintesis secara algoritmik dengan modulasi formant vokal nasal (resonansi 850 Hz) menyerupai suara kuak bebek ramah | **Digunakan**: Bebas royalti komersial, tersimpan lokal di `public/audio/`, tidak bergantung pada jaringan eksternal |
+| **Audio Nada Kemenangan (`success-chime.wav`)** | Sintesis akustik lokal 16-bit PCM (skrip `scripts/generate-audio.js` & Web Audio API) | Pengembang Proyek via Harmonic Synthesis | Domain Publik / Lisensi Proyek Terbuka (Public Domain Equivalent) | Umpan balik positif (*positive reinforcement*) saat anak memilih jawaban benar di Adegan 3, 4, 5 | Arpeggio nada C-E-G harmonik hangat (523–1046 Hz) tanpa bunyi bising yang mengejutkan | **Digunakan**: Menjaga ketenangan anak (menghindari suara sirine/buzzer yang menimbulkan kecemasan) |
+| **Audio Terompet Belalai Gajah (`gajah-trumpet.wav`)** | Sintesis harmonik brass akustik lokal (skrip `scripts/generate-audio.js` & Web Audio API) | Pengembang Proyek via Harmonic Synthesis | Domain Publik / Lisensi Proyek Terbuka (Public Domain Equivalent) | Umpan balik suara pengenalan gajah pada Adegan 2 | Gelombang harmonik kuningan lembut dengan frekuensi 360–480 Hz | **Digunakan**: Efek suara edukatif lokal yang dapat diputar secara luring (*offline*) |
+| **Audio Sentuhan Lembut (`gentle-pop.wav`)** | Sintesis frekuensi sinus lokal (skrip `scripts/generate-audio.js` & Web Audio API) | Pengembang Proyek via Sound Synthesis | Domain Publik / Lisensi Proyek Terbuka (Public Domain Equivalent) | Umpan balik taktil saat tombol pilihan disentuh/diklik | Penurunan frekuensi cepat 850 Hz ke 300 Hz lembut menyerupai gelembung | **Digunakan**: Umpan balik interaktif halus tanpa distraksi auditori |
+| **Narasi Suara Guru Bahasa Indonesia** | Sintesis wicara lokal peramban (Web Speech API `SpeechSynthesisUtterance` bahasa Indonesia `id-ID`) | Browser Native Speech Engine (W3C Standard) | W3C Web Standard API / Bebas Royalti | Membacakan teks instruksi dan dialog pengantar bagi anak usia 5–6 tahun yang belum lancar membaca | Dikonfigurasi dengan tempo perlahan (*rate 0.9*) dan intonasi ramah (*pitch 1.1*), dilengkapi teks tertulis | **Digunakan**: Aksesibilitas bagi AUD tahap membaca awal (*early literacy*), hanya bersuara atas klik pengguna |
+
+---
+
+## Prinsip Kepatuhan dan Etika Aset
+
+1. **Kejujuran Asal Usul Aset:**
+   Seluruh gambar visual pada prototipe ini dibuat langsung dalam bentuk grafis vektor SVG terstruktur, bukan mengambil gambar acak dari mesin pencari atau situs tanpa lisensi yang jelas.
+2. **Kemandirian Berkas Lokal (*Local Asset Integrity*):**
+   Seluruh berkas audio tersimpan secara mandiri pada direktori `/public/audio/` dan didukung sintesis *Web Audio API* cadangan (*in-memory fallback*). Tidak ada ketergantungan pada tautan berkas pihak ketiga (*third-party hotlinking*) yang rentan rusak atau disusupi iklan.
+3. **Perlindungan Privasi Anak Usia Dini (*Privacy by Design*):**
+   Aplikasi ini sama sekali tidak menggunakan foto atau rekaman suara anak kandung/anak nyata untuk menjaga privasi anak sesuai konvensi perlindungan anak internasional.
+4. **Pencegahan Beban Auditori (*Auditory Comfort*):**
+   Tidak ada musik latar belakang (*background music*) yang berputar terus-menerus secara otomatis. Suara hanya berbunyi ketika anak atau guru secara sadar menekan tombol audio.

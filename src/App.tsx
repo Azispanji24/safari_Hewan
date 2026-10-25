@@ -1,0 +1,123 @@
+import React, { useState } from 'react';
+import { Header } from './components/Header';
+import { ProgressBar } from './components/ProgressBar';
+import { TeacherGuideModal } from './components/TeacherGuideModal';
+import { WelcomeScreen } from './scenes/WelcomeScreen';
+import { Scene1Welcome } from './scenes/Scene1Welcome';
+import { Scene2Elephant } from './scenes/Scene2Elephant';
+import { Scene3GuessSound } from './scenes/Scene3GuessSound';
+import { Scene4MoveLikeAnimal } from './scenes/Scene4MoveLikeAnimal';
+import { Scene5MatchAnimal } from './scenes/Scene5MatchAnimal';
+import { Scene6FavoriteAnimal } from './scenes/Scene6FavoriteAnimal';
+import { soundEngine } from './utils/soundEngine';
+import { speechNarration } from './utils/speechNarration';
+import type { SceneId } from './types';
+import './App.css';
+
+export const App: React.FC = () => {
+  const [currentScene, setCurrentScene] = useState<SceneId>('welcome');
+  const [isTeacherGuideOpen, setIsTeacherGuideOpen] = useState<boolean>(false);
+
+  const navigateToScene = (nextScene: SceneId) => {
+    // Safely stop any playing sound or speech when switching scenes
+    soundEngine.stopAll();
+    speechNarration.stop();
+    setCurrentScene(nextScene);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleRestart = () => {
+    soundEngine.stopAll();
+    speechNarration.stop();
+    setCurrentScene('welcome');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="app-container">
+      {/* Header bar */}
+      <Header
+        currentScene={currentScene}
+        onOpenTeacherGuide={() => setIsTeacherGuideOpen(true)}
+        onRestart={handleRestart}
+      />
+
+      {/* Progress navigation for the 6 learning scenes */}
+      <ProgressBar
+        currentScene={currentScene}
+        onNavigate={navigateToScene}
+      />
+
+      {/* Main Learning Scene Viewport */}
+      <main id="main-content" className="main-content-area" tabIndex={-1}>
+        {currentScene === 'welcome' && (
+          <WelcomeScreen
+            onStart={() => navigateToScene('scene1')}
+            onOpenTeacherGuide={() => setIsTeacherGuideOpen(true)}
+          />
+        )}
+
+        {currentScene === 'scene1' && (
+          <Scene1Welcome
+            onNext={() => navigateToScene('scene2')}
+            onBack={() => navigateToScene('welcome')}
+          />
+        )}
+
+        {currentScene === 'scene2' && (
+          <Scene2Elephant
+            onNext={() => navigateToScene('scene3')}
+            onBack={() => navigateToScene('scene1')}
+          />
+        )}
+
+        {currentScene === 'scene3' && (
+          <Scene3GuessSound
+            onNext={() => navigateToScene('scene4')}
+            onBack={() => navigateToScene('scene2')}
+          />
+        )}
+
+        {currentScene === 'scene4' && (
+          <Scene4MoveLikeAnimal
+            onNext={() => navigateToScene('scene5')}
+            onBack={() => navigateToScene('scene3')}
+          />
+        )}
+
+        {currentScene === 'scene5' && (
+          <Scene5MatchAnimal
+            onNext={() => navigateToScene('scene6')}
+            onBack={() => navigateToScene('scene4')}
+          />
+        )}
+
+        {currentScene === 'scene6' && (
+          <Scene6FavoriteAnimal
+            onRestart={handleRestart}
+            onBack={() => navigateToScene('scene5')}
+            onOpenTeacherGuide={() => setIsTeacherGuideOpen(true)}
+          />
+        )}
+      </main>
+
+      {/* Accessible Teacher Guide Modal */}
+      <TeacherGuideModal
+        isOpen={isTeacherGuideOpen}
+        onClose={() => setIsTeacherGuideOpen(false)}
+      />
+
+      {/* Accessible Footer */}
+      <footer className="app-footer">
+        <p className="footer-copyright">
+          Safari Hewan: Lihat, Tebak, dan Bergerak • UTS IT untuk AUD PIAUD Semester 5
+        </p>
+        <p className="footer-subtext">
+          Dirancang dengan prinsip pembelajaran anak usia dini ramah layar, bebas iklan, dan berpusat pada interaksi nyata.
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
