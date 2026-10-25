@@ -59,7 +59,10 @@ class SoundEngine {
     this.stopAll();
 
     try {
-      const audio = new Audio(soundPath);
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+      const resolvedPath = soundPath.startsWith('/') ? `${cleanBase}${soundPath}` : soundPath;
+      const audio = new Audio(resolvedPath);
       audio.volume = 0.8;
       this.currentAudioElement = audio;
 
