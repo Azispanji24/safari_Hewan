@@ -49,9 +49,12 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
       setFeedback({
         type: 'correct',
         message: 'Hebat sekali! Pilihanmu tepat! ⭐',
-        submessage: 'Itu adalah suara Bebek: "Kwek... kwek... kwek!" Bebek berenang riang di danau.',
+        submessage: 'Itu adalah suara Bebek: "Kwek... kwek... kwek!" Bebek suka berenang riang di danau.',
       });
-      soundEngine.playSound('/audio/success-chime.wav', { fallbackType: 'chime' });
+      // Play teacher's warm enthusiastic feedback voice
+      soundEngine.playSound('/audio/narration/narration-scene3-correct.mp3', {
+        fallbackType: 'chime',
+      });
     } else {
       setIsAnswerCorrect(false);
       setFeedback({
@@ -85,6 +88,17 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
             <p className="pod-prompt-text">
               Dengarkan suara hewan misterius di bawah ini:
             </p>
+          </div>
+
+          <div className="listening-teacher-instruction">
+            <AudioButton
+              label="Dengarkan Aba-Aba Guru"
+              replayLabel="Ulangi Aba-Aba"
+              sublabel="Suara Ramah Ibu Guru"
+              narrationPath="/audio/narration/narration-scene3-guess-sound.mp3"
+              narrationText="Sekarang waktunya bermain tebak suara! Pasang telingamu dan dengarkan baik-baik ya. Suara hewan apakah ini? Pikirkan dulu, lalu sentuh hewan yang tepat!"
+              variant="secondary"
+            />
           </div>
 
           <div className="listening-button-center">

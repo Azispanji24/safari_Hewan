@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ElephantSvg, RabbitSvg, DuckSvg, BirdSvg } from '../assets/illustrations';
+import { AudioButton } from '../components/AudioButton';
 import { soundEngine } from '../utils/soundEngine';
 import type { AnimalId } from '../types';
 
@@ -73,12 +74,20 @@ export const Scene6FavoriteAnimal: React.FC<Scene6FavoriteAnimalProps> = ({
         <h2 className="scene-story-heading">Pemberhentian Akhir: Hewan Favorit & Refleksi</h2>
       </div>
 
-      {/* Warm Invitation Ribbon */}
+      {/* Warm Invitation Ribbon with Teacher Audio */}
       <div className="sunset-invitation-ribbon">
         <span className="sunset-heart-icon" aria-hidden="true">💖</span>
         <p className="sunset-lead-text">
           Petualangan kita hari ini sangat menyenangkan! Sentuh <strong>hewan yang paling kamu sukai</strong> di bawah ini:
         </p>
+        <AudioButton
+          label="Dengarkan Ucapan Selamat"
+          replayLabel="Dengarkan Lagi"
+          sublabel="Suara Ramah Ibu Guru"
+          narrationPath="/audio/narration/narration-scene6-favorite.mp3"
+          narrationText="Yeay! Kamu sudah menyelesaikan seluruh petualangan safari hari ini dengan sangat hebat! Sekarang, sentuh hewan yang paling kamu sayangi, lalu ceritakan kepada guru atau temanmu ya!"
+          variant="secondary"
+        />
       </div>
 
       {/* 4 Illustrated Animal Companion Cards */}

@@ -3,6 +3,8 @@ import { ElephantSvg } from '../assets/illustrations';
 import { AudioButton } from '../components/AudioButton';
 import { soundEngine } from '../utils/soundEngine';
 
+import { audioController } from '../utils/audioController';
+
 interface Scene2ElephantProps {
   onNext: () => void;
   onBack: () => void;
@@ -13,22 +15,26 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({ onNext, onBack }
   const [observationNote, setObservationNote] = useState<string | null>(null);
 
   const narrationText =
-    'Ini adalah Gajah! Gajah berbadan besar. Coba perhatikan, gajah memiliki belalai yang panjang dan telinga yang sangat lebar.';
+    'Wah, lihat siapa yang datang! Ini adalah gajah. Gajah berbadan besar sekali! Coba perhatikan, gajah memiliki belalai yang panjang dan telinga yang sangat lebar. Ayo, coba sentuh belalai atau telinganya!';
 
   const handlePointTrunk = () => {
     setHighlightPart('trunk');
     setObservationNote(
       '🌟 Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.'
     );
-    soundEngine.synthesizeSound('chime');
+    audioController.playNarration('/audio/narration/narration-scene2-trunk.mp3', {
+      fallbackText: 'Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.',
+    });
   };
 
   const handlePointEars = () => {
     setHighlightPart('ears');
     setObservationNote(
-      '🌟 Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara jauh dan mengipasi tubuhnya agar sejuk.'
+      '🌟 Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.'
     );
-    soundEngine.synthesizeSound('chime');
+    audioController.playNarration('/audio/narration/narration-scene2-ears.mp3', {
+      fallbackText: 'Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.',
+    });
   };
 
   const handleNext = () => {
@@ -111,7 +117,8 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({ onNext, onBack }
             <AudioButton
               label="Dengarkan Cerita Gajah"
               replayLabel="Dengarkan Lagi"
-              sublabel="Suara Narasi"
+              sublabel="Suara Ramah Ibu Guru"
+              narrationPath="/audio/narration/narration-scene2-elephant.mp3"
               narrationText={narrationText}
               variant="secondary"
             />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafariFriendsSvg, SavannahHillsSvg } from '../assets/illustrations';
+import { AudioButton } from '../components/AudioButton';
 import { soundEngine } from '../utils/soundEngine';
 
 interface WelcomeScreenProps {
@@ -59,6 +60,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             <span className="btn-hero-text">Mulai Petualangan!</span>
             <span className="btn-hero-icon" aria-hidden="true">➔</span>
           </button>
+
+          <AudioButton
+            label="Dengarkan Sambutan Guru"
+            replayLabel="Dengarkan Sambutan Lagi"
+            sublabel="Suara Ramah Ibu Guru"
+            narrationPath="/audio/narration/narration-welcome.mp3"
+            narrationText="Yeay, teman-teman! Selamat datang di Safari Hewan! Hari ini kita akan bertemu teman-teman hewan yang seru, mendengarkan suaranya yang unik, dan bergerak gembira bersama. Sudah siap berpetualang? Yuk, kita mulai!"
+            variant="secondary"
+          />
 
           <button
             type="button"

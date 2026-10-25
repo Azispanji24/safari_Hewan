@@ -25,6 +25,7 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
       illustration: React.ReactNode;
       color: string;
       callout: string;
+      narrationPath: string;
     }
   > = {
     kelinci: {
@@ -36,7 +37,8 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
         'Melompat kecil ke depan: Hop! Hop! Hop!',
       ],
       narration:
-        'Ayo anak-anak, kita berdiri! Letakkan tangan di samping kepala seperti telinga kelinci, lalu melompat gembira: Hop! Hop! Hop!',
+        'Ayo berdiri dan tekuk lututmu sedikit! Taruh tangan di atas kepala seperti telinga kelinci yang panjang. Sekarang, melompat kecil ke depan: Hop! Hop! Hop! Wah, lincah sekali!',
+      narrationPath: '/audio/narration/narration-scene4-rabbit.mp3',
       icon: '🐰',
       illustration: <RabbitSvg size="100%" />,
       color: '#D97A53',
@@ -51,7 +53,8 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
         'Langkahkan kaki perlahan: Buuk... buuk... buuk!',
       ],
       narration:
-        'Ayo berjalan seperti gajah besar! Langkahkan kaki perlahan dan ayunkan lenganmu seperti belalai gajah yang gagah.',
+        'Ayo berjalan tegap seperti gajah besar! Buka kakimu selebar bahu, ayunkan tanganmu ke depan seperti belalai, lalu langkahkan kaki perlahan: Buuk... buuk... buuk! Gagah sekali!',
+      narrationPath: '/audio/narration/narration-scene4-elephant.mp3',
       icon: '🐘',
       illustration: <ElephantSvg size="100%" />,
       color: '#5C7D8D',
@@ -66,7 +69,8 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
         'Kepakkan tangan naik dan turun perlahan seperti melayang di langit.',
       ],
       narration:
-        'Ayo rentangkan kedua tanganmu ke samping seperti sayap burung yang indah. Kepakkan perlahan ke atas dan ke bawah!',
+        'Sekarang rentangkan kedua tanganmu lebar-lebar ke samping seperti sayap burung yang cantik. Kepakkan perlahan ke atas dan ke bawah, melayang bebas di langit: Kepak... kepak... kepak! Indah sekali!',
+      narrationPath: '/audio/narration/narration-scene4-bird.mp3',
       icon: '🐦',
       illustration: <BirdSvg size="100%" />,
       color: '#3A9BB7',
@@ -157,6 +161,8 @@ export const Scene4MoveLikeAnimal: React.FC<Scene4MoveLikeAnimalProps> = ({ onNe
             <AudioButton
               label="Dengarkan Aba-Aba Gerakan"
               replayLabel="Ulangi Aba-Aba"
+              sublabel="Suara Ramah Ibu Guru"
+              narrationPath={currentMove.narrationPath}
               narrationText={currentMove.narration}
               variant="secondary"
             />

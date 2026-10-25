@@ -10,8 +10,7 @@ import { Scene4MoveLikeAnimal } from './scenes/Scene4MoveLikeAnimal';
 import { Scene5MatchAnimal } from './scenes/Scene5MatchAnimal';
 import { Scene6FavoriteAnimal } from './scenes/Scene6FavoriteAnimal';
 import { JungleCanopySvg } from './assets/illustrations';
-import { soundEngine } from './utils/soundEngine';
-import { speechNarration } from './utils/speechNarration';
+import { audioController } from './utils/audioController';
 import type { SceneId } from './types';
 import './App.css';
 
@@ -20,16 +19,14 @@ export const App: React.FC = () => {
   const [isTeacherGuideOpen, setIsTeacherGuideOpen] = useState<boolean>(false);
 
   const navigateToScene = (nextScene: SceneId) => {
-    // Safely stop any playing sound or speech when switching scenes
-    soundEngine.stopAll();
-    speechNarration.stop();
+    // Safely stop any playing narration or sound effect, while preserving BGM
+    audioController.stopForeground();
     setCurrentScene(nextScene);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleRestart = () => {
-    soundEngine.stopAll();
-    speechNarration.stop();
+    audioController.stopForeground();
     setCurrentScene('welcome');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

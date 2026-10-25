@@ -49,6 +49,8 @@ export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({ onNext, onBack }) 
             <AudioButton
               label="Dengarkan Guru Membaca"
               replayLabel="Dengarkan Lagi"
+              sublabel="Suara Ramah Ibu Guru"
+              narrationPath="/audio/narration/narration-scene1-gateway.mp3"
               narrationText={narrationText}
               variant="secondary"
             />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ElephantSvg, RabbitSvg, DuckSvg } from '../assets/illustrations';
+import { AudioButton } from '../components/AudioButton';
 import { FeedbackToast } from '../components/FeedbackToast';
 import { soundEngine } from '../utils/soundEngine';
 import type { FeedbackState } from '../types';
@@ -127,12 +128,20 @@ export const Scene5MatchAnimal: React.FC<Scene5MatchAnimalProps> = ({ onNext, on
         <span className="tracker-subhint">Sentuh balok nama yang cocok dengan gambar!</span>
       </div>
 
-      {/* Instruction Ribbon */}
+      {/* Instruction Ribbon with Teacher Audio */}
       <div className="notebook-instruction-ribbon">
         <span className="ribbon-icon" aria-hidden="true">👀</span>
         <p className="instruction-text">
           Perhatikan gambar teman safari di bawah ini, lalu pilih <strong>nama yang tepat</strong>!
         </p>
+        <AudioButton
+          label="Dengarkan Petunjuk"
+          replayLabel="Ulangi Petunjuk"
+          sublabel="Suara Ramah Ibu Guru"
+          narrationPath="/audio/narration/narration-scene5-match.mp3"
+          narrationText="Sekarang buka buku catatan safarimu! Perhatikan gambar hewan di sebelah kiri, lalu sentuh balok nama yang cocok di sebelah kanan. Ayo pasangkan!"
+          variant="secondary"
+        />
       </div>
 
       {/* Field Notebook Double-Page Layout */}

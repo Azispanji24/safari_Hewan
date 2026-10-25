@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef, useId } from 'react';
-import { soundEngine } from '../utils/soundEngine';
-import { speechNarration } from '../utils/speechNarration';
+import React, { useState, useEffect, useId } from 'react';
+import { audioController } from '../utils/audioController';
 
 interface AudioButtonProps {
   label: string;
   sublabel?: string;
   replayLabel?: string;
   soundPath?: string;
+  narrationPath?: string;
   narrationText?: string;
   fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop';
   className?: string;
@@ -21,6 +21,7 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
   sublabel,
   replayLabel,
   soundPath,
+  narrationPath,
   narrationText,
   fallbackType = 'pop',
   className = '',
@@ -32,42 +33,43 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [hasPlayed, setHasPlayed] = useState<boolean>(false);
   const reactId = useId();
-  const buttonId = useRef(`audio-btn-${reactId}`);
+  const buttonId = `audio-btn-${reactId.replace(/:/g, '')}`;
 
   useEffect(() => {
     const handleSoundStart = (e: Event) => {
-      const customEvent = e as CustomEvent<{ buttonId?: string }>;
-      if (customEvent.detail?.buttonId !== buttonId.current) {
+      const customEvent = e as CustomEvent<{ path?: string }>;
+      if (customEvent.detail?.path !== soundPath) {
         setIsPlaying(false);
       }
     };
 
-    const handleSpeechStart = () => {
-      // If this is a sound button, stop playing when speech starts
-      if (soundPath) {
+    const handleNarrationStart = (e: Event) => {
+      const customEvent = e as CustomEvent<{ path?: string }>;
+      if (customEvent.detail?.path !== narrationPath) {
         setIsPlaying(false);
       }
     };
 
-    const handleSoundStop = () => {
+    const handleStop = () => {
       setIsPlaying(false);
     };
 
     window.addEventListener('safari-sound-start', handleSoundStart);
-    window.addEventListener('safari-speech-start', handleSpeechStart);
-    window.addEventListener('safari-sound-stop', handleSoundStop);
+    window.addEventListener('safari-narration-start', handleNarrationStart);
+    window.addEventListener('safari-sound-stop', handleStop);
+    window.addEventListener('safari-narration-stop', handleStop);
 
     return () => {
       window.removeEventListener('safari-sound-start', handleSoundStart);
-      window.removeEventListener('safari-speech-start', handleSpeechStart);
-      window.removeEventListener('safari-sound-stop', handleSoundStop);
+      window.removeEventListener('safari-narration-start', handleNarrationStart);
+      window.removeEventListener('safari-sound-stop', handleStop);
+      window.removeEventListener('safari-narration-stop', handleStop);
     };
-  }, [soundPath]);
+  }, [soundPath, narrationPath]);
 
   const handleClick = async () => {
     if (isPlaying) {
-      soundEngine.stopAll();
-      speechNarration.stop();
+      audioController.stopForeground();
       setIsPlaying(false);
       onPlayEnd?.();
       return;
@@ -78,8 +80,8 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
     onPlayStart?.();
 
     if (soundPath) {
-      // Play local sound file or synthesize
-      await soundEngine.playSound(soundPath, {
+      // Animal sound or tactile sound
+      await audioController.playSound(soundPath, {
         onStart: () => setIsPlaying(true),
         onEnd: () => {
           setIsPlaying(false);
@@ -87,18 +89,18 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
         },
         fallbackType,
       });
-    } else if (narrationText) {
-      // Speak Indonesian text
-      speechNarration.speak(
-        narrationText,
-        () => setIsPlaying(true),
-        () => {
+    } else if (narrationPath || narrationText) {
+      // Natural Indonesian Teacher Narration
+      await audioController.playNarration(narrationPath || '', {
+        fallbackText: narrationText,
+        onStart: () => setIsPlaying(true),
+        onEnd: () => {
           setIsPlaying(false);
           onPlayEnd?.();
-        }
-      );
+        },
+      });
     } else {
-      soundEngine.synthesizeSound(
+      audioController.synthesizeSound(
         fallbackType,
         () => setIsPlaying(true),
         () => {
@@ -118,6 +120,7 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
   return (
     <button
       type="button"
+      id={buttonId}
       onClick={handleClick}
       className={`audio-btn audio-btn-${variant} audio-btn-${size} ${isPlaying ? 'is-playing' : ''} ${hasPlayed ? 'has-played' : ''} ${className}`}
       aria-label={`${currentLabel}${sublabel ? ' - ' + sublabel : ''}. Klik untuk ${isPlaying ? 'menghentikan' : 'mendengarkan'}`}

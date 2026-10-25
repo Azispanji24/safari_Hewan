@@ -136,6 +136,37 @@
   transform: translateY(-1px);
 }
 
+.btn-header-control.btn-music-toggle.is-music-on {
+  background: #E8F5EC;
+  color: var(--color-primary-dark);
+  border-color: #B8DEC3;
+}
+
+.btn-header-control.btn-music-toggle.is-music-off {
+  background: #F4EFE6;
+  color: #7D7364;
+  border-color: #DCD3C3;
+  opacity: 0.85;
+}
+
+.btn-header-control.btn-volume-control {
+  background: #FFFDF8;
+  color: #4A4032;
+  border-color: #E2D7C5;
+}
+
+.btn-header-control.btn-volume-control:hover {
+  background: #FFF5E8;
+  border-color: var(--color-accent-amber);
+  color: #B35808;
+}
+
+.btn-header-control.is-muted {
+  background: #FDE8E8;
+  color: #C62828;
+  border-color: #F8B4B8;
+}
+
 .btn-header-control.btn-teacher-guide {
   background: #EDF7F0;
   color: var(--color-primary-dark);
@@ -1430,7 +1461,9 @@
 .notebook-instruction-ribbon {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
   background: #FFFBF2;
   border: 2px solid #ECDDC5;
   border-radius: 16px;
@@ -1445,6 +1478,7 @@
 .instruction-text {
   font-size: 1.12rem;
   color: #383024;
+  flex: 1 1 260px;
 }
 
 .matching-notebook-desk {
@@ -1651,7 +1685,9 @@
 .sunset-invitation-ribbon {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
   background: #FFFDF8;
   border: 2px solid #E5DACE;
   border-radius: 18px;
@@ -1666,6 +1702,7 @@
 .sunset-lead-text {
   font-size: 1.15rem;
   color: #383024;
+  flex: 1 1 260px;
 }
 
 .favorite-gallery-grid {
