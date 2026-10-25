@@ -66,7 +66,7 @@ Dokumen ini memuat rancangan 6 panel *storyboard* yang merepresentasikan alur pe
   - Umpan balik benar: *"Hebat sekali! Pilihanmu tepat! Itu adalah suara Bebek: 'Kwek... kwek... kwek!' Bebek suka berenang di danau."*
   - Umpan balik salah (suportif): *"Hampir benar! Yuk kita dengarkan lagi suaranya dan coba pilih lagi ya."*
 - **Audio:**
-  - Audio suara bebek asli/sintetis berkualitas tinggi (`/audio/bebek-quack.wav`) diputar secara sadar saat tombol ditekan.
+  - Rekaman suara bebek asli (*Mallard / Anas platyrhynchos* rekaman Jonathon Jongsma, lisensi CC BY-SA 3.0 via Wikimedia Commons/Xeno-canto) berformat MP3/WAV jernih diputar secara sadar saat tombol ditekan.
   - Melodi kemenangan C-E-G saat jawaban benar dipilih.
   - Tidak ada suara bel kasar (*harsh buzzer*) jika anak memilih opsi lain.
 - **Interaksi Anak (Child Interaction):**

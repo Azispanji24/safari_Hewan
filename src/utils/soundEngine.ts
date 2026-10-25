@@ -1,9 +1,10 @@
 /**
  * Sound Engine for Safari Hewan
- * Provides audio playback using local WAV assets with resilient Web Audio API synthesizer fallbacks.
- * Complies with strict early-childhood guidelines: gentle volume, no startling loud noises,
- * user-initiated only, and clear playback state.
+ * Provides audio playback using authentic local recordings (MP3/WAV) with resilient Web Audio API synthesizer fallbacks.
+ * Ensures zero overlap between animal sounds and narrator speech.
  */
+
+import { speechNarration } from './speechNarration';
 
 class SoundEngine {
   private audioContext: AudioContext | null = null;
@@ -26,8 +27,8 @@ class SoundEngine {
 
   public setMuted(muted: boolean) {
     this.isMuted = muted;
-    if (muted && this.currentAudioElement) {
-      this.currentAudioElement.pause();
+    if (muted) {
+      this.stopAll();
     }
   }
 
@@ -41,10 +42,14 @@ class SoundEngine {
       this.currentAudioElement.currentTime = 0;
       this.currentAudioElement = null;
     }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('safari-sound-stop'));
+    }
   }
 
   /**
-   * Play an audio file from public/audio path with fallback to Web Audio synthesis
+   * Play an audio file from public/audio path with fallback to Web Audio synthesis.
+   * Guarantees that any previous audio or speech is immediately stopped to prevent overlapping.
    */
   public async playSound(
     soundPath: string,
@@ -56,14 +61,22 @@ class SoundEngine {
   ): Promise<boolean> {
     if (this.isMuted) return false;
 
+    // Mutually stop any ongoing speech narration and sound effects
+    speechNarration.stop();
     this.stopAll();
+
+    // Broadcast sound start event for UI synchronization
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('safari-sound-start', { detail: { path: soundPath } }));
+    }
 
     try {
       const baseUrl = import.meta.env.BASE_URL || '/';
       const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
       const resolvedPath = soundPath.startsWith('/') ? `${cleanBase}${soundPath}` : soundPath;
+
       const audio = new Audio(resolvedPath);
-      audio.volume = 0.8;
+      audio.volume = 0.8; // Comfortable, consistent volume
       this.currentAudioElement = audio;
 
       audio.onplay = () => {
@@ -78,6 +91,12 @@ class SoundEngine {
       };
 
       audio.onerror = () => {
+        // If MP3 fails, try WAV fallback, or synthesize
+        if (soundPath.endsWith('.mp3')) {
+          const wavPath = soundPath.replace('.mp3', '.wav');
+          this.playSound(wavPath, options);
+          return;
+        }
         // Fallback to Web Audio synthesis
         this.synthesizeSound(options?.fallbackType || 'pop', options?.onStart, options?.onEnd);
       };
@@ -103,12 +122,13 @@ class SoundEngine {
     const ctx = this.getAudioContext();
     if (!ctx) return;
 
+    speechNarration.stop();
     onStart?.();
 
     const now = ctx.currentTime;
 
     if (type === 'quack') {
-      // Duck quack synthesis: bandpass filtered sawtooth with pitch bend
+      // Harmonic formant quack
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       const filter = ctx.createBiquadFilter();
@@ -145,7 +165,7 @@ class SoundEngine {
         osc.frequency.setValueAtTime(freq, noteStart);
 
         gain.gain.setValueAtTime(0.01, noteStart);
-        gain.gain.linearRampToValueAtTime(0.2, noteStart + 0.03);
+        gain.gain.linearRampToValueAtTime(0.18, noteStart + 0.03);
         gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.5);
 
         osc.connect(gain);
@@ -166,7 +186,7 @@ class SoundEngine {
       osc.frequency.linearRampToValueAtTime(380, now + 0.8);
 
       gain.gain.setValueAtTime(0.01, now);
-      gain.gain.linearRampToValueAtTime(0.2, now + 0.2);
+      gain.gain.linearRampToValueAtTime(0.18, now + 0.2);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
 
       osc.connect(gain);
@@ -184,7 +204,7 @@ class SoundEngine {
       osc.frequency.setValueAtTime(650, now);
       osc.frequency.exponentialRampToValueAtTime(250, now + 0.12);
 
-      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.setValueAtTime(0.18, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
       osc.connect(gain);

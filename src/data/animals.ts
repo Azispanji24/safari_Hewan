@@ -33,7 +33,7 @@ export const ANIMALS: Record<string, Animal> = {
     syllables: 'Be - bek',
     soundName: 'Suara Bebek',
     soundText: 'Kwek... kwek... kwek!',
-    audioPath: '/audio/bebek-quack.wav',
+    audioPath: '/audio/bebek-quack.mp3',
     characteristic: 'Bebek memiliki paruh yang pipih, kaki berselaput, dan pandai berenang.',
     movementPrompt: 'Ayo bergoyang jalan lucu seperti bebek!',
     movementAction: 'Taruh tangan di pinggang seperti sayap kecil, lalu jalan bergoyang ke kanan dan ke kiri!',

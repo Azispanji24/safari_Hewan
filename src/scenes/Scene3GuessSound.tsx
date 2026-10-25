@@ -85,8 +85,9 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
         <div className="sound-player-center">
           <AudioButton
             label="Putar Suara Misteri"
-            sublabel="Klik untuk mendengarkan"
-            soundPath="/audio/bebek-quack.wav"
+            replayLabel="Putar Ulang Suara"
+            sublabel="Dengarkan suara hewan asli"
+            soundPath="/audio/bebek-quack.mp3"
             fallbackType="quack"
             size="large"
             variant="primary"
