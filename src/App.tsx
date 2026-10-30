@@ -15,8 +15,30 @@ import type { SceneId, AnimalId } from './types';
 import './App.css';
 
 export const App: React.FC = () => {
-  const [currentScene, setCurrentScene] = useState<SceneId>('welcome');
-  const [selectedAnimal, setSelectedAnimal] = useState<AnimalId>('gajah');
+  const [currentScene, setCurrentScene] = useState<SceneId>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const s = params.get('scene');
+      if (s && ['welcome', 'scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6'].includes(s)) {
+        return s as SceneId;
+      }
+    } catch {
+      // fallback
+    }
+    return 'welcome';
+  });
+  const [selectedAnimal, setSelectedAnimal] = useState<AnimalId>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const a = params.get('animal');
+      if (a && ['gajah', 'kelinci', 'bebek', 'burung'].includes(a)) {
+        return a as AnimalId;
+      }
+    } catch {
+      // fallback
+    }
+    return 'gajah';
+  });
   const [isTeacherGuideOpen, setIsTeacherGuideOpen] = useState<boolean>(false);
 
   const navigateToScene = (nextScene: SceneId) => {
