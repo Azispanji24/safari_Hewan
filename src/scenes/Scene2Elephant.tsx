@@ -1,40 +1,167 @@
 import React, { useState } from 'react';
-import { ElephantSvg } from '../assets/illustrations';
+import { AnimalIllustration } from '../assets/illustrations';
 import { AudioButton } from '../components/AudioButton';
+import { ANIMALS, ANIMAL_LIST } from '../data/animals';
 import { soundEngine } from '../utils/soundEngine';
-
 import { audioController } from '../utils/audioController';
+import type { AnimalId } from '../types';
 
 interface Scene2ElephantProps {
+  selectedAnimal?: AnimalId;
+  onSelectAnimal?: (id: AnimalId) => void;
   onNext: () => void;
   onBack: () => void;
 }
 
-export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({ onNext, onBack }) => {
-  const [highlightPart, setHighlightPart] = useState<'trunk' | 'ears' | null>(null);
+interface ObservationPart {
+  id: 'part1' | 'part2';
+  icon: string;
+  label: string;
+  dialogue: string;
+  ttsText: string;
+  highlightKey: 'trunk' | 'ears' | 'all';
+}
+
+interface AnimalObservationData {
+  part1: ObservationPart;
+  part2: ObservationPart;
+  storyNarration: string;
+  narrationAudioPath?: string;
+  signatureSoundPath: string;
+  signatureSoundLabel: string;
+}
+
+const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
+  gajah: {
+    part1: {
+      id: 'part1',
+      icon: '🐘',
+      label: 'Tunjuk Belalai Panjang',
+      dialogue: '🌟 Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.',
+      ttsText: 'Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.',
+      highlightKey: 'trunk',
+    },
+    part2: {
+      id: 'part2',
+      icon: '👂',
+      label: 'Tunjuk Telinga Lebar',
+      dialogue: '🌟 Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.',
+      ttsText: 'Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.',
+      highlightKey: 'ears',
+    },
+    storyNarration:
+      'Wah, lihat siapa yang datang! Ini adalah gajah. Gajah berbadan besar sekali! Coba perhatikan, gajah memiliki belalai yang panjang dan telinga yang sangat lebar. Ayo, coba sentuh belalai atau telinganya!',
+    narrationAudioPath: '/audio/narration/narration-scene2-elephant.mp3',
+    signatureSoundPath: '/audio/gajah-trumpet.wav',
+    signatureSoundLabel: 'Dengarkan Suara Terompet Belalai',
+  },
+  kelinci: {
+    part1: {
+      id: 'part1',
+      icon: '🐰',
+      label: 'Tunjuk Telinga Panjang',
+      dialogue: '🌟 Pintar sekali! Kelinci memiliki dua telinga panjang yang tegak ke atas untuk mendengar suara langkah kaki dari jauh.',
+      ttsText: 'Pintar sekali! Kelinci memiliki dua telinga panjang yang tegak ke atas untuk mendengar suara langkah kaki dari jauh.',
+      highlightKey: 'ears',
+    },
+    part2: {
+      id: 'part2',
+      icon: '🥕',
+      label: 'Tunjuk Kaki Melompat',
+      dialogue: '🌟 Hebat! Kaki belakang kelinci sangat kuat dan lentur, siap melompat riang: hop, hop, hop!',
+      ttsText: 'Hebat! Kaki belakang kelinci sangat kuat dan lentur, siap melompat riang: hop, hop, hop!',
+      highlightKey: 'all',
+    },
+    storyNarration:
+      'Wah, lihat kelinci mungil yang lincah! Bulunya sangat halus dan suka melompat-lompat gembira. Coba perhatikan telinganya yang panjang dan kakinya yang kuat. Ayo sentuh telinga atau kakinya!',
+    signatureSoundPath: '/audio/gentle-pop.wav',
+    signatureSoundLabel: 'Dengarkan Suara Lompatan Kelinci',
+  },
+  bebek: {
+    part1: {
+      id: 'part1',
+      icon: '🦆',
+      label: 'Tunjuk Paruh Pipih',
+      dialogue: '🌟 Pintar sekali! Paruh bebek bentuknya pipih dan lebar, sangat cocok untuk menyaring makanan di dalam air.',
+      ttsText: 'Pintar sekali! Paruh bebek bentuknya pipih dan lebar, sangat cocok untuk menyaring makanan di dalam air.',
+      highlightKey: 'trunk',
+    },
+    part2: {
+      id: 'part2',
+      icon: '🌊',
+      label: 'Tunjuk Kaki Berselaput',
+      dialogue: '🌟 Hebat! Kaki bebek memiliki selaput renang seperti dayung kecil, membuat bebek pandai berenang kwek-kwek di danau!',
+      ttsText: 'Hebat! Kaki bebek memiliki selaput renang seperti dayung kecil, membuat bebek pandai berenang kwek-kwek di danau!',
+      highlightKey: 'all',
+    },
+    storyNarration:
+      'Kwek kwek kwek! Lihat sahabat bebek yang ramah berenang di air! Bebek punya paruh pipih dan kaki berselaput untuk mendayung. Ayo sentuh paruh atau kakinya!',
+    signatureSoundPath: '/audio/bebek-quack.mp3',
+    signatureSoundLabel: 'Dengarkan Suara Bebek Kwek-Kwek',
+  },
+  burung: {
+    part1: {
+      id: 'part1',
+      icon: '🐦',
+      label: 'Tunjuk Sayap Indah',
+      dialogue: '🌟 Pintar sekali! Burung punya sepasang sayap berbulu indah yang dikepakkan untuk terbang bebas meluncur di langit!',
+      ttsText: 'Pintar sekali! Burung punya sepasang sayap berbulu indah yang dikepakkan untuk terbang bebas meluncur di langit!',
+      highlightKey: 'all',
+    },
+    part2: {
+      id: 'part2',
+      icon: '🎶',
+      label: 'Tunjuk Paruh Merdu',
+      dialogue: '🌟 Hebat! Paruh kecil burung berguna untuk mematuk biji-bijian dan berkicau merdu: cuit cuit cuit!',
+      ttsText: 'Hebat! Paruh kecil burung berguna untuk mematuk biji-bijian dan berkicau merdu: cuit cuit cuit!',
+      highlightKey: 'trunk',
+    },
+    storyNarration:
+      'Cuit cuit cuit! Burung kecil yang cantik sedang bertengger di ranting pohon! Sayapnya bisa dikepakkan untuk terbang tinggi. Ayo sentuh sayap atau paruhnya!',
+    signatureSoundPath: '/audio/burung-chirp.mp3',
+    signatureSoundLabel: 'Dengarkan Kicauan Burung Merdu',
+  },
+};
+
+export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({
+  selectedAnimal = 'gajah',
+  onSelectAnimal,
+  onNext,
+  onBack,
+}) => {
+  const [activePart, setActivePart] = useState<'part1' | 'part2' | null>(null);
   const [observationNote, setObservationNote] = useState<string | null>(null);
+  const [isPlayingSound, setIsPlayingSound] = useState<boolean>(false);
 
-  const narrationText =
-    'Wah, lihat siapa yang datang! Ini adalah gajah. Gajah berbadan besar sekali! Coba perhatikan, gajah memiliki belalai yang panjang dan telinga yang sangat lebar. Ayo, coba sentuh belalai atau telinganya!';
+  const currentAnimal = ANIMALS[selectedAnimal] || ANIMALS.gajah;
+  const currentObs = OBSERVATION_DATA[selectedAnimal] || OBSERVATION_DATA.gajah;
 
-  const handlePointTrunk = () => {
-    setHighlightPart('trunk');
-    setObservationNote(
-      '🌟 Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.'
-    );
-    audioController.playNarration('/audio/narration/narration-scene2-trunk.mp3', {
-      fallbackText: 'Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.',
+  const syllableParts = currentAnimal.syllables.split(/[-—]/).map((s) => s.trim());
+
+  const handlePointPart = (partKey: 'part1' | 'part2') => {
+    const part = currentObs[partKey];
+    setActivePart(partKey);
+    setObservationNote(part.dialogue);
+    soundEngine.synthesizeSound('pop');
+    audioController.playNarration(part.ttsText, {
+      fallbackText: part.ttsText,
     });
   };
 
-  const handlePointEars = () => {
-    setHighlightPart('ears');
-    setObservationNote(
-      '🌟 Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.'
-    );
-    audioController.playNarration('/audio/narration/narration-scene2-ears.mp3', {
-      fallbackText: 'Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.',
+  const handlePlaySignatureSound = () => {
+    setIsPlayingSound(true);
+    soundEngine.playSound(currentAnimal.id, {
+      onEnd: () => setIsPlayingSound(false),
     });
+  };
+
+  const handleSwitchAnimal = (newId: AnimalId) => {
+    setActivePart(null);
+    setObservationNote(null);
+    soundEngine.synthesizeSound('pop');
+    if (onSelectAnimal) {
+      onSelectAnimal(newId);
+    }
   };
 
   const handleNext = () => {
@@ -42,61 +169,112 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({ onNext, onBack }
     onNext();
   };
 
+  const highlightKey = activePart ? currentObs[activePart].highlightKey : null;
+
   return (
     <div className="scene-view scene-character-hero-stage">
       {/* Scene Header */}
       <div className="scene-stage-header">
         <span className="scene-step-tag">Adegan 2 dari 6</span>
-        <h2 className="scene-story-heading">Berkenalan dengan Gajah</h2>
+        <h2 className="scene-story-heading">Berkenalan dengan {currentAnimal.name}</h2>
+      </div>
+
+      {/* Quick Switcher Bar: Allows child/teacher to switch animal right here */}
+      <div className="animal-quick-switcher" role="region" aria-label="Temui sahabat hewan lainnya">
+        <span className="switcher-label">Sentuh untuk temui sahabat lain:</span>
+        <div className="switcher-chips-row" role="tablist">
+          {ANIMAL_LIST.map((animal) => {
+            const isActive = animal.id === currentAnimal.id;
+            return (
+              <button
+                key={animal.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => handleSwitchAnimal(animal.id as AnimalId)}
+                className={`quick-switch-chip ${isActive ? 'is-active' : ''}`}
+                style={{ '--chip-accent': animal.color } as React.CSSProperties}
+              >
+                <span className="chip-emoji">{animal.badge.split(' ')[0]}</span>
+                <span className="chip-name">{animal.name}</span>
+                {isActive && <span className="chip-check" aria-hidden="true">✓</span>}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Main Character Focus Stage */}
       <div className="character-spotlight-arena">
         {/* Animal Name & Syllable Reading Tiles */}
         <div className="character-name-badge-group">
-          <h3 className="character-giant-name">Gajah</h3>
-          <div className="syllable-tiles-row" aria-label="Ejaan suku kata: Ga - jah">
-            <span className="syllable-tile">Ga</span>
-            <span className="syllable-divider">—</span>
-            <span className="syllable-tile">jah</span>
+          <h3 className="character-giant-name">{currentAnimal.name}</h3>
+          <div
+            className="syllable-tiles-row"
+            aria-label={`Ejaan suku kata: ${currentAnimal.syllables}`}
+          >
+            {syllableParts.map((syllable, idx) => (
+              <React.Fragment key={idx}>
+                {idx > 0 && <span className="syllable-divider">—</span>}
+                <span className="syllable-tile">{syllable}</span>
+              </React.Fragment>
+            ))}
           </div>
         </div>
 
-        {/* Large Dominant Elephant Illustration */}
+        {/* Large Dominant Character Illustration */}
         <div className="character-hero-display">
           <div className="character-glow-halo" aria-hidden="true" />
-          <ElephantSvg
+          <AnimalIllustration
+            animalId={currentAnimal.id}
             size="100%"
-            highlightPart={highlightPart}
-            className="character-hero-svg elephant-hero"
+            highlightPart={highlightKey}
+            className={`character-hero-svg ${currentAnimal.id}-hero`}
           />
         </div>
 
         {/* Observation Interaction Station */}
         <div className="interactive-observation-station">
           <p className="observation-lead-prompt">
-            👀 <strong>Ayo Amati:</strong> Coba sentuh bagian tubuh gajah di bawah ini!
+            👀 <strong>Ayo Amati:</strong> Coba sentuh bagian tubuh {currentAnimal.name} di bawah ini!
           </p>
 
           <div className="observation-buttons-row">
             <button
               type="button"
-              onClick={handlePointTrunk}
-              className={`btn-observe-feature ${highlightPart === 'trunk' ? 'is-active' : ''}`}
-              aria-label="Tunjuk belalai gajah yang panjang"
+              onClick={() => handlePointPart('part1')}
+              className={`btn-observe-feature ${activePart === 'part1' ? 'is-active' : ''}`}
+              aria-label={currentObs.part1.label}
             >
-              <span className="feature-icon" aria-hidden="true">🐘</span>
-              <span className="feature-text">Tunjuk Belalai Panjang</span>
+              <span className="feature-icon" aria-hidden="true">{currentObs.part1.icon}</span>
+              <span className="feature-text">{currentObs.part1.label}</span>
             </button>
 
             <button
               type="button"
-              onClick={handlePointEars}
-              className={`btn-observe-feature ${highlightPart === 'ears' ? 'is-active' : ''}`}
-              aria-label="Tunjuk telinga gajah yang lebar"
+              onClick={() => handlePointPart('part2')}
+              className={`btn-observe-feature ${activePart === 'part2' ? 'is-active' : ''}`}
+              aria-label={currentObs.part2.label}
             >
-              <span className="feature-icon" aria-hidden="true">👂</span>
-              <span className="feature-text">Tunjuk Telinga Lebar</span>
+              <span className="feature-icon" aria-hidden="true">{currentObs.part2.icon}</span>
+              <span className="feature-text">{currentObs.part2.label}</span>
+            </button>
+          </div>
+
+          {/* Signature Sound Button */}
+          <div className="animal-signature-sound-row">
+            <button
+              type="button"
+              onClick={handlePlaySignatureSound}
+              className={`btn-animal-sound ${isPlayingSound ? 'is-playing' : ''}`}
+              aria-label={currentObs.signatureSoundLabel}
+            >
+              <span className="sound-disc-icon" aria-hidden="true">
+                {isPlayingSound ? '🔊' : '🎵'}
+              </span>
+              <span className="sound-disc-text">
+                {isPlayingSound ? 'Sedang Bersuara...' : currentObs.signatureSoundLabel}
+              </span>
             </button>
           </div>
 
@@ -111,15 +289,15 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({ onNext, onBack }
         {/* Story Fact Banner & Audio */}
         <div className="character-story-banner">
           <p className="character-fact-text">
-            "Gajah memiliki <strong>belalai yang panjang</strong> dan <strong>telinga yang sangat lebar</strong>."
+            "{currentAnimal.characteristic}"
           </p>
           <div className="character-audio-wrapper">
             <AudioButton
-              label="Dengarkan Cerita Gajah"
+              label={`Dengarkan Cerita ${currentAnimal.name}`}
               replayLabel="Dengarkan Lagi"
               sublabel="Suara Ramah Ibu Guru"
-              narrationPath="/audio/narration/narration-scene2-elephant.mp3"
-              narrationText={narrationText}
+              narrationPath={currentObs.narrationAudioPath}
+              narrationText={currentObs.storyNarration}
               variant="secondary"
             />
           </div>

@@ -111,3 +111,4 @@ Dokumen ini mencatat seluruh tindakan korektif dan penyempurnaan yang telah diim
 Perbaikan terhadap **source code website (Tugas 5)** telah selesai 100%. Namun, ada komponen penugasan akademik yang berada di luar kode program yang harus diselesaikan oleh mahasiswa secara manual:
 1. **Penggabungan File Dokumen PDF Tugas Resmi:**
    Sesuai instruksi soal UTS Bagian E, mahasiswa wajib menyatukan Halaman Identitas, Bagian 1 (Analisis Kasus), Bagian 2 (Redesign Pembelajaran), Bagian 3 (Storyboard), Bagian 4 (Audit Aset TASL), Bagian 5 (Link & Screenshot Prototipe), dan Bagian 6 (Refleksi 5 Soal) ke dalam **1 file PDF** berjudul `UTS_IT-AUD_Nama_NIM.pdf`.
+

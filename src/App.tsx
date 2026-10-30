@@ -11,11 +11,12 @@ import { Scene5MatchAnimal } from './scenes/Scene5MatchAnimal';
 import { Scene6FavoriteAnimal } from './scenes/Scene6FavoriteAnimal';
 import { JungleCanopySvg } from './assets/illustrations';
 import { audioController } from './utils/audioController';
-import type { SceneId } from './types';
+import type { SceneId, AnimalId } from './types';
 import './App.css';
 
 export const App: React.FC = () => {
   const [currentScene, setCurrentScene] = useState<SceneId>('welcome');
+  const [selectedAnimal, setSelectedAnimal] = useState<AnimalId>('gajah');
   const [isTeacherGuideOpen, setIsTeacherGuideOpen] = useState<boolean>(false);
 
   const navigateToScene = (nextScene: SceneId) => {
@@ -28,6 +29,7 @@ export const App: React.FC = () => {
   const handleRestart = () => {
     audioController.stopForeground();
     setCurrentScene('welcome');
+    setSelectedAnimal('gajah');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -48,6 +50,7 @@ export const App: React.FC = () => {
       {/* Progress navigation for the 6 learning scenes */}
       <ProgressBar
         currentScene={currentScene}
+        selectedAnimal={selectedAnimal}
         onNavigate={navigateToScene}
       />
 
@@ -62,6 +65,8 @@ export const App: React.FC = () => {
 
         {currentScene === 'scene1' && (
           <Scene1Welcome
+            selectedAnimal={selectedAnimal}
+            onSelectAnimal={setSelectedAnimal}
             onNext={() => navigateToScene('scene2')}
             onBack={() => navigateToScene('welcome')}
           />
@@ -69,6 +74,8 @@ export const App: React.FC = () => {
 
         {currentScene === 'scene2' && (
           <Scene2Elephant
+            selectedAnimal={selectedAnimal}
+            onSelectAnimal={setSelectedAnimal}
             onNext={() => navigateToScene('scene3')}
             onBack={() => navigateToScene('scene1')}
           />

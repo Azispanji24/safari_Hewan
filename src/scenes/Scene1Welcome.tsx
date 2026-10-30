@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafariGateSvg } from '../assets/illustrations';
 import { AudioButton } from '../components/AudioButton';
-import { ANIMAL_LIST } from '../data/animals';
+import { ANIMALS, ANIMAL_LIST } from '../data/animals';
 import { soundEngine } from '../utils/soundEngine';
 import type { AnimalId } from '../types';
 
 interface Scene1WelcomeProps {
+  selectedAnimal: AnimalId;
+  onSelectAnimal: (id: AnimalId) => void;
   onNext: () => void;
   onBack: () => void;
 }
 
-export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({ onNext, onBack }) => {
-  const [selectedAnimal, setSelectedAnimal] = useState<AnimalId | null>(null);
+export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({
+  selectedAnimal,
+  onSelectAnimal,
+  onNext,
+  onBack,
+}) => {
+  const currentAnimal = ANIMALS[selectedAnimal] || ANIMALS.gajah;
 
   const narrationText =
     'Halo sahabat kecil! Selamat datang di Safari Hewan. Hari ini kita akan menjelajah alam bebas, mendengar suara hewan yang unik, dan bergerak bersama!';
@@ -19,20 +26,20 @@ export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({ onNext, onBack }) 
   const getDiscoveryResponse = (id: AnimalId) => {
     switch (id) {
       case 'gajah':
-        return '🎉 Pilihan hebat! Kebetulan sekali, sahabat pertama yang akan kita temui di padang rumput adalah Gajah besar yang ramah. Yuk, kita mulai!';
+        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat Gajah yang besar, berbelalai panjang, dan ramah!';
       case 'kelinci':
-        return '🎉 Wah, kamu ingin melihat Kelinci ya! Di safari ini kita akan mengunjungi semuanya satu per satu. Pertama-tama, kita mampir menyapa Gajah dulu, yuk!';
+        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat Kelinci yang lucu, berbulu halus, dan lincah!';
       case 'bebek':
-        return '🎉 Wah, kamu suka Bebek! Nanti kita akan mendengar suara kwek-kweknya yang lucu. Sekarang, yuk kita sapa Gajah terlebih dahulu!';
+        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat Bebek yang pandai berenang dan bersuara kwek-kwek!';
       case 'burung':
-        return '🎉 Wah, kamu memilih Burung! Nanti kita akan mendengarkan kicauan merdunya dan belajar terbang. Sekarang, ayo kita mulai petualangan dengan menyapa Gajah!';
+        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat Burung yang bersayap indah dan berkicau merdu!';
       default:
-        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat gajah terlebih dahulu!';
+        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menjelajahi sahabat hewan!';
     }
   };
 
   const handleSelectAnimal = (id: AnimalId) => {
-    setSelectedAnimal(id);
+    onSelectAnimal(id);
     soundEngine.synthesizeSound('pop');
   };
 
@@ -128,9 +135,9 @@ export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({ onNext, onBack }) 
           type="button"
           onClick={handleNext}
           className="btn-story-nav btn-story-next"
-          aria-label="Lanjut ke Adegan 2: Berkenalan dengan Gajah"
+          aria-label={`Lanjut ke Adegan 2: Berkenalan dengan ${currentAnimal.name}`}
         >
-          <span>Lanjut ke Sahabat Gajah</span>
+          <span>Lanjut ke Sahabat {currentAnimal.name}</span>
           <span aria-hidden="true">➔</span>
         </button>
       </div>

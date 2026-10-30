@@ -958,6 +958,113 @@
   animation: popIn 0.3s ease-out;
 }
 
+/* Animal Quick Switcher in Scene 2 */
+.animal-quick-switcher {
+  background: #FDF9F2;
+  border: 2px dashed #E2D3BE;
+  border-radius: 20px;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.switcher-label {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #6D5B46;
+}
+
+.switcher-chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.quick-switch-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.15rem;
+  min-height: 46px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 2px solid #DECBB7;
+  color: #5B4834;
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.quick-switch-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--chip-accent, #E27D18);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.quick-switch-chip.is-active {
+  background: var(--chip-accent, #235B3B);
+  color: #FFFFFF;
+  border-color: transparent;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18), 0 0 0 3px rgba(35, 91, 59, 0.25);
+}
+
+.chip-check {
+  font-size: 0.85rem;
+  font-weight: 900;
+  margin-left: 0.2rem;
+}
+
+/* Animal Signature Sound Button */
+.animal-signature-sound-row {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-animal-sound {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.4rem;
+  min-height: 48px;
+  border-radius: 999px;
+  background: #FFF4E3;
+  border: 2.5px solid #F5C27D;
+  color: #8A4E00;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 0 #E2A755;
+}
+
+.btn-animal-sound:hover {
+  background: #FFE8C7;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #E2A755;
+}
+
+.btn-animal-sound.is-playing {
+  background: #E27D18;
+  color: #FFFFFF;
+  border-color: #B25A03;
+  animation: pulseGlow 1.2s infinite ease-in-out;
+}
+
 .dialogue-star {
   font-size: 1.35rem;
   flex-shrink: 0;
