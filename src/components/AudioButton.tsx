@@ -8,7 +8,7 @@ interface AudioButtonProps {
   soundPath?: string;
   narrationPath?: string;
   narrationText?: string;
-  fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop';
+  fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird';
   className?: string;
   variant?: 'primary' | 'secondary' | 'badge';
   size?: 'normal' | 'large';
@@ -126,18 +126,20 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
       aria-label={`${currentLabel}${sublabel ? ' - ' + sublabel : ''}. Klik untuk ${isPlaying ? 'menghentikan' : 'mendengarkan'}`}
       aria-pressed={isPlaying}
     >
-      <span className="audio-btn-icon" aria-hidden="true">
+      <span className="audio-icon-disc" aria-hidden="true">
         {isPlaying ? (
           <span className="sound-wave-anim">
             <span className="bar bar-1"></span>
             <span className="bar bar-2"></span>
             <span className="bar bar-3"></span>
+            <span className="bar bar-4"></span>
           </span>
         ) : hasPlayed ? (
           <span className="speaker-icon">🔁</span>
         ) : (
           <span className="speaker-icon">🔊</span>
         )}
+        <span className="pulse-halo" aria-hidden="true"></span>
       </span>
       <span className="audio-btn-content">
         <span className="audio-btn-label">{currentLabel}</span>

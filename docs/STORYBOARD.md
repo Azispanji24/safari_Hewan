@@ -22,8 +22,8 @@ Dokumen ini memuat rancangan 6 panel *storyboard* yang merepresentasikan alur pe
   - Tidak ada musik pengiring otomatis yang bising.
 - **Interaksi Anak (Child Interaction):**
   - Anak menekan salah satu lencana hewan yang membuatnya penasaran.
-  - Muncul respons sambutan singkat: *"Wah, pilihan bagus! Ayo kita mulai petualangan melihat sahabat hewan!"*
-  - Anak atau guru menekan tombol navigasi utama: *"Lanjut Berkenalan dengan Gajah ➔"*.
+  - Muncul respons dialog dinamis yang secara spesifik mengakui pilihan anak (misal: *"Wah, kamu memilih Burung! Nanti kita akan mendengarkan kicauannya yang merdu dan belajar terbang. Sekarang, ayo kita mulai petualangan dengan menyapa Gajah!"*).
+  - Anak atau guru menekan tombol navigasi utama: *"Lanjut ke Sahabat Gajah ➔"*.
 - **Tujuan Pembelajaran (Learning Purpose):**
   - Membangun rasa ingin tahu (*curiosity*) dan kesiapan belajar anak.
   - Memberi anak kontrol awal atas pengalaman belajarnya tanpa paksaan.
@@ -57,7 +57,7 @@ Dokumen ini memuat rancangan 6 panel *storyboard* yang merepresentasikan alur pe
 
 - **Adegan (Scene):** Adegan 3 dari 6 (`Scene3GuessSound`)
 - **Visual:**
-  - Tombol pemutar audio misteri berukuran besar di bagian tengah dengan indikator gelombang suara animasi (*soundwave bars*).
+  - Tombol pemutar audio misteri berukuran besar di bagian tengah dengan indikator visualisator gelombang audio 5-bar (*mystery sound visualizer bars*) yang aktif bergerak secara lembut hanya ketika suara hewan benar-benar berbunyi.
   - Teks alternatif suara: *"Kwek... kwek... kwek!"* (memastikan aksesibilitas anak/kondisi hening).
   - Tiga kartu pilihan bergambar besar dan mudah disentuh: **Gajah**, **Bebek**, dan **Kelinci**.
   - Kotak umpan balik (*FeedbackToast*) di bagian bawah.

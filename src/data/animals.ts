@@ -46,7 +46,7 @@ export const ANIMALS: Record<string, Animal> = {
     syllables: 'Bu - rung',
     soundName: 'Kicauan Burung',
     soundText: 'Cuit... cuit... cuit!',
-    audioPath: '/audio/success-chime.wav',
+    audioPath: '/audio/burung-chirp.mp3',
     characteristic: 'Burung memiliki sepasang sayap berbulu indah dan paruh kecil untuk berkicau.',
     movementPrompt: 'Ayo mengepakkan tangan seperti burung yang terbang!',
     movementAction: 'Rentangkan kedua tangan ke samping, lalu kepakkan perlahan ke atas dan ke bawah!',

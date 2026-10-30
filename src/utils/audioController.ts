@@ -29,7 +29,7 @@ class AudioController {
 
   // Session preferences
   private isMasterMuted: boolean = false;
-  private isMusicEnabled: boolean = true;
+  private isMusicEnabled: boolean = false; // BGM is strictly OFF by default (user/teacher opt-in)
   private masterVolume: number = 0.9;
   private baseMusicVolume: number = 0.22; // Comfortable, gentle BGM level
   private duckedMusicVolume: number = 0.04; // 80%+ reduction during speech/sfx
@@ -64,6 +64,8 @@ class AudioController {
       const savedMusic = sessionStorage.getItem('safari_music_enabled');
       if (savedMusic !== null) {
         this.isMusicEnabled = savedMusic === 'true';
+      } else {
+        this.isMusicEnabled = false;
       }
       const savedVol = sessionStorage.getItem('safari_master_volume');
       if (savedVol !== null) {
@@ -117,9 +119,12 @@ class AudioController {
   private setupAutoplayUnlock() {
     const unlock = () => {
       this.hasUserInteracted = true;
-      if (this.isMusicEnabled && !this.isMasterMuted && !this.isMusicPlaying) {
-        this.startBgm();
+      // Resume Web Audio context if suspended
+      if (this.audioContext && this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch(() => {});
       }
+      // NOTE: BGM is NEVER started automatically here!
+      // Music only plays upon explicit click on the Header music button.
       window.removeEventListener('click', unlock);
       window.removeEventListener('keydown', unlock);
       window.removeEventListener('touchstart', unlock);
@@ -427,7 +432,7 @@ class AudioController {
     options?: {
       onStart?: () => void;
       onEnd?: () => void;
-      fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop';
+      fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird';
     }
   ): Promise<boolean> {
     if (this.isMasterMuted) return false;
@@ -502,7 +507,7 @@ class AudioController {
    * Resilient Web Audio synthesizer fallback
    */
   public synthesizeSound(
-    type: 'quack' | 'trumpet' | 'chime' | 'pop',
+    type: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird',
     onStart?: () => void,
     onEnd?: () => void
   ) {
@@ -601,6 +606,40 @@ class AudioController {
         this.notifyState();
         onEnd?.();
       }, 850);
+    } else if (type === 'bird') {
+      // Natural bird chirp (sweet melodic avian frequency sweeps 3100Hz - 4600Hz)
+      const chirps = [
+        { start: 0.0, f1: 3100, f2: 4400, len: 0.12 },
+        { start: 0.16, f1: 3400, f2: 4700, len: 0.14 },
+        { start: 0.36, f1: 3200, f2: 4300, len: 0.18 },
+      ];
+      chirps.forEach(({ start, f1, f2, len }) => {
+        const noteStart = now + start;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f1, noteStart);
+        osc.frequency.exponentialRampToValueAtTime(f2, noteStart + len * 0.55);
+        osc.frequency.exponentialRampToValueAtTime(f1 * 0.95, noteStart + len);
+
+        gain.gain.setValueAtTime(0.001, noteStart);
+        gain.gain.linearRampToValueAtTime(0.18 * this.masterVolume, noteStart + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, noteStart + len);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(noteStart);
+        osc.stop(noteStart + len + 0.02);
+      });
+
+      setTimeout(() => {
+        this.isSfxPlaying = false;
+        this.unduckBgm();
+        this.notifyState();
+        onEnd?.();
+      }, 620);
     } else {
       // Pop
       const osc = ctx.createOscillator();
@@ -676,9 +715,9 @@ export const audioController = new AudioController();
 
 // Backwards-compatibility wrapper for soundEngine
 export const soundEngine = {
-  playSound: (soundPath: string, options?: { onStart?: () => void; onEnd?: () => void; fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop' }) =>
+  playSound: (soundPath: string, options?: { onStart?: () => void; onEnd?: () => void; fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird' }) =>
     audioController.playSound(soundPath, options),
-  synthesizeSound: (type: 'quack' | 'trumpet' | 'chime' | 'pop', onStart?: () => void, onEnd?: () => void) =>
+  synthesizeSound: (type: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird', onStart?: () => void, onEnd?: () => void) =>
     audioController.synthesizeSound(type, onStart, onEnd),
   stopAll: () => audioController.stopForeground(),
   setMuted: (_muted: boolean) => audioController.toggleMasterMute(),

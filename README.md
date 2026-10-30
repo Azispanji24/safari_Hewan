@@ -10,16 +10,17 @@
 **Subjudul:** *"Yuk, kenali hewan, dengarkan suaranya, dan bergerak bersama!"*
 
 **Tujuan Pengembangan:**  
-Website ini dikembangkan sebagai prototipe media pembelajaran digital interaktif berbasis web untuk anak usia dini (5–6 tahun) pada tema **"Hewan di Sekitar Kita"**. 
+Website ini dikembangkan sebagai prototipe media pembelajaran digital interaktif berbasis web untuk anak usia dini (5–6 tahun) pada tema **"Hewan di Sekitar Kita"** (Konsep Integratif AUD: memadukan pengenalan fauna yang akrab di lingkungan sekitar anak seperti bebek, kelinci, dan burung, dengan perluasan wawasan sains satwa saat berkunjung ke kebun binatang atau taman safari untuk sahabat gajah berbelalai panjang). 
 
 Website ini dirancang secara khusus untuk memperbaiki kelemahan skenario video pembelajaran pasif yang umum ditemukan, antara lain:
 1. **Durasi Terlalu Panjang & Tidak Sesuai Rentang Perhatian AUD:** Digantikan dengan alur petualangan interaktif 6 adegan (*self-paced*) berorientasi eksplorasi mandiri dengan batas waktu alami.
 2. **Animasi Berlebihan & Transisi Kilat:** Digantikan dengan tata visual tenang bernuansa alam, tata letak fokus, dan transisi lembut yang menghormati kenyamanan persepsi anak (*prefers-reduced-motion*).
-3. **Musik Latar Belakang Terlalu Keras:** Dihapuskan dari putaran otomatis. Audio hanya bersuara atas tindakan sadar pengguna (*user-initiated playback*), dilengkapi subtitle teks alternatif.
-4. **Ukuran Huruf Terlalu Kecil:** Menggunakan tipografi sans-serif ramah anak (*Fredoka* & *Quicksand*) berukuran besar, pemenggalan suku kata (*Ga — jah*), dan kontras warna tinggi.
-5. **Menonton Pasif:** Anak diajak aktif mengamati, mendengar, menyentuh pilihan, menirukan gerakan fisik motorik kasar, serta bercerita secara lisan.
-6. **Ketidakjelasan Lisensi Aset & Iklan Berbahaya:** Menggunakan ilustrasi orisinal grafis vektor SVG, audio terverifikasi/disintesis secara lokal, 100% bebas iklan, bebas pelacak (*zero trackers*), dan tanpa meminta data pribadi anak (*privacy by design*).
-7. **Ketiadaan Koneksi dengan Dunia Nyata:** Dilengkapi modul panduan guru (*Teacher Guide*) dengan rencana kegiatan tindak lanjut non-digital konkret: *"Kartu Pasangan Hewan"* fisik dan kreasi menggambar di atas kertas.
+3. **Musik Latar Belakang Terlalu Keras & Bising:** Dihapuskan dari putaran otomatis (*no autoplay*). BGM berada dalam status MATI secara default saat website dibuka, dan hanya bersuara jika guru/pengguna secara sadar mengaktifkannya lewat tombol musik di header. Dilengkapi *audio ducking* otomatis yang menurunkan volume musik sebesar 80%+ saat narasi guru berbicara.
+4. **Suara Hewan yang Akurat Secara Biologis:** Menghindari bunyi buatan/bel mainan yang memicu miskonsepsi. Suara bebek menggunakan rekaman lapangan asli (*Mallard* CC BY-SA 3.0) dan suara burung menggunakan rekaman kicauan burung gereja pekarangan asli (*Passer montanus* CC BY-SA 4.0 via Xeno-canto/Wikimedia Commons).
+5. **Ukuran Huruf Terlalu Kecil:** Menggunakan tipografi sans-serif ramah anak (*Fredoka* & *Quicksand*) berukuran besar, pemenggalan suku kata (*Ga — jah*), dan kontras warna tinggi (>7:1 WCAG AAA).
+6. **Menonton Pasif:** Anak diajak aktif mengamati, mendengar, menyentuh pilihan, menirukan gerakan fisik motorik kasar, serta bercerita secara lisan.
+7. **Ketidakjelasan Lisensi Aset & Iklan Berbahaya:** Menggunakan ilustrasi orisinal grafis vektor SVG, audio terverifikasi/disintesis secara lokal, 100% bebas iklan, bebas pelacak (*zero trackers*), dan tanpa meminta data pribadi anak (*privacy by design*).
+8. **Koneksi Nyata ke Ruang Kelas:** Dilengkapi modul panduan guru (*Teacher Guide*) dengan fitur cetak langsung (*Print A4*) lembar *"Kartu Pasangan Hewan"* fisik yang siap digunting dan dimainkan anak di meja kelas.
 
 ---
 
@@ -142,10 +143,12 @@ Anak menggambar hewan yang paling ia sukai pada kertas gambar dengan krayon, kem
 
 ## 9. Lokasi Dokumentasi Tambahan
 
-1. **Audit Lisensi & Asal-Usul Aset:**  
-   Lihat berkas [`docs/ASSET_AUDIT.md`](docs/ASSET_AUDIT.md) untuk tabel lengkap sumber, kreator, lisensi, modifikasi, dan keputusan penggunaan seluruh aset gambar dan audio.
+1. **Audit Lisensi & Asal-Usul Aset (Format TASL):**  
+   Lihat berkas [`docs/ASSET_AUDIT.md`](docs/ASSET_AUDIT.md) untuk tabel lengkap sumber, kreator, lisensi, modifikasi, dan keputusan penggunaan seluruh aset gambar, audio, dan font.
 2. **Dokumentasi 6 Panel Storyboard:**  
    Lihat berkas [`docs/STORYBOARD.md`](docs/STORYBOARD.md) untuk rincian visual, narasi, audio, interaksi anak, dan tujuan pembelajaran pada setiap adegan.
+3. **Catatan Perbaikan Audit & Evaluasi Menyeluruh:**  
+   Lihat berkas [`docs/CHANGELOG_AUDIT_FIXES.md`](docs/CHANGELOG_AUDIT_FIXES.md) untuk dokumentasi lengkap perbaikan bug audio, audit lisensi, UI/UX, dan fitur lembar kerja fisik.
 
 ---
 

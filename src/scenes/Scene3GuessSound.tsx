@@ -13,6 +13,7 @@ interface Scene3GuessSoundProps {
 export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBack }) => {
   const [selectedChoice, setSelectedChoice] = useState<AnimalId | null>(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean>(false);
+  const [isMysterySoundPlaying, setIsMysterySoundPlaying] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<FeedbackState>({
     type: 'idle',
     message: '',
@@ -110,7 +111,29 @@ export const Scene3GuessSound: React.FC<Scene3GuessSoundProps> = ({ onNext, onBa
               fallbackType="quack"
               size="large"
               variant="primary"
+              onPlayStart={() => setIsMysterySoundPlaying(true)}
+              onPlayEnd={() => setIsMysterySoundPlaying(false)}
             />
+          </div>
+
+          {/* Audio Visualizer Indicator: active only when mystery sound is playing */}
+          <div
+            className={`mystery-sound-visualizer ${isMysterySoundPlaying ? 'is-active' : ''}`}
+            role="status"
+            aria-live="polite"
+          >
+            <div className="visualizer-bars" aria-hidden="true">
+              <span className="v-bar v-bar-1" />
+              <span className="v-bar v-bar-2" />
+              <span className="v-bar v-bar-3" />
+              <span className="v-bar v-bar-4" />
+              <span className="v-bar v-bar-5" />
+            </div>
+            <span className="visualizer-caption">
+              {isMysterySoundPlaying
+                ? '🔊 Suara sedang berbunyi... Dengarkan baik-baik ya!'
+                : 'Sentuh tombol hijau di atas untuk memutar suara hewan misterius'}
+            </span>
           </div>
 
           <div className="sound-accessible-caption">

@@ -12,12 +12,12 @@ export const soundEngine = {
     options?: {
       onStart?: () => void;
       onEnd?: () => void;
-      fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop';
+      fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird';
     }
   ) => audioController.playSound(soundPath, options),
 
   synthesizeSound: (
-    type: 'quack' | 'trumpet' | 'chime' | 'pop',
+    type: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird',
     onStart?: () => void,
     onEnd?: () => void
   ) => audioController.synthesizeSound(type, onStart, onEnd),

@@ -14,7 +14,22 @@ export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({ onNext, onBack }) 
   const [selectedAnimal, setSelectedAnimal] = useState<AnimalId | null>(null);
 
   const narrationText =
-    'Halo sahabat kecil! Selamat datang di Safari Hewan. Hari ini kita akan menjelajah, mendengar suara hewan yang lucu, dan bergerak bersama!';
+    'Halo sahabat kecil! Selamat datang di Safari Hewan. Hari ini kita akan menjelajah alam bebas, mendengar suara hewan yang unik, dan bergerak bersama!';
+
+  const getDiscoveryResponse = (id: AnimalId) => {
+    switch (id) {
+      case 'gajah':
+        return '🎉 Pilihan hebat! Kebetulan sekali, sahabat pertama yang akan kita temui di padang rumput adalah Gajah besar yang ramah. Yuk, kita mulai!';
+      case 'kelinci':
+        return '🎉 Wah, kamu ingin melihat Kelinci ya! Di safari ini kita akan mengunjungi semuanya satu per satu. Pertama-tama, kita mampir menyapa Gajah dulu, yuk!';
+      case 'bebek':
+        return '🎉 Wah, kamu suka Bebek! Nanti kita akan mendengar suara kwek-kweknya yang lucu. Sekarang, yuk kita sapa Gajah terlebih dahulu!';
+      case 'burung':
+        return '🎉 Wah, kamu memilih Burung! Nanti kita akan mendengarkan kicauan merdunya dan belajar terbang. Sekarang, ayo kita mulai petualangan dengan menyapa Gajah!';
+      default:
+        return '🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat gajah terlebih dahulu!';
+    }
+  };
 
   const handleSelectAnimal = (id: AnimalId) => {
     setSelectedAnimal(id);
@@ -93,8 +108,8 @@ export const Scene1Welcome: React.FC<Scene1WelcomeProps> = ({ onNext, onBack }) 
         </div>
 
         {selectedAnimal && (
-          <div className="discovery-success-bubble" role="status">
-            <span>🎉 Pilihan hebat! Ayo langkahkan kaki kita menemui sahabat gajah terlebih dahulu!</span>
+          <div className="discovery-success-bubble" role="status" aria-live="polite">
+            <span>{getDiscoveryResponse(selectedAnimal)}</span>
           </div>
         )}
       </div>

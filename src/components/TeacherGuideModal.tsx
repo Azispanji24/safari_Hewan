@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { ElephantSvg, RabbitSvg, DuckSvg, BirdSvg } from '../assets/illustrations';
 
 interface TeacherGuideModalProps {
   isOpen: boolean;
@@ -6,17 +7,67 @@ interface TeacherGuideModalProps {
 }
 
 export const TeacherGuideModal: React.FC<TeacherGuideModalProps> = ({ isOpen, onClose }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
     if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+
+      // Move focus into the modal once opened
+      const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusableElements && focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          onClose();
+          return;
+        }
+
+        // Tab Trap Navigation
+        if (e.key === 'Tab' && modalRef.current) {
+          const focusables = Array.from(
+            modalRef.current.querySelectorAll<HTMLElement>(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            )
+          ).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null);
+
+          if (focusables.length === 0) return;
+
+          const firstElement = focusables[0];
+          const lastElement = focusables[focusables.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === firstElement) {
+              e.preventDefault();
+              lastElement.focus();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              e.preventDefault();
+              firstElement.focus();
+            }
+          }
+        }
+      };
+
       window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+        // Restore focus to button that opened the modal
+        previousFocusRef.current?.focus();
+      };
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
+
+  const handlePrintActivity = () => {
+    window.print();
+  };
 
   if (!isOpen) return null;
 
@@ -28,7 +79,7 @@ export const TeacherGuideModal: React.FC<TeacherGuideModalProps> = ({ isOpen, on
       aria-labelledby="teacher-guide-title"
     >
       <div className="modal-backdrop" onClick={onClose} />
-      <div className="modal-card">
+      <div ref={modalRef} className="modal-card">
         <div className="modal-header">
           <div className="modal-title-wrap">
             <span className="modal-badge-icon" aria-hidden="true">📖</span>
@@ -60,6 +111,9 @@ export const TeacherGuideModal: React.FC<TeacherGuideModalProps> = ({ isOpen, on
             </h3>
             <div className="guide-card">
               <p><strong>Sasaran Usia:</strong> Anak Usia Dini 5–6 Tahun (Kelompok B PAUD / RA).</p>
+              <p className="guide-theme-desc">
+                <strong>Tema Pembelajaran:</strong> <em>"Hewan di Sekitar Kita"</em> (Konsep Integratif AUD: memadukan pengenalan fauna yang hidup di lingkungan terdekat anak seperti bebek, kelinci, dan burung, dengan perluasan wawasan saat berkunjung ke kebun binatang atau taman safari untuk sahabat gajah besar berbelalai panjang).
+              </p>
               <div className="objectives-grid">
                 <div className="objective-item">
                   <span className="obj-tag tag-kognitif">Kognitif</span>
@@ -166,7 +220,7 @@ export const TeacherGuideModal: React.FC<TeacherGuideModalProps> = ({ isOpen, on
                 </p>
                 <div className="activity-steps">
                   <div className="step-box">
-                    <strong>Langkah 1:</strong> Guru membagikan kartu bergambar hewan (gajah, kelinci, bebek, burung) dan kartu nama kata kepada kelompok anak.
+                    <strong>Langkah 1:</strong> Guru membagikan lembar kartu bergambar hewan (gajah, kelinci, bebek, burung) dan kartu nama kata kepada kelompok anak.
                   </div>
                   <div className="step-box">
                     <strong>Langkah 2:</strong> Anak bersama teman sekelompok mencocokkan kartu gambar dengan kartu kata nama hewan.
@@ -174,6 +228,22 @@ export const TeacherGuideModal: React.FC<TeacherGuideModalProps> = ({ isOpen, on
                   <div className="step-box">
                     <strong>Langkah 3:</strong> Saat berhasil memasangkan, anak menyebutkan 1 ciri khas hewan dan memeragakan gerakannya di depan kelas.
                   </div>
+                </div>
+
+                {/* Print Activity Action */}
+                <div className="activity-print-cta">
+                  <button
+                    type="button"
+                    onClick={handlePrintActivity}
+                    className="btn-print-activity"
+                    aria-label="Cetak Lembar Kartu Aktivitas Siswa A4"
+                  >
+                    <span aria-hidden="true">🖨️</span>
+                    <span>Cetak Lembar Kartu Aktivitas Siswa (A4)</span>
+                  </button>
+                  <p className="print-hint-text">
+                    💡 <em>Tips untuk Guru: Pada dialog cetak peramban, Anda dapat langsung mencetak ke printer kertas atau memilih <strong>"Save as PDF"</strong> untuk menyimpan berkas digital lembar aktivitas ini.</em>
+                  </p>
                 </div>
               </div>
 
@@ -226,6 +296,82 @@ export const TeacherGuideModal: React.FC<TeacherGuideModalProps> = ({ isOpen, on
           >
             Tutup dan Kembali ke Safari
           </button>
+        </div>
+      </div>
+
+      {/* Printable A4 Activity Sheet Container (Printer & Eco-Ink Friendly) */}
+      <div className="printable-activity-sheet" aria-hidden="true">
+        <div className="print-header">
+          <div className="print-title-row">
+            <h1 className="print-title">SAFARI HEWAN: LEMBAR AKTIVITAS FISIK SISWA</h1>
+            <span className="print-badge">PAUD / RA • Usia 5–6 Tahun</span>
+          </div>
+          <p className="print-instructions">
+            <strong>Petunjuk Guru & Anak:</strong> Guntinglah kartu bergambar dan kartu kata nama hewan di bawah ini mengikuti garis putus-putus (✂️). Cocokkan gambar hewan dengan namanya, lalu sebutkan ciri khas dan peragakan gerakannya bersama teman di kelas!
+          </p>
+          <div className="print-student-info">
+            <span>Nama Siswa: ..............................................................</span>
+            <span>Kelompok: ..................</span>
+            <span>Tanggal: ......................</span>
+          </div>
+        </div>
+
+        <div className="print-cards-section">
+          <h2 className="print-section-title">BAGIAN 1: KARTU BERGAMBAR HEWAN (Gunting Ikuti Garis Putus-putus)</h2>
+          <div className="print-grid print-images-grid">
+            <div className="print-card image-card">
+              <div className="print-art-box"><ElephantSvg size="100%" /></div>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+              <span className="print-card-num">Gambar 1: Gajah</span>
+            </div>
+            <div className="print-card image-card">
+              <div className="print-art-box"><RabbitSvg size="100%" /></div>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+              <span className="print-card-num">Gambar 2: Kelinci</span>
+            </div>
+            <div className="print-card image-card">
+              <div className="print-art-box"><DuckSvg size="100%" /></div>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+              <span className="print-card-num">Gambar 3: Bebek</span>
+            </div>
+            <div className="print-card image-card">
+              <div className="print-art-box"><BirdSvg size="100%" /></div>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+              <span className="print-card-num">Gambar 4: Burung</span>
+            </div>
+          </div>
+
+          <h2 className="print-section-title">BAGIAN 2: KARTU NAMA & CIRI HEWAN (Pasangkan dengan Kartu Gambar)</h2>
+          <div className="print-grid print-names-grid">
+            <div className="print-card name-card">
+              <span className="print-word">G A J A H</span>
+              <span className="print-syllables">(Ga — jah)</span>
+              <p className="print-hint">Badan besar, belalai panjang & telinga lebar</p>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+            </div>
+            <div className="print-card name-card">
+              <span className="print-word">K E L I N C I</span>
+              <span className="print-syllables">(Ke — lin — ci)</span>
+              <p className="print-hint">Dua telinga panjang, suka melompat lincah</p>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+            </div>
+            <div className="print-card name-card">
+              <span className="print-word">B E B E K</span>
+              <span className="print-syllables">(Be — bek)</span>
+              <p className="print-hint">Paruh pipih, suka berenang & bersuara kwek-kwek</p>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+            </div>
+            <div className="print-card name-card">
+              <span className="print-word">B U R U N G</span>
+              <span className="print-syllables">(Bu — rung)</span>
+              <p className="print-hint">Memiliki sepasang sayap & berkicau cuit-cuit</p>
+              <div className="print-cut-line">✂️ - - - - - - - - - - - - - - - - - - - - -</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="print-footer">
+          <span>Media Edukasi Safari Hewan • UTS IT untuk AUD PIAUD Semester 5 • Rifqi Syamsul Fuadi, S.T., M.Kom.</span>
         </div>
       </div>
     </div>

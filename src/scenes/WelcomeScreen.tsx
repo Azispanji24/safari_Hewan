@@ -36,7 +36,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
           <h1 className="story-title">Safari Hewan</h1>
           <p className="story-subtitle">Lihat, Tebak, dan Bergerak</p>
           <p className="story-tagline">
-            Yuk sahabat kecil, kita berkeliling safari mengenal teman-teman hewan, mendengarkan suaranya, dan melompat gembira bersama!
+            Yuk sahabat kecil, kita berkeliling mengenal berbagai hewan yang hidup di sekitar kehidupan kita, serta hewan menakjubkan yang bisa kita temui saat berkunjung ke kebun binatang atau taman safari!
           </p>
         </div>
 
