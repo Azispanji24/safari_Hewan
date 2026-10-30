@@ -2,6 +2,14 @@
 ## Media Pembelajaran Interaktif Anak Usia Dini (PAUD/RA)
 ### UTS Mata Kuliah IT untuk AUD | Program Studi PIAUD Semester 5
 
+**Pengembang:** Liana Nurfatimah (NIM: 1242100062)  
+**Program Studi:** Pendidikan Islam Anak Usia Dini (PIAUD)  
+**Fakultas:** Tarbiyah dan Keguruan, UIN Sunan Gunung Djati Bandung  
+**Dosen Pengampu:** Rifqi Syamsul Fuadi, S.T., M.Kom.  
+
+🌐 **Website Resmi (Live Demo):** [https://lianaumin24.github.io/safari_Hewan/](https://lianaumin24.github.io/safari_Hewan/)  
+📦 **Repositori GitHub:** [https://github.com/lianaumin24/safari_Hewan](https://github.com/lianaumin24/safari_Hewan)  
+
 ---
 
 ## 1. Judul dan Tujuan Proyek

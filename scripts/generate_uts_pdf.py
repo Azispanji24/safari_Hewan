@@ -15,8 +15,8 @@ def get_base64_image(path):
 
 uin_logo = get_base64_image("public/images/extracted_uin_logo_0.png")
 scene1_img = get_base64_image("public/screenshots/scene1_pilih_hewan.png")
-scene2_gajah_img = get_base64_image("C:/Users/Azis panji Gumilang/.gemini/antigravity/brain/69ad9809-005a-4e09-be90-3a57768f2523/.user_uploaded/media_1793356102124_766e945c.jpg")
-scene2_kelinci_img = get_base64_image("C:/Users/Azis panji Gumilang/.gemini/antigravity/brain/69ad9809-005a-4e09-be90-3a57768f2523/.user_uploaded/media_1793356147459_9f6cc4d7.jpg")
+scene2_gajah_img = get_base64_image("public/screenshots/scene2_gajah.png")
+scene2_kelinci_img = get_base64_image("public/screenshots/scene2_kelinci.png")
 scene3_img = get_base64_image("public/screenshots/scene3_tebak_suara.png")
 scene4_img = get_base64_image("public/screenshots/scene4_tirukan_gerak.png")
 scene5_img = get_base64_image("public/screenshots/scene5_mencocokkan.png")
@@ -532,10 +532,10 @@ html_content = f"""<!DOCTYPE html>
     <tbody>
       <tr>
         <td><strong>Ilustrasi Gajah, Kelinci, Bebek, Burung</strong><br>(Halaman 1, 2, 5, 6)</td>
-        <td>Azis Panji & Liana Nurfatimah</td>
-        <td><a href="https://github.com/azispanji24/safari_Hewan/tree/main/src/assets/illustrations">Tautan Berkas SVG Orisinal Tim Pengembang</a></td>
+        <td>Liana Nurfatimah</td>
+        <td><a href="https://github.com/lianaumin24/safari_Hewan/tree/main/src/assets/illustrations">Tautan Berkas SVG Orisinal Tim Pengembang</a></td>
         <td>CC BY-SA 4.0 (Karya Orisinal Tim Pengembang)</td>
-        <td>Ilustrasi vektor orisinal dibuat manual dalam format SVG oleh tim pengembang Safari Hewan.</td>
+        <td>Ilustrasi vektor orisinal dibuat manual dalam format SVG oleh pengembang Safari Hewan (Liana Nurfatimah).</td>
       </tr>
       <tr>
         <td><strong>Suara Terompet Gajah</strong><br>(Halaman 2, 3)</td>
@@ -546,10 +546,10 @@ html_content = f"""<!DOCTYPE html>
       </tr>
       <tr>
         <td><strong>Suara Lompatan Kelinci</strong><br>(Halaman 2, 3)</td>
-        <td>Tim Pengembang Safari Hewan</td>
-        <td><a href="https://github.com/azispanji24/safari_Hewan/blob/main/public/audio/kelinci-hop.mp3">Berkas Audio Hop Orisinal Proyek</a></td>
+        <td>Liana Nurfatimah (Pengembang Safari Hewan)</td>
+        <td><a href="https://github.com/lianaumin24/safari_Hewan/blob/main/public/audio/kelinci-hop.mp3">Berkas Audio Hop Orisinal Proyek</a></td>
         <td>CC0 1.0 Universal (Karya Orisinal Tim Pengembang)</td>
-        <td>Efek suara lompatan dirancang khusus secara akustik oleh tim pengembang Safari Hewan (CC0).</td>
+        <td>Efek suara lompatan dirancang khusus secara akustik oleh pengembang Safari Hewan (CC0).</td>
       </tr>
       <tr>
         <td><strong>Suara Bebek (Kwek-kwek)</strong><br>(Halaman 2, 3)</td>
@@ -619,9 +619,9 @@ html_content = f"""<!DOCTYPE html>
 
   <p class="no-indent" style="text-align: center; margin: 8pt 0;">
     <strong>Tautan Website Prototype:</strong><br>
-    <a href="https://azispanji24.github.io/safari_Hewan/" style="font-size: 12pt; font-weight: bold;">https://azispanji24.github.io/safari_Hewan/</a><br><br>
+    <a href="https://lianaumin24.github.io/safari_Hewan/" style="font-size: 12pt; font-weight: bold;">https://lianaumin24.github.io/safari_Hewan/</a><br><br>
     <strong>Tautan Repositori Sumber Kode (GitHub):</strong><br>
-    <a href="https://github.com/azispanji24/safari_Hewan" style="font-size: 11pt;">https://github.com/azispanji24/safari_Hewan</a>
+    <a href="https://github.com/lianaumin24/safari_Hewan" style="font-size: 11pt;">https://github.com/lianaumin24/safari_Hewan</a>
   </p>
 
   <p>
@@ -708,7 +708,7 @@ html_content = f"""<!DOCTYPE html>
 
   <p class="no-indent" style="text-align: center; margin: 4pt 0 8pt 0;">
     <strong>Tautan website prototype dan audio narasi:</strong><br>
-    <a href="https://azispanji24.github.io/safari_Hewan/">https://azispanji24.github.io/safari_Hewan/</a>
+    <a href="https://lianaumin24.github.io/safari_Hewan/">https://lianaumin24.github.io/safari_Hewan/</a>
   </p>
 
   <!-- ==================== SECTION 6: REFLEKSI INDIVIDU ==================== -->

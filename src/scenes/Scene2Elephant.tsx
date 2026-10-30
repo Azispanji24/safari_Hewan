@@ -141,8 +141,25 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({
   onNext,
   onBack,
 }) => {
-  const [activePart, setActivePart] = useState<'part1' | 'part2' | null>(null);
-  const [observationNote, setObservationNote] = useState<string | null>(null);
+  const [activePart, setActivePart] = useState<'part1' | 'part2' | null>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const p = params.get('part');
+      if (p === 'part1' || p === 'part2') return p;
+    } catch {}
+    return null;
+  });
+  const [observationNote, setObservationNote] = useState<string | null>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const p = params.get('part');
+      if (p === 'part1' || p === 'part2') {
+        const obs = OBSERVATION_DATA[selectedAnimal] || OBSERVATION_DATA.gajah;
+        return obs[p].dialogue;
+      }
+    } catch {}
+    return null;
+  });
   const [isPlayingSound, setIsPlayingSound] = useState<boolean>(false);
 
   const currentAnimal = ANIMALS[selectedAnimal] || ANIMALS.gajah;

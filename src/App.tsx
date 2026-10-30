@@ -18,8 +18,9 @@ export const App: React.FC = () => {
   const [currentScene, setCurrentScene] = useState<SceneId>(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      const s = params.get('scene');
-      if (s && ['welcome', 'scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5', 'scene-6'].includes(s)) {
+      let s = (params.get('scene') || '').toLowerCase().trim();
+      s = s.replace('-', ''); // normalize 'scene-1' -> 'scene1'
+      if (['welcome', 'scene1', 'scene2', 'scene3', 'scene4', 'scene5', 'scene6'].includes(s)) {
         return s as SceneId;
       }
     } catch {
@@ -30,8 +31,8 @@ export const App: React.FC = () => {
   const [selectedAnimal, setSelectedAnimal] = useState<AnimalId>(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      const a = params.get('animal');
-      if (a && ['gajah', 'kelinci', 'bebek', 'burung'].includes(a)) {
+      const a = (params.get('animal') || '').toLowerCase().trim();
+      if (['gajah', 'kelinci', 'bebek', 'burung'].includes(a)) {
         return a as AnimalId;
       }
     } catch {

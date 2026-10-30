@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist --nojekyll"
   },
-  "homepage": "https://azispanji24.github.io/safari_Hewan/",
+  "homepage": "https://lianaumin24.github.io/safari_Hewan/",
   "dependencies": {
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
