@@ -55,7 +55,7 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
     storyNarration:
       'Wah, lihat siapa yang datang! Ini adalah gajah. Gajah berbadan besar sekali! Coba perhatikan, gajah memiliki belalai yang panjang dan telinga yang sangat lebar. Ayo, coba sentuh belalai atau telinganya!',
     narrationAudioPath: '/audio/narration/narration-scene2-elephant.mp3',
-    signatureSoundPath: '/audio/gajah-trumpet.wav',
+    signatureSoundPath: '/audio/gajah-trumpet.mp3',
     signatureSoundLabel: 'Dengarkan Suara Terompet Belalai',
   },
   kelinci: {

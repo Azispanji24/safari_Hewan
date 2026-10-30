@@ -7,7 +7,7 @@ export const ANIMALS: Record<string, Animal> = {
     syllables: 'Ga - jah',
     soundName: 'Suara Belalai Gajah',
     soundText: 'Pruuuu! (Suara terompet belalai)',
-    audioPath: '/audio/gajah-trumpet.wav',
+    audioPath: '/audio/gajah-trumpet.mp3',
     characteristic: 'Gajah memiliki belalai yang panjang dan telinga yang sangat lebar.',
     movementPrompt: 'Ayo berjalan perlahan dan tegap seperti gajah besar!',
     movementAction: 'Langkahkan kakimu perlahan: buuk... buuk... sambil mengayunkan satu lengan ke depan seperti belalai!',
