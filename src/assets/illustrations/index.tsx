@@ -24,7 +24,7 @@ interface AnimalIllustrationProps {
   animalId: AnimalId;
   className?: string;
   size?: number | string;
-  highlightPart?: 'trunk' | 'ears' | 'all' | null;
+  highlightPart?: 'trunk' | 'ears' | 'legs' | 'feet' | 'wings' | 'beak' | 'all' | null;
 }
 
 export const AnimalIllustration: React.FC<AnimalIllustrationProps> = ({
@@ -35,13 +35,13 @@ export const AnimalIllustration: React.FC<AnimalIllustrationProps> = ({
 }) => {
   switch (animalId) {
     case 'gajah':
-      return <ElephantSvg className={className} size={size} highlightPart={highlightPart} />;
+      return <ElephantSvg className={className} size={size} highlightPart={highlightPart as 'trunk' | 'ears' | 'all' | null} />;
     case 'kelinci':
-      return <RabbitSvg className={className} size={size} />;
+      return <RabbitSvg className={className} size={size} highlightPart={highlightPart as 'ears' | 'legs' | 'feet' | 'all' | null} />;
     case 'bebek':
-      return <DuckSvg className={className} size={size} />;
+      return <DuckSvg className={className} size={size} highlightPart={highlightPart as 'beak' | 'feet' | 'wings' | 'all' | null} />;
     case 'burung':
-      return <BirdSvg className={className} size={size} />;
+      return <BirdSvg className={className} size={size} highlightPart={highlightPart as 'wings' | 'beak' | 'all' | null} />;
     default:
       return null;
   }

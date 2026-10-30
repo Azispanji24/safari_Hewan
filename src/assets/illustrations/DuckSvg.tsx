@@ -2,13 +2,18 @@ import React from 'react';
 
 interface DuckSvgProps {
   className?: string;
+  highlightPart?: 'beak' | 'feet' | 'wings' | 'all' | null;
   size?: number | string;
 }
 
 export const DuckSvg: React.FC<DuckSvgProps> = ({
   className = '',
+  highlightPart = null,
   size = '100%',
 }) => {
+  const isBeakHighlighted = highlightPart === 'beak' || highlightPart === 'all';
+  const isFeetHighlighted = highlightPart === 'feet' || highlightPart === 'all';
+
   return (
     <svg
       viewBox="0 0 320 320"
@@ -40,6 +45,10 @@ export const DuckSvg: React.FC<DuckSvgProps> = ({
           <stop offset="70%" stopColor="#B3E5FC" />
           <stop offset="100%" stopColor="#81D4FA" />
         </radialGradient>
+        <filter id="duckGlowEffect" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
       </defs>
 
       {/* 1. Water pond / meadow ripple base */}
@@ -59,21 +68,24 @@ export const DuckSvg: React.FC<DuckSvgProps> = ({
       <circle cx="270" cy="276" r="2" fill="#81D4FA" opacity="0.8" />
 
       {/* 2. Cute Orange Webbed Feet (Kaki Berselaput Bebek) */}
-      <g className="duck-feet">
+      <g
+        className={`duck-feet ${isFeetHighlighted ? 'highlight-active' : ''}`}
+        filter={isFeetHighlighted ? 'url(#duckGlowEffect)' : undefined}
+      >
         {/* Left/Far foot */}
         <path
           d="M 148 245 L 144 265 L 132 274 L 144 272 L 154 274 L 152 265 Z"
           fill="url(#duckBeakGrad)"
-          stroke="#C85A00"
-          strokeWidth="2.5"
+          stroke={isFeetHighlighted ? '#E27D18' : '#C85A00'}
+          strokeWidth={isFeetHighlighted ? '5.5' : '2.5'}
           strokeLinejoin="round"
         />
         {/* Right/Near foot */}
         <path
           d="M 172 248 L 170 268 L 158 277 L 170 275 L 182 277 L 178 268 Z"
           fill="url(#duckBeakGrad)"
-          stroke="#C85A00"
-          strokeWidth="2.5"
+          stroke={isFeetHighlighted ? '#E27D18' : '#C85A00'}
+          strokeWidth={isFeetHighlighted ? '5.5' : '2.5'}
           strokeLinejoin="round"
         />
       </g>
@@ -178,22 +190,25 @@ export const DuckSvg: React.FC<DuckSvgProps> = ({
       <circle cx="118" cy="142" r="9" fill="#FF8A65" opacity="0.6" />
 
       {/* 10. Classic Flat Duck Beak (Paruh Pipih Bebek) */}
-      <g className="duck-beak">
+      <g
+        className={`duck-beak ${isBeakHighlighted ? 'highlight-active' : ''}`}
+        filter={isBeakHighlighted ? 'url(#duckGlowEffect)' : undefined}
+      >
         {/* Upper & lower bill with friendly curve */}
         <path
           d="M 84 128 
              C 48 126, 36 140, 52 152 
              C 72 164, 88 154, 94 146 Z"
           fill="url(#duckBeakGrad)"
-          stroke="#C85A00"
-          strokeWidth="3"
+          stroke={isBeakHighlighted ? '#E27D18' : '#C85A00'}
+          strokeWidth={isBeakHighlighted ? '5.5' : '3'}
           strokeLinejoin="round"
         />
         {/* Friendly smile divide */}
         <path
           d="M 52 144 Q 72 148 90 142"
-          stroke="#C85A00"
-          strokeWidth="2.2"
+          stroke={isBeakHighlighted ? '#E27D18' : '#C85A00'}
+          strokeWidth={isBeakHighlighted ? '3' : '2.2'}
           fill="none"
           strokeLinecap="round"
         />

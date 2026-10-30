@@ -2,13 +2,18 @@ import React from 'react';
 
 interface BirdSvgProps {
   className?: string;
+  highlightPart?: 'wings' | 'beak' | 'all' | null;
   size?: number | string;
 }
 
 export const BirdSvg: React.FC<BirdSvgProps> = ({
   className = '',
+  highlightPart = null,
   size = '100%',
 }) => {
+  const isWingHighlighted = highlightPart === 'wings' || highlightPart === 'all';
+  const isBeakHighlighted = highlightPart === 'beak' || highlightPart === 'all';
+
   return (
     <svg
       viewBox="0 0 320 320"
@@ -35,6 +40,10 @@ export const BirdSvg: React.FC<BirdSvgProps> = ({
           <stop offset="70%" stopColor="#FF9800" />
           <stop offset="100%" stopColor="#E65100" />
         </radialGradient>
+        <filter id="birdGlowEffect" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
       </defs>
 
       {/* 1. Cloud shadow below */}
@@ -58,60 +67,66 @@ export const BirdSvg: React.FC<BirdSvgProps> = ({
         <line x1="160" y1="236" x2="160" y2="266" stroke="#014B75" strokeWidth="2.5" strokeLinecap="round" />
       </g>
 
-      {/* 3. Left Wing (flapping upwards in flight) */}
-      <g className="bird-wing-left">
-        <path
-          d="M 122 178 
-             C 80 135, 48 116, 26 142 
-             C 16 168, 58 212, 112 206 Z"
-          fill="#039BE5"
-          stroke="#014B75"
-          strokeWidth="3.5"
-          strokeLinejoin="round"
-        />
-        {/* Soft feather divide */}
-        <path
-          d="M 44 152 Q 74 168 102 194"
-          stroke="#014B75"
-          strokeWidth="2.5"
-          fill="none"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 62 174 Q 86 186 104 200"
-          stroke="#014B75"
-          strokeWidth="2.5"
-          fill="none"
-          strokeLinecap="round"
-        />
-      </g>
+      {/* 3 & 4. Wings (flapping upwards in flight) */}
+      <g
+        className={`bird-wings-group ${isWingHighlighted ? 'highlight-active' : ''}`}
+        filter={isWingHighlighted ? 'url(#birdGlowEffect)' : undefined}
+      >
+        {/* Left Wing */}
+        <g className="bird-wing-left">
+          <path
+            d="M 122 178 
+               C 80 135, 48 116, 26 142 
+               C 16 168, 58 212, 112 206 Z"
+            fill="#039BE5"
+            stroke={isWingHighlighted ? '#E27D18' : '#014B75'}
+            strokeWidth={isWingHighlighted ? '5.5' : '3.5'}
+            strokeLinejoin="round"
+          />
+          {/* Soft feather divide */}
+          <path
+            d="M 44 152 Q 74 168 102 194"
+            stroke={isWingHighlighted ? '#E27D18' : '#014B75'}
+            strokeWidth={isWingHighlighted ? '3.5' : '2.5'}
+            fill="none"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 62 174 Q 86 186 104 200"
+            stroke={isWingHighlighted ? '#E27D18' : '#014B75'}
+            strokeWidth={isWingHighlighted ? '3.5' : '2.5'}
+            fill="none"
+            strokeLinecap="round"
+          />
+        </g>
 
-      {/* 4. Right Wing (flapping upwards in flight) */}
-      <g className="bird-wing-right">
-        <path
-          d="M 198 178 
-             C 240 135, 272 116, 294 142 
-             C 304 168, 262 212, 208 206 Z"
-          fill="#039BE5"
-          stroke="#014B75"
-          strokeWidth="3.5"
-          strokeLinejoin="round"
-        />
-        {/* Soft feather divide */}
-        <path
-          d="M 276 152 Q 246 168 218 194"
-          stroke="#014B75"
-          strokeWidth="2.5"
-          fill="none"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 258 174 Q 234 186 216 200"
-          stroke="#014B75"
-          strokeWidth="2.5"
-          fill="none"
-          strokeLinecap="round"
-        />
+        {/* Right Wing */}
+        <g className="bird-wing-right">
+          <path
+            d="M 198 178 
+               C 240 135, 272 116, 294 142 
+               C 304 168, 262 212, 208 206 Z"
+            fill="#039BE5"
+            stroke={isWingHighlighted ? '#E27D18' : '#014B75'}
+            strokeWidth={isWingHighlighted ? '5.5' : '3.5'}
+            strokeLinejoin="round"
+          />
+          {/* Soft feather divide */}
+          <path
+            d="M 276 152 Q 246 168 218 194"
+            stroke={isWingHighlighted ? '#E27D18' : '#014B75'}
+            strokeWidth={isWingHighlighted ? '3.5' : '2.5'}
+            fill="none"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 258 174 Q 234 186 216 200"
+            stroke={isWingHighlighted ? '#E27D18' : '#014B75'}
+            strokeWidth={isWingHighlighted ? '3.5' : '2.5'}
+            fill="none"
+            strokeLinecap="round"
+          />
+        </g>
       </g>
 
       {/* 5. Plump Bird Body */}
@@ -182,13 +197,16 @@ export const BirdSvg: React.FC<BirdSvgProps> = ({
       <circle cx="188" cy="128" r="7" fill="#FF8A80" opacity="0.65" />
 
       {/* 11. Friendly Little Conical Beak */}
-      <g className="bird-beak">
+      <g
+        className={`bird-beak ${isBeakHighlighted ? 'highlight-active' : ''}`}
+        filter={isBeakHighlighted ? 'url(#birdGlowEffect)' : undefined}
+      >
         {/* Upper mandible */}
         <path
           d="M 150 120 Q 160 114 170 120 L 160 134 Z"
           fill="url(#birdBeakGrad)"
-          stroke="#C85A00"
-          strokeWidth="2"
+          stroke={isBeakHighlighted ? '#E27D18' : '#C85A00'}
+          strokeWidth={isBeakHighlighted ? '4.5' : '2'}
           strokeLinejoin="round"
         />
         {/* Beak smile divide */}

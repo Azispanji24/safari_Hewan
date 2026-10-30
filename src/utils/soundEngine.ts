@@ -5,6 +5,7 @@
  */
 
 import { audioController } from './audioController';
+import { ANIMALS } from '../data/animals';
 
 export const soundEngine = {
   playSound: (
@@ -14,7 +15,10 @@ export const soundEngine = {
       onEnd?: () => void;
       fallbackType?: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird';
     }
-  ) => audioController.playSound(soundPath, options),
+  ) => {
+    const resolvedPath = ANIMALS[soundPath]?.audioPath || soundPath;
+    return audioController.playSound(resolvedPath, options);
+  },
 
   synthesizeSound: (
     type: 'quack' | 'trumpet' | 'chime' | 'pop' | 'bird',

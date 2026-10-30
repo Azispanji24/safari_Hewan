@@ -19,7 +19,8 @@ interface ObservationPart {
   label: string;
   dialogue: string;
   ttsText: string;
-  highlightKey: 'trunk' | 'ears' | 'all';
+  audioPath?: string;
+  highlightKey: 'trunk' | 'ears' | 'legs' | 'feet' | 'wings' | 'beak' | 'all';
 }
 
 interface AnimalObservationData {
@@ -39,6 +40,7 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Belalai Panjang',
       dialogue: '🌟 Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.',
       ttsText: 'Pintar sekali! Itu belalai gajah yang panjang. Gajah menggunakan belalainya untuk minum air dan mengambil makanan.',
+      audioPath: '/audio/narration/narration-scene2-trunk.mp3',
       highlightKey: 'trunk',
     },
     part2: {
@@ -47,6 +49,7 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Telinga Lebar',
       dialogue: '🌟 Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.',
       ttsText: 'Hebat! Itu telinga gajah yang lebar. Telinganya berguna untuk mendengar suara dari jauh dan mengipasi tubuhnya agar tetap sejuk.',
+      audioPath: '/audio/narration/narration-scene2-ears.mp3',
       highlightKey: 'ears',
     },
     storyNarration:
@@ -62,6 +65,7 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Telinga Panjang',
       dialogue: '🌟 Pintar sekali! Kelinci memiliki dua telinga panjang yang tegak ke atas untuk mendengar suara langkah kaki dari jauh.',
       ttsText: 'Pintar sekali! Kelinci memiliki dua telinga panjang yang tegak ke atas untuk mendengar suara langkah kaki dari jauh.',
+      audioPath: '/audio/narration/narration-scene2-rabbit-ears.mp3',
       highlightKey: 'ears',
     },
     part2: {
@@ -70,11 +74,13 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Kaki Melompat',
       dialogue: '🌟 Hebat! Kaki belakang kelinci sangat kuat dan lentur, siap melompat riang: hop, hop, hop!',
       ttsText: 'Hebat! Kaki belakang kelinci sangat kuat dan lentur, siap melompat riang: hop, hop, hop!',
-      highlightKey: 'all',
+      audioPath: '/audio/narration/narration-scene2-rabbit-legs.mp3',
+      highlightKey: 'legs',
     },
     storyNarration:
       'Wah, lihat kelinci mungil yang lincah! Bulunya sangat halus dan suka melompat-lompat gembira. Coba perhatikan telinganya yang panjang dan kakinya yang kuat. Ayo sentuh telinga atau kakinya!',
-    signatureSoundPath: '/audio/gentle-pop.wav',
+    narrationAudioPath: '/audio/narration/narration-scene2-rabbit.mp3',
+    signatureSoundPath: '/audio/kelinci-hop.mp3',
     signatureSoundLabel: 'Dengarkan Suara Lompatan Kelinci',
   },
   bebek: {
@@ -84,7 +90,8 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Paruh Pipih',
       dialogue: '🌟 Pintar sekali! Paruh bebek bentuknya pipih dan lebar, sangat cocok untuk menyaring makanan di dalam air.',
       ttsText: 'Pintar sekali! Paruh bebek bentuknya pipih dan lebar, sangat cocok untuk menyaring makanan di dalam air.',
-      highlightKey: 'trunk',
+      audioPath: '/audio/narration/narration-scene2-duck-beak.mp3',
+      highlightKey: 'beak',
     },
     part2: {
       id: 'part2',
@@ -92,10 +99,12 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Kaki Berselaput',
       dialogue: '🌟 Hebat! Kaki bebek memiliki selaput renang seperti dayung kecil, membuat bebek pandai berenang kwek-kwek di danau!',
       ttsText: 'Hebat! Kaki bebek memiliki selaput renang seperti dayung kecil, membuat bebek pandai berenang kwek-kwek di danau!',
-      highlightKey: 'all',
+      audioPath: '/audio/narration/narration-scene2-duck-feet.mp3',
+      highlightKey: 'feet',
     },
     storyNarration:
       'Kwek kwek kwek! Lihat sahabat bebek yang ramah berenang di air! Bebek punya paruh pipih dan kaki berselaput untuk mendayung. Ayo sentuh paruh atau kakinya!',
+    narrationAudioPath: '/audio/narration/narration-scene2-duck.mp3',
     signatureSoundPath: '/audio/bebek-quack.mp3',
     signatureSoundLabel: 'Dengarkan Suara Bebek Kwek-Kwek',
   },
@@ -106,7 +115,8 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Sayap Indah',
       dialogue: '🌟 Pintar sekali! Burung punya sepasang sayap berbulu indah yang dikepakkan untuk terbang bebas meluncur di langit!',
       ttsText: 'Pintar sekali! Burung punya sepasang sayap berbulu indah yang dikepakkan untuk terbang bebas meluncur di langit!',
-      highlightKey: 'all',
+      audioPath: '/audio/narration/narration-scene2-bird-wings.mp3',
+      highlightKey: 'wings',
     },
     part2: {
       id: 'part2',
@@ -114,10 +124,12 @@ const OBSERVATION_DATA: Record<AnimalId, AnimalObservationData> = {
       label: 'Tunjuk Paruh Merdu',
       dialogue: '🌟 Hebat! Paruh kecil burung berguna untuk mematuk biji-bijian dan berkicau merdu: cuit cuit cuit!',
       ttsText: 'Hebat! Paruh kecil burung berguna untuk mematuk biji-bijian dan berkicau merdu: cuit cuit cuit!',
-      highlightKey: 'trunk',
+      audioPath: '/audio/narration/narration-scene2-bird-beak.mp3',
+      highlightKey: 'beak',
     },
     storyNarration:
       'Cuit cuit cuit! Burung kecil yang cantik sedang bertengger di ranting pohon! Sayapnya bisa dikepakkan untuk terbang tinggi. Ayo sentuh sayap atau paruhnya!',
+    narrationAudioPath: '/audio/narration/narration-scene2-bird.mp3',
     signatureSoundPath: '/audio/burung-chirp.mp3',
     signatureSoundLabel: 'Dengarkan Kicauan Burung Merdu',
   },
@@ -143,14 +155,14 @@ export const Scene2Elephant: React.FC<Scene2ElephantProps> = ({
     setActivePart(partKey);
     setObservationNote(part.dialogue);
     soundEngine.synthesizeSound('pop');
-    audioController.playNarration(part.ttsText, {
+    audioController.playNarration(part.audioPath || part.ttsText, {
       fallbackText: part.ttsText,
     });
   };
 
   const handlePlaySignatureSound = () => {
     setIsPlayingSound(true);
-    soundEngine.playSound(currentAnimal.id, {
+    soundEngine.playSound(currentObs.signatureSoundPath, {
       onEnd: () => setIsPlayingSound(false),
     });
   };

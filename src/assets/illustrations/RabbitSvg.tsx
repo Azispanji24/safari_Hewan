@@ -2,13 +2,18 @@ import React from 'react';
 
 interface RabbitSvgProps {
   className?: string;
+  highlightPart?: 'ears' | 'legs' | 'feet' | 'all' | null;
   size?: number | string;
 }
 
 export const RabbitSvg: React.FC<RabbitSvgProps> = ({
   className = '',
+  highlightPart = null,
   size = '100%',
 }) => {
+  const isEarHighlighted = highlightPart === 'ears' || highlightPart === 'all';
+  const isLegHighlighted = highlightPart === 'legs' || highlightPart === 'feet' || highlightPart === 'all';
+
   return (
     <svg
       viewBox="0 0 320 320"
@@ -30,6 +35,10 @@ export const RabbitSvg: React.FC<RabbitSvgProps> = ({
           <stop offset="70%" stopColor="#FFA6B9" />
           <stop offset="100%" stopColor="#F77292" />
         </radialGradient>
+        <filter id="rabGlowEffect" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
       </defs>
 
       {/* 1. Ground shadow / grass meadow base */}
@@ -63,29 +72,34 @@ export const RabbitSvg: React.FC<RabbitSvgProps> = ({
       </g>
 
       {/* 3. Back Paws (large, rounded hopping feet) */}
-      <ellipse
-        cx="115"
-        cy="274"
-        rx="38"
-        ry="18"
-        fill="url(#rabBodyGrad)"
-        stroke="#7D5A40"
-        strokeWidth="3.5"
-      />
-      <ellipse
-        cx="195"
-        cy="274"
-        rx="38"
-        ry="18"
-        fill="url(#rabBodyGrad)"
-        stroke="#7D5A40"
-        strokeWidth="3.5"
-      />
-      {/* Back Paw toe divides */}
-      <line x1="102" y1="272" x2="102" y2="284" stroke="#7D5A40" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="114" y1="272" x2="114" y2="285" stroke="#7D5A40" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="196" y1="272" x2="196" y2="285" stroke="#7D5A40" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="208" y1="272" x2="208" y2="284" stroke="#7D5A40" strokeWidth="2.5" strokeLinecap="round" />
+      <g
+        className={`rabbit-feet-group ${isLegHighlighted ? 'highlight-active' : ''}`}
+        filter={isLegHighlighted ? 'url(#rabGlowEffect)' : undefined}
+      >
+        <ellipse
+          cx="115"
+          cy="274"
+          rx="38"
+          ry="18"
+          fill="url(#rabBodyGrad)"
+          stroke={isLegHighlighted ? '#E27D18' : '#7D5A40'}
+          strokeWidth={isLegHighlighted ? '5.5' : '3.5'}
+        />
+        <ellipse
+          cx="195"
+          cy="274"
+          rx="38"
+          ry="18"
+          fill="url(#rabBodyGrad)"
+          stroke={isLegHighlighted ? '#E27D18' : '#7D5A40'}
+          strokeWidth={isLegHighlighted ? '5.5' : '3.5'}
+        />
+        {/* Back Paw toe divides */}
+        <line x1="102" y1="272" x2="102" y2="284" stroke={isLegHighlighted ? '#E27D18' : '#7D5A40'} strokeWidth={isLegHighlighted ? '3.5' : '2.5'} strokeLinecap="round" />
+        <line x1="114" y1="272" x2="114" y2="285" stroke={isLegHighlighted ? '#E27D18' : '#7D5A40'} strokeWidth={isLegHighlighted ? '3.5' : '2.5'} strokeLinecap="round" />
+        <line x1="196" y1="272" x2="196" y2="285" stroke={isLegHighlighted ? '#E27D18' : '#7D5A40'} strokeWidth={isLegHighlighted ? '3.5' : '2.5'} strokeLinecap="round" />
+        <line x1="208" y1="272" x2="208" y2="284" stroke={isLegHighlighted ? '#E27D18' : '#7D5A40'} strokeWidth={isLegHighlighted ? '3.5' : '2.5'} strokeLinecap="round" />
+      </g>
 
       {/* 4. Body (plump, cuddly rabbit body) */}
       <ellipse
@@ -126,43 +140,48 @@ export const RabbitSvg: React.FC<RabbitSvgProps> = ({
       <line x1="174" y1="226" x2="176" y2="232" stroke="#7D5A40" strokeWidth="2" strokeLinecap="round" />
 
       {/* 6. Long Expressive Ears */}
-      {/* Left Ear */}
-      <g transform="rotate(-8 122 110)">
-        <path
-          d="M 112 110 
-             C 92 60, 92 10, 116 8 
-             C 140 6, 144 60, 134 110 Z"
-          fill="url(#rabBodyGrad)"
-          stroke="#7D5A40"
-          strokeWidth="3.5"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M 118 96 
-             C 106 60, 106 24, 118 20 
-             C 130 18, 132 60, 126 96 Z"
-          fill="url(#rabEarPink)"
-          opacity="0.9"
-        />
-      </g>
-      {/* Right Ear */}
-      <g transform="rotate(10 188 110)">
-        <path
-          d="M 176 110 
-             C 166 60, 170 10, 194 12 
-             C 218 14, 208 60, 194 110 Z"
-          fill="url(#rabBodyGrad)"
-          stroke="#7D5A40"
-          strokeWidth="3.5"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M 184 96 
-             C 176 60, 178 26, 190 28 
-             C 202 30, 196 60, 188 96 Z"
-          fill="url(#rabEarPink)"
-          opacity="0.9"
-        />
+      <g
+        className={`rabbit-ears-group ${isEarHighlighted ? 'highlight-active' : ''}`}
+        filter={isEarHighlighted ? 'url(#rabGlowEffect)' : undefined}
+      >
+        {/* Left Ear */}
+        <g transform="rotate(-8 122 110)">
+          <path
+            d="M 112 110 
+               C 92 60, 92 10, 116 8 
+               C 140 6, 144 60, 134 110 Z"
+            fill="url(#rabBodyGrad)"
+            stroke={isEarHighlighted ? '#E27D18' : '#7D5A40'}
+            strokeWidth={isEarHighlighted ? '5.5' : '3.5'}
+            strokeLinejoin="round"
+          />
+          <path
+            d="M 118 96 
+               C 106 60, 106 24, 118 20 
+               C 130 18, 132 60, 126 96 Z"
+            fill="url(#rabEarPink)"
+            opacity="0.9"
+          />
+        </g>
+        {/* Right Ear */}
+        <g transform="rotate(10 188 110)">
+          <path
+            d="M 176 110 
+               C 166 60, 170 10, 194 12 
+               C 218 14, 208 60, 194 110 Z"
+            fill="url(#rabBodyGrad)"
+            stroke={isEarHighlighted ? '#E27D18' : '#7D5A40'}
+            strokeWidth={isEarHighlighted ? '5.5' : '3.5'}
+            strokeLinejoin="round"
+          />
+          <path
+            d="M 184 96 
+               C 176 60, 178 26, 190 28 
+               C 202 30, 196 60, 188 96 Z"
+            fill="url(#rabEarPink)"
+            opacity="0.9"
+          />
+        </g>
       </g>
 
       {/* 7. Head */}

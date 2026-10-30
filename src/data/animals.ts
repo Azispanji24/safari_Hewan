@@ -20,7 +20,7 @@ export const ANIMALS: Record<string, Animal> = {
     syllables: 'Ke - lin - ci',
     soundName: 'Lompatan Kelinci',
     soundText: 'Hop! Hop! Hop!',
-    audioPath: '/audio/gentle-pop.wav',
+    audioPath: '/audio/kelinci-hop.mp3',
     characteristic: 'Kelinci memiliki dua telinga yang panjang, bulu halus, dan suka makan wortel.',
     movementPrompt: 'Ayo melompat gembira seperti kelinci lincah!',
     movementAction: 'Taruh kedua tangan di atas kepala seperti telinga kelinci, lalu melompat kecil: hop! hop! hop!',

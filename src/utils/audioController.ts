@@ -317,9 +317,33 @@ class AudioController {
       window.dispatchEvent(new CustomEvent('safari-narration-start', { detail: { path: narrationPath } }));
     }
 
+    const isAudioPath =
+      narrationPath.endsWith('.mp3') ||
+      narrationPath.endsWith('.wav') ||
+      narrationPath.endsWith('.ogg') ||
+      narrationPath.startsWith('/') ||
+      narrationPath.startsWith('./') ||
+      narrationPath.startsWith('http');
+
+    if (!isAudioPath) {
+      this.fallbackSpeechSynthesis(narrationPath || options?.fallbackText, options?.onStart, options?.onEnd);
+      return true;
+    }
+
+    let hasFallbackTriggered = false;
+    const triggerFallback = () => {
+      if (hasFallbackTriggered) return;
+      hasFallbackTriggered = true;
+      if (this.narrationAudio) {
+        this.narrationAudio = null;
+      }
+      this.fallbackSpeechSynthesis(options?.fallbackText, options?.onStart, options?.onEnd);
+    };
+
     try {
       const resolved = this.getResolvedPath(narrationPath);
       const audio = new Audio(resolved);
+      audio.loop = false;
       audio.volume = Math.min(1.0, 1.0 * this.masterVolume);
       this.narrationAudio = audio;
 
@@ -341,14 +365,13 @@ class AudioController {
       };
 
       audio.onerror = () => {
-        // Fallback to speech synthesis if local audio file fails
-        this.fallbackSpeechSynthesis(options?.fallbackText, options?.onStart, options?.onEnd);
+        triggerFallback();
       };
 
       await audio.play();
       return true;
     } catch {
-      this.fallbackSpeechSynthesis(options?.fallbackText, options?.onStart, options?.onEnd);
+      triggerFallback();
       return false;
     }
   }
@@ -394,6 +417,7 @@ class AudioController {
 
       if (idVoice) utterance.voice = idVoice;
 
+      window.speechSynthesis.cancel();
       utterance.onstart = () => {
         this.isNarrationPlaying = true;
         this.duckBgm();

@@ -703,6 +703,15 @@ html_content = f"""<!DOCTYPE html>
         <td><span class="badge badge-success">PAKAI (LEGAL)</span></td>
       </tr>
       <tr>
+        <td><strong>Suara Lompatan Kelinci</strong></td>
+        <td>Lompatan Riang Kelinci</td>
+        <td>Tim Pengembang Safari Hewan</td>
+        <td>Sintesis Akustik Python</td>
+        <td>Creative Commons Zero (CC0 1.0) / Hak Penuh Mahasiswa</td>
+        <td>3 denyut loncatan ritmis 200–75 Hz dengan resonansi empuk dan decay hangat</td>
+        <td><span class="badge badge-success">PAKAI (LEGAL)</span></td>
+      </tr>
+      <tr>
         <td><strong>Suara Bebek</strong></td>
         <td>Mallard Duck Quack</td>
         <td>Freesound Audio Archivist</td>
