@@ -237,11 +237,43 @@ html_content = f"""<!DOCTYPE html>
       background: #F8FAFC;
     }}
 
-    /* Specific compact styling for TASL Table */
-    table.tasl-table th, table.tasl-table td {{
-      font-size: 7.8pt;
-      padding: 4px 5px;
-      line-height: 1.25;
+    /* Specific compact styling for TASL Table (5 Columns matching assignment standard) */
+    table.audit-table-5col {{
+      width: 100%;
+      border-collapse: collapse;
+      margin: 6px 0 8px 0;
+      font-size: 7.1pt;
+    }}
+
+    table.audit-table-5col th {{
+      background: #D9E8F5;
+      color: #1A365D;
+      font-weight: 700;
+      text-align: center;
+      padding: 4.5px 5px;
+      border: 1px solid #B0C8DD;
+      font-size: 7.5pt;
+    }}
+
+    table.audit-table-5col td {{
+      border: 1px solid #CBD5E0;
+      padding: 3px 4.5px;
+      vertical-align: top;
+      line-height: 1.22;
+      color: #2D3748;
+    }}
+
+    table.audit-table-5col tr:nth-child(even) td {{
+      background: #F8FAFC;
+    }}
+
+    .table-link {{
+      color: #0056B3;
+      text-decoration: underline;
+      word-break: break-all;
+      font-size: 6.5pt;
+      line-height: 1.15;
+      display: inline-block;
     }}
 
     /* Specific compact styling for Storyboard Table */
@@ -630,121 +662,105 @@ html_content = f"""<!DOCTYPE html>
 
   <!-- ==================== HALAMAN 6: BAGIAN 4: AUDIT ASET DIGITAL ==================== -->
   <div class="page-break"></div>
-  <h2 class="section-title">Bagian 4: Audit Aset Digital & Format TASL (Kepatuhan Etika & Hak Cipta)</h2>
-  <p style="font-size: 8.8pt; color: #4A5568; margin-top: -6px; margin-bottom: 8px;">
-    Seluruh aset visual, audio, font, dan kode yang diintegrasikan ke dalam media Safari Hewan telah diaudit secara legal dan etis menggunakan standar internasional <strong>TASL (Title, Author, Source, License)</strong> sesuai materi Perkuliahan Pertemuan 7 (RPS IT untuk AUD):
+  <h2 class="section-title">4. Audit Aset Digital</h2>
+  <p style="font-size: 8.5pt; color: #2D3748; margin-top: -4px; margin-bottom: 7px; text-align: justify; line-height: 1.38;">
+    Audit aset digital dilakukan untuk mengidentifikasi sumber dan kelayakan penggunaan aset visual maupun audio dalam prototipe media pembelajaran <em>Safari Hewan: Hewan di Sekitar Kita</em>. Pemeriksaan meliputi sumber pembuat, tautan sumber, ketentuan lisensi atau izin penggunaan, serta pencantuman atribusi. Langkah ini dilakukan untuk memastikan bahwa aset yang digunakan sesuai dengan kebutuhan pembelajaran anak usia 5–6 tahun.
   </p>
 
-  <table class="data-table tasl-table">
+  <table class="audit-table-5col">
     <thead>
       <tr>
-        <th style="width:12%;">Nama Aset</th>
-        <th style="width:15%;">Title</th>
-        <th style="width:14%;">Author</th>
-        <th style="width:18%;">Source</th>
-        <th style="width:15%;">License</th>
-        <th style="width:14%;">Modifikasi</th>
-        <th style="width:12%;">Keputusan</th>
+        <th style="width:16%;">Aset/halaman</th>
+        <th style="width:17%;">Pembuat/sumber</th>
+        <th style="width:27%;">Tautan sumber</th>
+        <th style="width:18%;">Lisensi</th>
+        <th style="width:22%;">Cara atribusi</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Ilustrasi Gajah</strong></td>
-        <td>Elephant Storybook Vector</td>
-        <td>Tim Pengembang Safari Hewan</td>
-        <td>Original SVG Asset</td>
-        <td>Creative Commons Zero (CC0 1.0) / Hak Penuh Mahasiswa</td>
-        <td>Dirancang khusus dengan path SVG native responsif, palet #5C7D8D</td>
-        <td><span class="badge badge-success">PAKAI (RESMI)</span></td>
+        <td><strong>Ilustrasi gajah</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 1, 2, 5, 6)</span></td>
+        <td>Pengembang Safari Hewan</td>
+        <td><a href="https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/ElephantSvg.tsx" class="table-link">https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/ElephantSvg.tsx</a></td>
+        <td>Creative Commons Zero (CC0 1.0)</td>
+        <td>Ilustrasi dibuat menggunakan kode komponen SVG murni oleh penulis</td>
       </tr>
       <tr>
-        <td><strong>Ilustrasi Kelinci</strong></td>
-        <td>Rabbit Storybook Vector</td>
-        <td>Tim Pengembang Safari Hewan</td>
-        <td>Original SVG Asset</td>
-        <td>Creative Commons Zero (CC0 1.0) / Hak Penuh Mahasiswa</td>
-        <td>Ilustrasi orisinal telinga panjang tegak & wortel, palet #D97A53</td>
-        <td><span class="badge badge-success">PAKAI (RESMI)</span></td>
+        <td><strong>Ilustrasi kelinci</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 1, 2, 5, 6)</span></td>
+        <td>Pengembang Safari Hewan</td>
+        <td><a href="https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/RabbitSvg.tsx" class="table-link">https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/RabbitSvg.tsx</a></td>
+        <td>Creative Commons Zero (CC0 1.0)</td>
+        <td>Ilustrasi dibuat menggunakan kode komponen SVG murni oleh penulis</td>
       </tr>
       <tr>
-        <td><strong>Ilustrasi Bebek</strong></td>
-        <td>Duck Storybook Vector</td>
-        <td>Tim Pengembang Safari Hewan</td>
-        <td>Original SVG Asset</td>
-        <td>Creative Commons Zero (CC0 1.0) / Hak Penuh Mahasiswa</td>
-        <td>Ilustrasi orisinal paruh pipih & kaki berselaput, palet #ECA72C</td>
-        <td><span class="badge badge-success">PAKAI (RESMI)</span></td>
+        <td><strong>Ilustrasi bebek</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 1, 2, 3, 5, 6)</span></td>
+        <td>Pengembang Safari Hewan</td>
+        <td><a href="https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/DuckSvg.tsx" class="table-link">https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/DuckSvg.tsx</a></td>
+        <td>Creative Commons Zero (CC0 1.0)</td>
+        <td>Ilustrasi dibuat menggunakan kode komponen SVG murni oleh penulis</td>
       </tr>
       <tr>
-        <td><strong>Ilustrasi Burung</strong></td>
-        <td>Bird Storybook Vector</td>
-        <td>Tim Pengembang Safari Hewan</td>
-        <td>Original SVG Asset</td>
-        <td>Creative Commons Zero (CC0 1.0) / Hak Penuh Mahasiswa</td>
-        <td>Ilustrasi orisinal sayap mengepak dan bulu biru, palet #3A9BB7</td>
-        <td><span class="badge badge-success">PAKAI (RESMI)</span></td>
+        <td><strong>Ilustrasi burung</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 1, 2, 5, 6)</span></td>
+        <td>Pengembang Safari Hewan</td>
+        <td><a href="https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/BirdSvg.tsx" class="table-link">https://github.com/Azispanji24/safari_Hewan/blob/main/src/assets/illustrations/BirdSvg.tsx</a></td>
+        <td>Creative Commons Zero (CC0 1.0)</td>
+        <td>Ilustrasi dibuat menggunakan kode komponen SVG murni oleh penulis</td>
       </tr>
       <tr>
-        <td><strong>Musik Latar (BGM)</strong></td>
-        <td>Carefree</td>
-        <td>Kevin MacLeod</td>
-        <td>Incompetech (<a href="https://incompetech.com" style="color:#2B6CB0;">incompetech.com</a>)</td>
-        <td>Creative Commons Attribution 3.0 Unported (CC BY 3.0)</td>
-        <td>Dipotong loop 45 detik, di-attenuate ke -22 LUFS, default posisi OFF</td>
-        <td><span class="badge badge-success">PAKAI (ATRIBUSI)</span></td>
-      </tr>
-      <tr>
-        <td><strong>Suara Belalai Gajah</strong></td>
-        <td>Elephant Voice - Trumpeting</td>
+        <td><strong>Suara belalai gajah</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 2)</span></td>
         <td>Wikimedia Audio Contributor</td>
-        <td>Wikimedia Commons (CC0)</td>
-        <td>CC0 1.0 Universal (Public Domain Dedication)</td>
-        <td>Rekaman biologis terompet gajah asli (<em>Elephas maximus</em>), ternormalisasi</td>
-        <td><span class="badge badge-success">PAKAI (OTENTIK)</span></td>
+        <td><a href="https://commons.wikimedia.org/wiki/File:Elephant_voice_-_trumpeting.ogg" class="table-link">https://commons.wikimedia.org/wiki/File:Elephant_voice_-_trumpeting.ogg</a></td>
+        <td>Domain Publik (CC0 1.0 Universal)</td>
+        <td>Rekaman suara asli "Elephant voice - trumpeting" via Wikimedia Commons (CC0)</td>
       </tr>
       <tr>
-        <td><strong>Suara Lompatan Kelinci</strong></td>
-        <td>Lompatan Riang Kelinci</td>
-        <td>Tim Pengembang Safari Hewan</td>
-        <td>Sintesis Akustik Python</td>
-        <td>Creative Commons Zero (CC0 1.0) / Hak Penuh Mahasiswa</td>
-        <td>3 denyut loncatan ritmis 200–75 Hz dengan resonansi empuk dan decay hangat</td>
-        <td><span class="badge badge-success">PAKAI (LEGAL)</span></td>
+        <td><strong>Suara lompatan kelinci</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 2 & 4)</span></td>
+        <td>Pengembang Safari Hewan</td>
+        <td><a href="https://github.com/Azispanji24/safari_Hewan/blob/main/public/audio/kelinci-hop.mp3" class="table-link">https://github.com/Azispanji24/safari_Hewan/blob/main/public/audio/kelinci-hop.mp3</a></td>
+        <td>Creative Commons Zero (CC0 1.0)</td>
+        <td>Efek suara lompatan dihasilkan melalui sintesis resonansi akustik oleh penulis</td>
       </tr>
       <tr>
-        <td><strong>Suara Bebek</strong></td>
-        <td>Mallard Duck Quack</td>
-        <td>Freesound Audio Archivist</td>
-        <td>Freesound.org</td>
-        <td>CC0 1.0 Universal (Public Domain Dedication)</td>
-        <td>Dipotong repetisi 2x kwek, di-amplify pada rentang vokal 1.2 kHz</td>
-        <td><span class="badge badge-success">PAKAI (LEGAL)</span></td>
+        <td><strong>Suara kwek bebek</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 2 & 3)</span></td>
+        <td>Jonathon Jongsma / Xeno-canto</td>
+        <td><a href="https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_-_Mallard_-_XC62258.ogg" class="table-link">https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_-_Mallard_-_XC62258.ogg</a></td>
+        <td>CC BY-SA 3.0 Unported</td>
+        <td>Rekaman suara bebek liar XC62258 oleh Jonathon Jongsma via Xeno-canto, CC BY-SA 3.0</td>
       </tr>
       <tr>
-        <td><strong>Suara Burung (Revisi Audit)</strong></td>
-        <td>Eurasian Tree Sparrow (<em>Passer montanus</em>) XC347806</td>
-        <td>Derek Paulo</td>
-        <td>Xeno-canto (<a href="https://xeno-canto.org/347806" style="color:#2B6CB0;">xeno-canto.org/347806</a>)</td>
-        <td>Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)</td>
-        <td>Menggantikan chime lonceng non-biologis; dipotong durasi 2 detik, filter high-pass</td>
-        <td><span class="badge badge-success">PAKAI (TERVERIFIKASI)</span></td>
+        <td><strong>Suara kicauan burung</strong><br><span style="font-size:6.6pt; color:#718096;">(Adegan 2)</span></td>
+        <td>Derek Paulo / Xeno-canto</td>
+        <td><a href="https://commons.wikimedia.org/wiki/File:Passer_montanus_-_Eurasian_Tree_Sparrow_XC347806.mp3" class="table-link">https://commons.wikimedia.org/wiki/File:Passer_montanus_-_Eurasian_Tree_Sparrow_XC347806.mp3</a></td>
+        <td>CC BY-SA 4.0 International</td>
+        <td>Rekaman kicauan burung gereja XC347806 oleh Derek Paulo via Xeno-canto, CC BY-SA 4.0</td>
       </tr>
       <tr>
-        <td><strong>Audio Narasi Ibu Guru</strong></td>
-        <td>Suara Narasi Safari Hewan</td>
-        <td>Microsoft Azure Cognitive Speech / Gadis Neural Voice</td>
-        <td>Microsoft Edge Speech Services SDK</td>
-        <td>Microsoft Service Agreement (Personal & Educational Use)</td>
-        <td>Dihasilkan via TTS id-ID-GadisNeural berkecepatan 0.9x dan intonasi ramah anak</td>
-        <td><span class="badge badge-success">PAKAI (EDUKATIF)</span></td>
+        <td><strong>Musik latar (BGM)</strong><br><span style="font-size:6.6pt; color:#718096;">(Header Kontrol Musik)</span></td>
+        <td>Kevin MacLeod</td>
+        <td><a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400037" class="table-link">https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400037</a></td>
+        <td>CC BY 3.0 Unported</td>
+        <td>"Carefree" Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 3.0</td>
+      </tr>
+      <tr>
+        <td><strong>Narasi suara guru</strong><br><span style="font-size:6.6pt; color:#718096;">(Semua Adegan)</span></td>
+        <td>Microsoft Edge Speech SDK</td>
+        <td><a href="https://azure.microsoft.com/en-us/products/cognitive-services/text-to-speech/" class="table-link">https://azure.microsoft.com/en-us/products/cognitive-services/text-to-speech/</a></td>
+        <td>Microsoft Educational Terms</td>
+        <td>Suara narasi diproduksi via Edge Speech SDK id-ID-GadisNeural untuk edukasi non-komersial</td>
+      </tr>
+      <tr>
+        <td><strong>Narasi dan teks media</strong><br><span style="font-size:6.6pt; color:#718096;">(Semua Adegan)</span></td>
+        <td>Penulis Media (Mahasiswa)</td>
+        <td><a href="https://github.com/Azispanji24/safari_Hewan" class="table-link">https://github.com/Azispanji24/safari_Hewan</a></td>
+        <td>Karya yang disusun untuk media</td>
+        <td>Teks cerita, suku kata fonetik, dan instruksi gerak disusun oleh penulis</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="quote-box avoid-break" style="font-size: 8.2pt; margin-top: 6px;">
-    <strong>Catatan Kepatuhan Etika Digital Pertemuan 7:</strong><br>
-    Sesuai arahan Dosen Rifqi Syamsul Fuadi, S.T., M.Kom., seluruh media yang digunakan tidak mengambil gambar/audio secara serampangan dari Google Image. Tidak ada foto wajah anak nyata yang ditampilkan tanpa izin (<em>privacy protection</em>). Seluruh aset diintegrasikan secara transparan tanpa klaim palsu.
-  </div>
+  <p style="font-size: 8.2pt; color: #2D3748; margin-top: 6px; margin-bottom: 0; text-align: justify; line-height: 1.35;">
+    Dalam proses pembuatan media pembelajaran <em>Safari Hewan: Hewan di Sekitar Kita</em>, seluruh aset visual dirancang secara mandiri dalam format SVG native guna menjamin kemandirian hak cipta tanpa ketergantungan pada gambar unduhan Google yang berisiko. Seluruh rekaman suara hewan, musik latar, efek suara, dan narasi wicara diverifikasi status lisensinya (Creative Commons, Domain Publik CC0, atau Lisensi Edukasi), mencantumkan tautan sumber yang dapat diakses, serta menyertakan cara atribusi resmi sesuai materi Etika Digital dan Hak Cipta Pertemuan 7.
+  </p>
 
   <!-- ==================== HALAMAN 7: BAGIAN 5: PROTOTIPE MEDIA ==================== -->
   <div class="page-break"></div>
